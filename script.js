@@ -35,6 +35,7 @@ class Controller {
     leftActive = false;
     rightActive = false;
     upActive = false;
+    downActive = false;
 
     keyUpDown() {
         let key_state = (event.type == "keydown") ? true : false;
@@ -50,6 +51,10 @@ class Controller {
             case "ArrowRight":
                 if (controller.rightActive != key_state)
                     controller.rightActive = key_state;
+                break;
+            case "ArrowDown":
+                if (controller.downActive != key_state)
+                    controller.downActive = key_state;
                 break;
         }
     }
@@ -84,6 +89,12 @@ class Character {
                 this.animate.change(this.Frame_set.jumpRight, 15);
             else if (this.face == "left")
                 this.animate.change(this.Frame_set.jumpLeft, 15);
+
+        }
+        if (controller.downActive) {
+            this.jumping = true;
+            this.y_velocity += 7;
+            controller.downActive = false;
 
         }
         if (controller.leftActive) {
