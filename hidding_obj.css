@@ -1,0 +1,29 @@
+body{
+    background-color: lightblue;
+}
+#santa{
+    width: 150;
+    height: 200;
+    position:absolute;
+    bottom: 6px;
+}
+.gift{
+    width: 80;
+    height: 80;
+    position:absolute;
+    
+}
+#score{
+    position: absolute;
+    right: 100px;
+}
+.fire{
+    width: 80;
+    height: 80;
+    position:absolute;
+}
+.heart{
+    width: 25;
+    height: 25;
+    position:absolute;
+}
