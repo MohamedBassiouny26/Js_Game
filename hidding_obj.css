@@ -13,3 +13,17 @@ body{
     position:absolute;
     
 }
+#score{
+    position: absolute;
+    right: 100px;
+}
+.fire{
+    width: 80;
+    height: 80;
+    position:absolute;
+}
+.heart{
+    width: 25;
+    height: 25;
+    position:absolute;
+}
