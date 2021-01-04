@@ -1,0 +1,9 @@
+body{
+    background-color: lightblue;
+}
+#santa{
+    width: 150;
+    height: 200;
+    position:absolute;
+    bottom: 6px;
+}
