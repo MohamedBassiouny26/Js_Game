@@ -118,7 +118,8 @@ class Character {
         }
         this.y_velocity += 0.05; //used as a graphity
         this.xPosition += this.x_velocity;
-        this.yPosition += this.y_velocity;
+        if(this.yPosition <= 110){
+        this.yPosition += this.y_velocity;}
         this.x_velocity *= 0.96;
         this.y_velocity *= 0.9;
         if (this.height + this.yPosition > ctx.canvas.height) {
@@ -126,12 +127,12 @@ class Character {
             this.yPosition = ctx.canvas.height - player1.height;
             this.y_velocity = 0;
         }
-        if (this.xPosition + this.width < 0) {
-            this.xPosition = ctx.canvas.width;
-        } else if (this.xPosition > ctx.canvas.width) {
-
-            this.xPosition = -this.width;
+        if(this.xPosition<-5){
+            this.xPosition = -5;
+        }else if(this.xPosition + (this.width)/1.4 > canvas.width){
+            this.xPosition = canvas.width - (this.width)/1.4 ;
         }
+       
     }
 }
 
@@ -144,7 +145,7 @@ let image = new Image();
 let image_stone= new Image();
 let image_gift =new Image();
 let controller = new Controller;
-let player1 = new Character(0,110, 30, 30);
+let player1 = new Character(-5,100, 30, 30);//da al character henzl mnen 
 console.log(ctx.canvas.height);
 console.log(player1.height);
 let counter = 0;
@@ -177,6 +178,8 @@ mapColumns = 20;
                            break;
                         case 1:
                     ctx.drawImage(image_stone, 248, 15, 100, 100, targetX, targetY, tileWidth, tileHeight);
+                    
+                    
                          break;
                         case 2: 
                     ctx.drawImage(image_stone, 248, 131, 100, 80, targetX, targetY, tileWidth, tileHeight);
