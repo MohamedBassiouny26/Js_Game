@@ -20,9 +20,9 @@ class Animate {
     }
     update() {
         this.count++;
-        console.log(this.count)
-        console.log(this.frame)
         // console.log(this.count)
+        // console.log(this.frame)
+        // // console.log(this.count)
         if (this.count >= this.delay) {
             this.count = 0;
             this.frame_index = (this.frame_index >= this.frame_set.length - 1) ? 0 : this.frame_index + 1;
@@ -35,8 +35,9 @@ class Controller {
     leftActive = false;
     rightActive = false;
     upActive = false;
+    dActive = false;
 
-    keyUpDown() {
+    keyUpDown(event) {
         let key_state = (event.type == "keydown") ? true : false;
         switch (event.key) {
             case "ArrowUp":
@@ -50,6 +51,10 @@ class Controller {
             case "ArrowRight":
                 if (controller.rightActive != key_state)
                     controller.rightActive = key_state;
+                break;
+            case "ArrowDown":
+                if (controller.dActive != key_state)
+                    controller.dActive = key_state;
                 break;
         }
     }
@@ -78,24 +83,23 @@ class Character {
     spirit() {
         if (controller.upActive && !this.jumping) {
             this.jumping = true;
-            this.y_velocity -= 7;
-            controller.upActive = false;
+            this.y_velocity -= 4;
+            // controller.upActive = false;
             if (this.face == "right")
                 this.animate.change(this.Frame_set.jumpRight, 15);
             else if (this.face == "left")
                 this.animate.change(this.Frame_set.jumpLeft, 15);
-
         }
         if (controller.leftActive) {
             this.face = "left"
-            this.x_velocity -= 0.05;
+            this.x_velocity -= 0.02;
             if (!this.jumping) {
                 this.animate.change(this.Frame_set.walkLeft, 15);
             }
         }
         if (controller.rightActive) {
             this.face = "right"
-            this.x_velocity += 0.05;
+            this.x_velocity += 0.02;
             if (!this.jumping) {
                 this.animate.change(this.Frame_set.walkRight, 15);
             }
@@ -109,35 +113,80 @@ class Character {
         this.y_velocity += 0.05; //used as a graphity
         this.xPosition += this.x_velocity;
         this.yPosition += this.y_velocity;
-        this.x_velocity *= 0.9;
+        this.x_velocity *= 0.96;
         this.y_velocity *= 0.9;
-        if (this.height + this.yPosition > ctx.canvas.height) {
-            this.jumping = false;
-            this.yPosition = ctx.canvas.height - player1.height;
-            this.y_velocity = 0;
-        }
-        if (this.xPosition + this.width < 0) {
-            this.xPosition = ctx.canvas.width;
-        } else if (this.xPosition > ctx.canvas.width) {
-
-            this.xPosition = -this.width;
+        // if (this.height + this.yPosition > ctx.canvas.height - 10) {
+        //     this.jumping = false;
+        //     this.yPosition = ctx.canvas.height - player1.height - 10;
+        //     this.y_velocity = 0;
+        // }
+        if (this.xPosition < -5) {
+            this.xPosition = -5;
+        } else if (this.xPosition + (this.width) / 1.4 > canvas.width) {
+            this.xPosition = canvas.width - (this.width) / 1.4;
         }
     }
 }
+
+
 //end of class creation.....................
 //create all variables here:................
 let display = document.getElementsByTagName("canvas")[0];
 let ctx = display.getContext("2d");
 let image = new Image();
+let image_stone = new Image();
+let image_gift = new Image();
 let controller = new Controller;
-let player1 = new Character(0, 122, 30, 30);
-console.log(ctx.canvas.height);
-console.log(player1.height);
-let counter = 0;
+let player1 = new Character(-5, 110, 20, 20); //da al character henzl mnen 
+image_stone.src = "stone.jpg";
+image_gift.src = "Picture2.png";
+image_stone.addEventListener('load', drawTileMap);
+const tileWidth = 15,
+    tileHeight = 15;
+const mapRow = 10,
+    mapColumns = 20;
+let tiles = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 3, 1, 0, 0, 0, 0, 0,
+    0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 1, 3, 1, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 4,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2,
+    1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2
+];
+let tile;
+let targetX;
+let targetY;
+
+function drawTileMap() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let i = 0; i < mapColumns * mapRow; i++) {
+        tile = tiles[i];
+        targetX = (i % mapColumns) * tileWidth;
+        targetY = Math.floor(i / mapColumns) * tileHeight;
+        switch (tile) {
+            case 0:
+                break;
+            case 1:
+                ctx.drawImage(image_stone, 248, 15, 100, 100, targetX, targetY, tileWidth, tileHeight);
+                break;
+            case 2:
+                ctx.drawImage(image_stone, 248, 131, 100, 80, targetX, targetY, tileWidth, tileHeight);
+                break;
+            case 3: //fire
+                ctx.drawImage(image_stone, 240, 360, 120, 115, targetX, targetY, tileWidth, tileHeight);
+                break;
+            case 4: //gift
+                ctx.drawImage(image_gift, 30, 8, 30, 40, targetX, targetY, tileWidth, tileHeight);
+        }
+        //  let sourceX = (tile % mapColumns) * tileWidth;
+        // let sourceY = Math.floor(tile/mapColumns)*tileHeight;
+    }
+}
 
 function drawCharacter() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    console.log(player1.animate.frame)
     image.src = player1.animate.frame;
     ctx.drawImage(image, player1.xPosition, player1.yPosition, player1.width, player1.height);
 }
@@ -146,8 +195,35 @@ function drawCharacter() {
 function loop() {
     player1.spirit();
     player1.animate.update();
+    drawTileMap();
     drawCharacter();
+    Colliston();
     window.requestAnimationFrame(loop);
+}
+
+function Colliston() {
+    let tilex = Math.floor((player1.xPosition + player1.width + 2) / tileWidth);
+    let tiley = Math.floor((player1.yPosition + player1.height + 2) / tileHeight);
+    if (tiles[(tiley * mapColumns) + tilex - 1] === 1) {
+        if (player1.height + player1.yPosition > tiley * tileHeight + 3) {
+            player1.jumping = false;
+            player1.yPosition = tiley * tileHeight - player1.height + 3;
+            player1.y_velocity = 0;
+        }
+    }
+    if (tiles[(tiley * mapColumns) + tilex - 1] === 0) {
+        if (player1.y_velocity > 0) {
+            player1.jumping = true;
+        }
+    }
+    if (tiles[(tiley * mapColumns) + tilex] === 2) {
+        if (player1.xPosition > tilex * tileWidth - player1.width) {
+            player1.xPosition = tilex * tileWidth - player1.width;
+            player1.x_velocity = 0;
+        }
+    }
+    if (tiles[(tiley * mapColumns) + tilex - 1] === 3) {}
+    //    console.log(Math.floor((player1.yPosition / tileHeight) * mapColumns))
 }
 //create all eventlisteners here
 window.addEventListener("load", (event) => {
