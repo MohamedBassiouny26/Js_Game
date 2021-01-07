@@ -243,23 +243,30 @@ function Colliston() {
     }
     console.log(upTile)
 }
-function DrawBanana() { let currentRow=0,currentCol=0,index=0;
+function DrawBanana() { let currentRow=0,currentCol=0,index=0,skip=false;
     
 for(var x=0;x<mapColumns *mapHeight;x++){
-    if(tiles[x]===0 && tiles[x+1]=== 0 && tiles[x+2]===0){
+    if(tiles[x]===0 && tiles[x+1]=== 0 && tiles[x+2] === 0){
+        if(skip == false){
         index=x
          while(index>36){
              index = index -37
              currentRow++;
          }
-         x = x+2;
+         x=x+2;
          console.log(index);
-         currentCol = index //+ Math.floor((Math.random() * 3) + 0)
+         currentCol = index 
          console.log(currentRow+"+"+currentCol);
          let BananaImage = new Image();
          BananaImage.src = "Banana.png"
          ctx.drawImage( BananaImage, (currentCol+2)*tileWidth, (currentRow-2)*tileHeight, 30, 30);
+         //current Row :to put banana above stage
+         //current col+w: w is to put in which col 
          currentRow=0
+         skip = true}
+         else{
+             skip =false
+         }
      }
      
     //}
