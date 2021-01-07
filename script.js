@@ -92,14 +92,14 @@ class Character {
         }
         if (controller.leftActive) {
             this.face = "left"
-            this.x_velocity -= 0.07;
+            this.x_velocity -= 0.06;
             if (!this.jumping) {
                 this.animate.change(this.Frame_set.walkLeft, 15);
             }
         }
         if (controller.rightActive) {
             this.face = "right"
-            this.x_velocity += 0.07;
+            this.x_velocity += 0.06;
             if (!this.jumping) {
                 this.animate.change(this.Frame_set.walkRight, 15);
             }
@@ -213,9 +213,10 @@ function Colliston() {
     let tilex = Math.floor((player1.xPosition + player1.width + 2) / tileWidth);
     let tiley = Math.floor((player1.yPosition + player1.height + 2) / tileHeight);
     let currentTile = tiles[(tiley * mapColumns) + tilex - 1]
+    let previousTile = tiles[(tiley * mapColumns) + tilex - 2]
+    console.log((tiley * mapColumns) + tilex - 1)
+    console.log(currentTile)
     let nextTile = tiles[(tiley * mapColumns) + tilex];
-    console.log(tiles[(tiley * mapColumns) + tilex - 1])
-
     if (currentTile === 0 || currentTile === 6) {
         if (player1.height + player1.yPosition > tiley * tileHeight + 3) {
             player1.jumping = false;
@@ -228,7 +229,15 @@ function Colliston() {
             player1.xPosition = tilex * tileWidth - player1.width;
             player1.x_velocity = 0;
         }
+
     }
+    if (previousTile === 51 || previousTile === 4 || previousTile === 6)
+
+        if (player1.xPosition < tilex * tileWidth - player1.width && player1.x_velocity < 0) {
+            player1.xPosition = tilex * tileWidth - player1.width;
+            player1.x_velocity = 0;
+        }
+
 }
 //create all eventlisteners here
 window.addEventListener("load", (event) => {
