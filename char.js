@@ -20,9 +20,9 @@ class Animate {
     }
     update() {
         this.count++;
+        console.log(this.count)
+        console.log(this.frame)
         // console.log(this.count)
-        // console.log(this.frame)
-        // // console.log(this.count)
         if (this.count >= this.delay) {
             this.count = 0;
             this.frame_index = (this.frame_index >= this.frame_set.length - 1) ? 0 : this.frame_index + 1;
@@ -83,13 +83,18 @@ class Character {
     spirit() {
         if (controller.upActive && !this.jumping) {
             this.jumping = true;
-            this.y_velocity -= 5;
-            // controller.upActive = false;
+            this.y_velocity -= 10;
+            controller.upActive = false;
             if (this.face == "right")
                 this.animate.change(this.Frame_set.jumpRight, 15);
             else if (this.face == "left")
                 this.animate.change(this.Frame_set.jumpLeft, 15);
 
+        }
+        if (controller.dActive) {
+            this.jumping = false;
+            this.y_velocity += 7;
+            controller.dActive = false;
         }
         if (controller.leftActive) {
             this.face = "left"
@@ -113,20 +118,21 @@ class Character {
         }
         this.y_velocity += 0.05; //used as a graphity
         this.xPosition += this.x_velocity;
-        this.yPosition += this.y_velocity;
+        if(this.yPosition <= 110){
+        this.yPosition += this.y_velocity;}
         this.x_velocity *= 0.96;
         this.y_velocity *= 0.9;
-        if (this.height + this.yPosition > ctx.canvas.height - 10) {
+        if (this.height + this.yPosition > ctx.canvas.height) {
             this.jumping = false;
-            this.yPosition = ctx.canvas.height - player1.height - 10;
+            this.yPosition = ctx.canvas.height - player1.height;
             this.y_velocity = 0;
         }
-        if (this.xPosition < -5) {
+        if(this.xPosition<-5){
             this.xPosition = -5;
-        } else if (this.xPosition + (this.width) / 1.4 > canvas.width) {
-            this.xPosition = canvas.width - (this.width) / 1.4;
+        }else if(this.xPosition + (this.width)/1.4 > canvas.width){
+            this.xPosition = canvas.width - (this.width)/1.4 ;
         }
-
+       
     }
 }
 
@@ -136,69 +142,70 @@ class Character {
 let display = document.getElementsByTagName("canvas")[0];
 let ctx = display.getContext("2d");
 let image = new Image();
-let image_stone = new Image();
-let image_gift = new Image();
+let image_stone= new Image();
+let image_gift =new Image();
 let controller = new Controller;
-let player1 = new Character(-5, 110, 30, 30); //da al character henzl mnen 
+let player1 = new Character(-5,100, 30, 30);//da al character henzl mnen 
+console.log(ctx.canvas.height);
+console.log(player1.height);
 let counter = 0;
 image_stone.src = "stone.jpg";
 image_gift.src = "Picture2.png";
 image_stone.addEventListener('load', drawTileMap);
 const tileWidth = 15,
-    tileHeight = 15;
+tileHeight = 15;
 const mapRow = 10,
-    mapColumns = 20;
-let tiles = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 3, 1, 0, 0, 0, 0, 0,
-    0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 1, 3, 1, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 4,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2,
-    1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2
-];
-
-function drawTileMap() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (let i = 0; i < mapColumns * mapRow; i++) {
-        let tile = tiles[i];
-        let targetX = (i % mapColumns) * tileWidth;
-        let targetY = Math.floor(i / mapColumns) * tileHeight;
-        switch (tile) {
-            case 0:
-                break;
-            case 1:
-                ctx.drawImage(image_stone, 248, 15, 100, 100, targetX, targetY, tileWidth, tileHeight);
-                break;
-            case 2:
-                ctx.drawImage(image_stone, 248, 131, 100, 80, targetX, targetY, tileWidth, tileHeight);
-                break;
-            case 3: //fire
-                ctx.drawImage(image_stone, 240, 360, 120, 115, targetX, targetY, tileWidth, tileHeight);
-                break;
-            case 4: //gift
-                ctx.drawImage(image_gift, 30, 8, 30, 40, targetX, targetY, tileWidth, tileHeight);
-        }
-        //  let sourceX = (tile % mapColumns) * tileWidth;
-        // let sourceY = Math.floor(tile/mapColumns)*tileHeight;
-    }
-}
-
+mapColumns = 20;
+  let tiles = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+               0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+               0,0,0,0,0,0,0,0,0,0,0,1,1,3,1,0,0,0,0,0,
+               0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
+               0,0,0,0,0,0,0,1,3,1,0,4,0,0,0,0,0,0,0,0,
+               0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,4,
+               0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,
+               0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1, 
+               0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,
+               1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,2,2,2
+            ];
+            function drawTileMap() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for(let i=0;i<mapColumns*mapRow;i++) {
+                    let tile = tiles[i];
+                    let targetX = (i % mapColumns) * tileWidth; 
+                    let targetY = Math.floor (i/mapColumns)* tileHeight;
+                    switch (tile) {
+                       case 0:
+                           break;
+                        case 1:
+                    ctx.drawImage(image_stone, 248, 15, 100, 100, targetX, targetY, tileWidth, tileHeight);
+                    
+                    
+                         break;
+                        case 2: 
+                    ctx.drawImage(image_stone, 248, 131, 100, 80, targetX, targetY, tileWidth, tileHeight);
+                       break;
+                       case 3://fire
+                        ctx.drawImage(image_stone, 240, 360, 120, 115, targetX, targetY, tileWidth, tileHeight);
+                        break; 
+                        case 4: //gift
+                        ctx.drawImage(image_gift, 30, 8, 30, 40, targetX, targetY, tileWidth, tileHeight);
+                    }
+                  //  let sourceX = (tile % mapColumns) * tileWidth;
+                   // let sourceY = Math.floor(tile/mapColumns)*tileHeight;
+                        }
+                        }
 function drawCharacter() {
     console.log(player1.animate.frame)
-    console.log(player1.yPosition)
     image.src = player1.animate.frame;
     ctx.drawImage(image, player1.xPosition, player1.yPosition, player1.width, player1.height);
 }
 //end of creation of variables..............
 //main loop function
 function loop() {
-    player1.spirit();
-    player1.animate.update();
-    drawTileMap();
-    drawCharacter();
+  player1.spirit();
+   player1.animate.update();
+   drawTileMap();
+   drawCharacter();
     window.requestAnimationFrame(loop);
 }
 //create all eventlisteners here
