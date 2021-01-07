@@ -4,8 +4,8 @@ const tileWidth = 32,
   tileHeight = 32;
 const mapHeight = 21,
   mapColumns = 47;
-  let tiles = [4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
-               4,47,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,51,4,
+  let tiles = [4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,,,,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
+               4,47,,,,,,,,,,,,,,,,,,,,,,,0,0,0,0,0,0,0,,,,,,,,,,,,,,,51,4,
                4,,,,,,,,,,,,,,,,,,,,,,,,,,,52,52,52,52,52,52,52,,,,2,6,0,0,0,0,0,1,,4,
                4,,,,,2,0,0,1,,,,,,,,,,,,,,,,,,,,51,50,47,,,,,,,,,,,,,,,,4,
                4,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,,,,,,,,,,,,,,,,,4,
@@ -35,10 +35,16 @@ function draw() {
   for(let i=0;i<mapColumns*mapHeight;i++) {
     let tile = tiles[i];
     let sourceX = (tile % mapColumns) * tileWidth;
-    console.log(mapColumns);
+    
+    //console.log(sourceX);
     let sourceY = Math.floor (tile/mapColumns)* tileHeight;
+    
+    //console.log(sourceY);
     let targetX = (i % mapColumns) * tileWidth;
+    //console.log("x=")
+    //console.log("x= "+targetX,i);
     let targetY = Math.floor (i/mapColumns)* tileHeight;
+    //console.log("y= "+targetY,i);
     context.drawImage(image, sourceX, sourceY, tileWidth, tileHeight, targetX, targetY, tileWidth, tileHeight);
   }
 }
