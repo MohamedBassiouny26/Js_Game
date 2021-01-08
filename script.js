@@ -133,7 +133,8 @@ class Character {
 //create all variables here:................
 let characterImage = new Image();
 let controller = new Controller;
-let player1 = new Character(30, 110, 70, 70); //da al character henzl mnen 
+let player1 = new Character(30, 380, 70, 70); //da al character henzl mnen 
+var Banana_x =[],Banana_y=[],first_time=true;
 /////////////////////////////////////////////////////////////////////////////////////////////////////esraa
 let tileImage = new Image();
 tileImage.src = "Tiles_32x32.png";
@@ -171,6 +172,7 @@ display.style.height = window.innerHeight;
 display.width = 1170;
 display.height = 670;
 let ctx = display.getContext("2d");
+
 tileImage.addEventListener('load', drawTile);
 
 function drawTile() {
@@ -241,11 +243,29 @@ function Colliston() {
     if (upTile === 0 || upTile === 4 || upTile === 51 || upTile === 47) {
         player1.y_velocity += 0.8;
     }
-    console.log(upTile)
+    //////////////when touching banana /////////////////
+    //console.log(Banana_y[0]+"+"+(Math.floor(player1.yPosition)+3)+player1.width+2)+"+"+Banana_x[0]);
+    let currentY = (Math.floor(player1.yPosition)+3),currentX =Math.floor(player1.xPosition)+(player1.width/1.5);
+    for(var l=0;l<Banana_y.length;l++){
+        if((currentX>=Banana_x[l] && currentX<=Banana_x[l]+32 )&&(currentY>=Banana_y[l] && currentY<=Banana_y[l]+32 )){
+            Banana_x.splice(l,1)
+            Banana_y.splice(l,1)
+        }
+      /*if(Banana_x[l]== Math.floor(player1.xPosition)+player1.width && Banana_y[l] ==  (Math.floor(player1.yPosition)+3)){
+          Banana_x.splice(l,1)
+          Banana_y.splice(l,1)}
+          else if(Banana_x[l]+32 ==  Math.floor(player1.xPosition) && Banana_y[l] ==  (Math.floor(player1.yPosition)+3)){
+            Banana_x.splice(l,1)
+            Banana_y.splice(l,1)
+          }*/
+
+      }
+    
 }
 function DrawBanana() { let currentRow=0,currentCol=0,index=0,skip=false;
-    
+    if(first_time === true){
 for(var x=0;x<mapColumns *mapHeight;x++){
+  
     if(tiles[x]===0 && tiles[x+1]=== 0 && tiles[x+2] === 0){
         if(skip == false){
         index=x
@@ -254,12 +274,12 @@ for(var x=0;x<mapColumns *mapHeight;x++){
              currentRow++;
          }
          x=x+2;
-         console.log(index);
          currentCol = index 
-         console.log(currentRow+"+"+currentCol);
          let BananaImage = new Image();
          BananaImage.src = "Banana.png"
-         ctx.drawImage( BananaImage, (currentCol+2)*tileWidth, (currentRow-2)*tileHeight, 30, 30);
+        ctx.drawImage( BananaImage, (currentCol+2)*tileWidth, (currentRow-2)*tileHeight, 32, 32);
+        Banana_x.push((currentCol+2)*tileWidth)
+        Banana_y.push((currentRow-2)*tileHeight)
          //current Row :to put banana above stage
          //current col+w: w is to put in which col 
          currentRow=0
@@ -268,14 +288,19 @@ for(var x=0;x<mapColumns *mapHeight;x++){
              skip =false
          }
      }
-     
-    //}
+}first_time=false
+}else{
+     for(let j=0;j<Banana_y.length;j++){
+        let BananaImage = new Image();
+        BananaImage.src = "Banana.png"
+        ctx.drawImage( BananaImage, Banana_x[j], Banana_y[j], 32, 32);
+     }
+}
 
-}}
+}
 
 //create all eventlisteners here
 window.addEventListener("load", (event) => {
-   
     window.requestAnimationFrame(loop);
 })
 window.addEventListener("keydown", controller.keyUpDown)
