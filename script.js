@@ -133,7 +133,8 @@ class Character {
 //create all variables here:................
 let characterImage = new Image();
 let controller = new Controller;
-let player1 = new Character(30, 380, 70, 70); //da al character henzl mnen 
+let player1 = new Character(30, 380, 70, 70); //da al character henzl mnen
+var score =0 
 var Banana_x =[],Banana_y=[],first_time=true;
 /////////////////////////////////////////////////////////////////////////////////////////////////////esraa
 let tileImage = new Image();
@@ -198,6 +199,13 @@ function drawCharacter() {
     characterImage.src = player1.animate.frame;
     ctx.drawImage(characterImage, player1.xPosition, player1.yPosition, player1.width, player1.height);
 }
+function showScore() {
+  ctx.fillStyle= "#58391c";
+  ctx.font = "italic bold 20pt Tahoma";
+  //syntax : .fillText("text", x, y)
+  ctx.fillText("Score : "+(10-Banana_x.length)+" /10",200,60);
+    
+}
 //end of creation of variables..............
 //main loop function
 function loop() {
@@ -206,6 +214,7 @@ function loop() {
     drawTile();
     DrawBanana();
     drawCharacter();
+    showScore();
     Colliston();
     window.requestAnimationFrame(loop);
 }
