@@ -151,7 +151,7 @@ let tiles = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4
     4, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 4,
     4, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 4,
     4, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 4,
-    4, , , , , , , , , , , , , , 0, 0, 0, 0, 0, , , , , , , , , , , , , , , , , , 4,
+    4, , , , , , , , , , , , , , 0, 0,0, 0, 0, , , , , , , , , , , , , , , , , , 4,
     4, , , , , , , , , , , , , , 51, 4, 4, 4, 47, , , , , , , , , , , , , , , , , , 4,
     4, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 4,
     4, , , , , , , , , , 0, 0, 0, 0, , , , , 0, 0, 0, , , , , 0, 0, 0, 0, 0, , , , , , , 4,
@@ -177,6 +177,7 @@ let ctx = display.getContext("2d");
 tileImage.addEventListener('load', drawTile);
 
 function drawTile() {
+    
     ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
     for (let i = 0; i < mapColumns * mapHeight; i++) {
         let tile = tiles[i];
@@ -199,12 +200,16 @@ function drawCharacter() {
     characterImage.src = player1.animate.frame;
     ctx.drawImage(characterImage, player1.xPosition, player1.yPosition, player1.width, player1.height);
 }
-function showScore() {
+function showScore_Reset() {
   ctx.fillStyle= "#58391c";
   ctx.font = "italic bold 20pt Tahoma";
   //syntax : .fillText("text", x, y)
   ctx.fillText("Score : "+(10-Banana_x.length)+" /10",200,60);
-    
+  let reset_imag = new Image()
+  reset_imag.id = "ResetImage"
+  reset_imag.src = "reset.png"
+  ctx.drawImage(reset_imag,800,40,80,50)
+  
 }
 //end of creation of variables..............
 //main loop function
@@ -214,7 +219,7 @@ function loop() {
     drawTile();
     DrawBanana();
     drawCharacter();
-    showScore();
+    showScore_Reset();
     Colliston();
     window.requestAnimationFrame(loop);
 }
@@ -260,15 +265,15 @@ function Colliston() {
             Banana_x.splice(l,1)
             Banana_y.splice(l,1)
         }
-        else if((currentX>=Banana_x[l]-15 && currentX<=Banana_x[l]+32)&&( currentY+(player1.height)/0.6<=Banana_y[l] )){
+       /* else if((currentX>=Banana_x[l]-15 && currentX<=Banana_x[l]+32)&&( currentY+(player1.height)/0.6<=Banana_y[l] )){
             Banana_x.splice(l,1)
             Banana_y.splice(l,1)
-        }
+        }*/
 
       }
     
 }
-function DrawBanana() { let currentRow=0,currentCol=0,index=0,skip=false;
+function DrawBanana() { let currentRow=0,currentCol=0,index=0,skip=false,count_fire=0;
     if(first_time === true){
 for(var x=0;x<mapColumns *mapHeight;x++){
   
@@ -293,6 +298,8 @@ for(var x=0;x<mapColumns *mapHeight;x++){
          else{
              skip =false
          }
+        
+      
      }
 }first_time=false
 }else{
@@ -304,6 +311,14 @@ for(var x=0;x<mapColumns *mapHeight;x++){
 }
 
 }
+function ClickonResetFn(event) {
+    console.log(event.x+"+"+event.y)
+    if((event.x>=933&& event.x<=1018)&&(event.y>=40 && event.y <= 75)){
+       window.location.reload()
+        
+    }
+    
+}
 
 //create all eventlisteners here
 window.addEventListener("load", (event) => {
@@ -311,4 +326,5 @@ window.addEventListener("load", (event) => {
 })
 window.addEventListener("keydown", controller.keyUpDown)
 window.addEventListener("keyup", controller.keyUpDown)
+display.addEventListener("click",ClickonResetFn)
 // end of eventlisteners creation
