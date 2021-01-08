@@ -84,7 +84,7 @@ class Character {
     spirit() {
         if (controller.upActive && !this.jumping && !this.falling) {
             this.jumping = true;
-            this.y_velocity -= 10;
+            this.y_velocity -= 12;
             if (this.face == "right")
                 this.animate.change(this.Frame_set.jumpRight, 15);
             else if (this.face == "left")
@@ -96,6 +96,9 @@ class Character {
             if (!this.jumping) {
                 this.animate.change(this.Frame_set.walkLeft, 15);
             }
+            //else {
+            //     this.y_velocity += 0.15;
+            // }
         }
         if (controller.rightActive && !this.falling) {
             this.face = "right"
@@ -103,6 +106,9 @@ class Character {
             if (!this.jumping) {
                 this.animate.change(this.Frame_set.walkRight, 15);
             }
+            // else {
+            //     this.y_velocity += 0.15;
+            // }
         }
         if (!controller.rightActive && !controller.leftActive) {
             if (this.face == "right")
@@ -110,7 +116,7 @@ class Character {
             else if (this.face == "left")
                 this.animate.change(this.Frame_set.idleLeft, 15);
         }
-        this.y_velocity += 0.1; //used as a graphity
+        this.y_velocity += 0.25; //used as a graphity
         this.xPosition += this.x_velocity;
         this.yPosition += this.y_velocity;
         this.x_velocity *= 0.96;
@@ -271,7 +277,6 @@ function Colliston() {
              Banana_x.splice(l,1)
              Banana_y.splice(l,1)
          }*/
-
     }
 
 }
