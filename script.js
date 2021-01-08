@@ -213,7 +213,7 @@ function Colliston() {
     let tilex = Math.floor((player1.xPosition + player1.width + 2) / tileWidth);
     let tiley = Math.floor((player1.yPosition + player1.height + 2) / tileHeight);
     let currentTile = tiles[(tiley * mapColumns) + tilex - 1]
-    let upTile = tiles[((tiley) * mapColumns) + tilex - (38 * 2)]
+    let upTile = tiles[((tiley) * mapColumns) + tilex - (37 * 2) - 1]
     let downTile = tiles[((tiley) * mapColumns) + tilex + (38 * 2)]
     let previousTile = tiles[(tiley * mapColumns) + tilex - 2]
     let nextTile = tiles[(tiley * mapColumns) + tilex];
@@ -226,7 +226,6 @@ function Colliston() {
     }
     if (currentTile == undefined) {
         player1.jumping = true;
-
     }
     if (nextTile === 51 || nextTile === 4 || nextTile === 6) {
         if (player1.xPosition > tilex * tileWidth - player1.width + 12 && player1.x_velocity > 0) {
@@ -239,10 +238,10 @@ function Colliston() {
             player1.xPosition = tilex * tileWidth - player1.width + 12;
             player1.x_velocity = 0;
         }
-    if (upTile === 0 || upTile === 4 || upTile === 51 || upTile === 47) {
-        player1.y_velocity += 0.8;
+    if ((upTile === 0 || upTile === 4 || upTile === 51 || upTile === 47)) {
+        if (player1.y_velocity < 1)
+            player1.y_velocity += 0.8;
     }
-    console.log(upTile)
 }
 //create all eventlisteners here
 window.addEventListener("load", (event) => {
