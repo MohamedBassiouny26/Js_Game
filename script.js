@@ -251,13 +251,10 @@ function Colliston() {
             Banana_x.splice(l,1)
             Banana_y.splice(l,1)
         }
-      /*if(Banana_x[l]== Math.floor(player1.xPosition)+player1.width && Banana_y[l] ==  (Math.floor(player1.yPosition)+3)){
-          Banana_x.splice(l,1)
-          Banana_y.splice(l,1)}
-          else if(Banana_x[l]+32 ==  Math.floor(player1.xPosition) && Banana_y[l] ==  (Math.floor(player1.yPosition)+3)){
+        else if((currentX>=Banana_x[l]-15 && currentX<=Banana_x[l]+32)&&( currentY+(player1.height)/0.6<=Banana_y[l] )){
             Banana_x.splice(l,1)
             Banana_y.splice(l,1)
-          }*/
+        }
 
       }
     
