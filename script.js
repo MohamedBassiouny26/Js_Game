@@ -79,25 +79,25 @@ class Character {
         }
         this.animate = new Animate(this.Frame_set.idle, 15);
         this.face = "right";
+        this.falling = false
     }
     spirit() {
-        if (controller.upActive && !this.jumping) {
+        if (controller.upActive && !this.jumping && !this.falling) {
             this.jumping = true;
             this.y_velocity -= 10;
-            // controller.upActive = false;
             if (this.face == "right")
                 this.animate.change(this.Frame_set.jumpRight, 15);
             else if (this.face == "left")
                 this.animate.change(this.Frame_set.jumpLeft, 15);
         }
-        if (controller.leftActive) {
+        if (controller.leftActive && !this.falling) {
             this.face = "left"
             this.x_velocity -= 0.06;
             if (!this.jumping) {
                 this.animate.change(this.Frame_set.walkLeft, 15);
             }
         }
-        if (controller.rightActive) {
+        if (controller.rightActive && !this.falling) {
             this.face = "right"
             this.x_velocity += 0.06;
             if (!this.jumping) {
@@ -110,17 +110,11 @@ class Character {
             else if (this.face == "left")
                 this.animate.change(this.Frame_set.idleLeft, 15);
         }
-        this.y_velocity += 0.09; //used as a graphity
+        this.y_velocity += 0.1; //used as a graphity
         this.xPosition += this.x_velocity;
         this.yPosition += this.y_velocity;
         this.x_velocity *= 0.96;
         this.y_velocity *= 0.9;
-        // if (this.height + this.yPosition > ctx.canvas.height - 90) {
-        //     console.log(ctx.canvas)
-        //     this.jumping = false;
-        //     this.yPosition = ctx.canvas.height - player1.height - 90;
-        //     this.y_velocity = 0;
-        // }
         if (this.xPosition < -5) {
             this.xPosition = -5;
         } else if (this.xPosition + (this.width) / 1.4 > myCanvas.width) {
@@ -134,8 +128,10 @@ class Character {
 let characterImage = new Image();
 let controller = new Controller;
 let player1 = new Character(30, 380, 70, 70); //da al character henzl mnen
-var score =0 
-var Banana_x =[],Banana_y=[],first_time=true;
+var score = 0
+var Banana_x = [],
+    Banana_y = [],
+    first_time = true;
 /////////////////////////////////////////////////////////////////////////////////////////////////////esraa
 let tileImage = new Image();
 tileImage.src = "Tiles_32x32.png";
@@ -151,7 +147,7 @@ let tiles = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4
     4, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 4,
     4, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 4,
     4, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 4,
-    4, , , , , , , , , , , , , , 0, 0,0, 0, 0, , , , , , , , , , , , , , , , , , 4,
+    4, , , , , , , , , , , , , , 0, 0, 0, 0, 0, , , , , , , , , , , , , , , , , , 4,
     4, , , , , , , , , , , , , , 51, 4, 4, 4, 47, , , , , , , , , , , , , , , , , , 4,
     4, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 4,
     4, , , , , , , , , , 0, 0, 0, 0, , , , , 0, 0, 0, , , , , 0, 0, 0, 0, 0, , , , , , , 4,
@@ -177,7 +173,7 @@ let ctx = display.getContext("2d");
 tileImage.addEventListener('load', drawTile);
 
 function drawTile() {
-    
+
     ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
     for (let i = 0; i < mapColumns * mapHeight; i++) {
         let tile = tiles[i];
@@ -200,16 +196,17 @@ function drawCharacter() {
     characterImage.src = player1.animate.frame;
     ctx.drawImage(characterImage, player1.xPosition, player1.yPosition, player1.width, player1.height);
 }
+
 function showScore_Reset() {
-  ctx.fillStyle= "#58391c";
-  ctx.font = "italic bold 20pt Tahoma";
-  //syntax : .fillText("text", x, y)
-  ctx.fillText("Score : "+(10-Banana_x.length)+" /10",200,60);
-  let reset_imag = new Image()
-  reset_imag.id = "ResetImage"
-  reset_imag.src = "reset.png"
-  ctx.drawImage(reset_imag,800,40,80,50)
-  
+    ctx.fillStyle = "#58391c";
+    ctx.font = "italic bold 20pt Tahoma";
+    //syntax : .fillText("text", x, y)
+    ctx.fillText("Score : " + (10 - Banana_x.length) + " /10", 200, 60);
+    let reset_imag = new Image()
+    reset_imag.id = "ResetImage"
+    reset_imag.src = "reset.png"
+    ctx.drawImage(reset_imag, 800, 40, 80, 50)
+
 }
 //end of creation of variables..............
 //main loop function
@@ -228,7 +225,7 @@ function Colliston() {
     let tilex = Math.floor((player1.xPosition + player1.width + 2) / tileWidth);
     let tiley = Math.floor((player1.yPosition + player1.height + 2) / tileHeight);
     let currentTile = tiles[(tiley * mapColumns) + tilex - 1]
-    let upTile = tiles[((tiley) * mapColumns) + tilex - (38 * 2)]
+    let upTile = tiles[((tiley) * mapColumns) + tilex - (37 * 2) - 1]
     let downTile = tiles[((tiley) * mapColumns) + tilex + (38 * 2)]
     let previousTile = tiles[(tiley * mapColumns) + tilex - 2]
     let nextTile = tiles[(tiley * mapColumns) + tilex];
@@ -237,87 +234,100 @@ function Colliston() {
             player1.jumping = false;
             player1.yPosition = tiley * tileHeight - player1.height + 3;
             player1.y_velocity = 0;
+            player1.falling = false;
         }
     }
-    if (currentTile == undefined) {
-        player1.jumping = true;
+    if (currentTile == undefined && !player1.jumping) {
+        player1.falling = true;
 
     }
     if (nextTile === 51 || nextTile === 4 || nextTile === 6) {
         if (player1.xPosition > tilex * tileWidth - player1.width + 12 && player1.x_velocity > 0) {
             player1.xPosition = tilex * tileWidth - player1.width + 12;
             player1.x_velocity = 0;
+            player1.falling = false;
         }
     }
     if (previousTile === 51 || previousTile === 4 || previousTile === 6)
         if (player1.xPosition < tilex * tileWidth - player1.width + 12 && player1.x_velocity < 0) {
             player1.xPosition = tilex * tileWidth - player1.width + 12;
             player1.x_velocity = 0;
+            player1.falling = false;
         }
     if (upTile === 0 || upTile === 4 || upTile === 51 || upTile === 47) {
-        player1.y_velocity += 0.8;
+        if (player1.y_velocity < 1)
+            player1.y_velocity += 0.8;
     }
     //////////////when touching banana /////////////////
     //console.log(Banana_y[0]+"+"+(Math.floor(player1.yPosition)+3)+player1.width+2)+"+"+Banana_x[0]);
-    let currentY = (Math.floor(player1.yPosition)+3),currentX =Math.floor(player1.xPosition)+(player1.width/1.5);
-    for(var l=0;l<Banana_y.length;l++){
-        if((currentX>=Banana_x[l] && currentX<=Banana_x[l]+32 )&&(currentY>=Banana_y[l] && currentY<=Banana_y[l]+32 )){
-            Banana_x.splice(l,1)
-            Banana_y.splice(l,1)
+    let currentY = (Math.floor(player1.yPosition) + 3),
+        currentX = Math.floor(player1.xPosition) + (player1.width / 1.5);
+    for (var l = 0; l < Banana_y.length; l++) {
+        if ((currentX >= Banana_x[l] && currentX <= Banana_x[l] + 32) && (currentY >= Banana_y[l] && currentY <= Banana_y[l] + 32)) {
+            Banana_x.splice(l, 1)
+            Banana_y.splice(l, 1)
         }
-       /* else if((currentX>=Banana_x[l]-15 && currentX<=Banana_x[l]+32)&&( currentY+(player1.height)/0.6<=Banana_y[l] )){
-            Banana_x.splice(l,1)
-            Banana_y.splice(l,1)
-        }*/
+        /* else if((currentX>=Banana_x[l]-15 && currentX<=Banana_x[l]+32)&&( currentY+(player1.height)/0.6<=Banana_y[l] )){
+             Banana_x.splice(l,1)
+             Banana_y.splice(l,1)
+         }*/
 
-      }
-    
-}
-function DrawBanana() { let currentRow=0,currentCol=0,index=0,skip=false,count_fire=0;
-    if(first_time === true){
-for(var x=0;x<mapColumns *mapHeight;x++){
-  
-    if(tiles[x]===0 && tiles[x+1]=== 0 && tiles[x+2] === 0){
-        if(skip == false){
-        index=x
-         while(index>36){
-             index = index -37
-             currentRow++;
-         }
-         x=x+2;
-         currentCol = index 
-         let BananaImage = new Image();
-         BananaImage.src = "Banana.png"
-        ctx.drawImage( BananaImage, (currentCol+2)*tileWidth, (currentRow-2)*tileHeight, 32, 32);
-        Banana_x.push((currentCol+2)*tileWidth)
-        Banana_y.push((currentRow-2)*tileHeight)
-         //current Row :to put banana above stage
-         //current col+w: w is to put in which col 
-         currentRow=0
-         skip = true}
-         else{
-             skip =false
-         }
-        
-      
-     }
-}first_time=false
-}else{
-     for(let j=0;j<Banana_y.length;j++){
-        let BananaImage = new Image();
-        BananaImage.src = "Banana.png"
-        ctx.drawImage( BananaImage, Banana_x[j], Banana_y[j], 32, 32);
-     }
-}
-
-}
-function ClickonResetFn(event) {
-    console.log(event.x+"+"+event.y)
-    if((event.x>=933&& event.x<=1018)&&(event.y>=40 && event.y <= 75)){
-       window.location.reload()
-        
     }
-    
+
+}
+
+function DrawBanana() {
+    let currentRow = 0,
+        currentCol = 0,
+        index = 0,
+        skip = false,
+        count_fire = 0;
+    if (first_time === true) {
+        for (var x = 0; x < mapColumns * mapHeight; x++) {
+
+            if (tiles[x] === 0 && tiles[x + 1] === 0 && tiles[x + 2] === 0) {
+                if (skip == false) {
+                    index = x
+                    while (index > 36) {
+                        index = index - 37
+                        currentRow++;
+                    }
+                    x = x + 2;
+                    currentCol = index
+                    let BananaImage = new Image();
+                    BananaImage.src = "Banana.png"
+                    ctx.drawImage(BananaImage, (currentCol + 2) * tileWidth, (currentRow - 2) * tileHeight, 32, 32);
+                    Banana_x.push((currentCol + 2) * tileWidth)
+                    Banana_y.push((currentRow - 2) * tileHeight)
+                    //current Row :to put banana above stage
+                    //current col+w: w is to put in which col 
+                    currentRow = 0
+                    skip = true
+                } else {
+                    skip = false
+                }
+
+
+            }
+        }
+        first_time = false
+    } else {
+        for (let j = 0; j < Banana_y.length; j++) {
+            let BananaImage = new Image();
+            BananaImage.src = "Banana.png"
+            ctx.drawImage(BananaImage, Banana_x[j], Banana_y[j], 32, 32);
+        }
+    }
+
+}
+
+function ClickonResetFn(event) {
+    console.log(event.x + "+" + event.y)
+    if ((event.x >= 933 && event.x <= 1018) && (event.y >= 40 && event.y <= 75)) {
+        window.location.reload()
+
+    }
+
 }
 
 //create all eventlisteners here
@@ -326,5 +336,5 @@ window.addEventListener("load", (event) => {
 })
 window.addEventListener("keydown", controller.keyUpDown)
 window.addEventListener("keyup", controller.keyUpDown)
-display.addEventListener("click",ClickonResetFn)
+display.addEventListener("click", ClickonResetFn)
 // end of eventlisteners creation
