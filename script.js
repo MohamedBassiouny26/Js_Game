@@ -145,28 +145,28 @@ const tileWidth = 32,
     tileHeight = 32;
 const mapHeight = 21,
     mapColumns = 37;
-    let tiles = [
-        4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
-        4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
-        4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
-        4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
-        4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
-        4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
-        4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
-        4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
-        4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
-        4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
-        4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 0, 0, 0, 0, 0,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
-        4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 0, 0, 0, 0, 0,  ,  ,  ,  , 4,
-        4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 0, 0, 0, 0, 0,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
-        4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
-        4,  ,  ,  ,  ,  ,  ,  ,  ,  , 0, 0, 0, 0,  ,  ,  ,  ,  ,  ,  ,  ,  , 0, 0, 0, 0, 0, 0, 0,  ,  ,  ,  ,  ,  , 4,
-        4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 0, 4, 4, 4, 4, 4, 4, 4,  ,  ,  ,  ,  ,  , 4,
-        4,  ,  ,  ,  ,  ,  , 0, 0,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 0, 4, 4, 4, 4, 4, 4, 6, 4, 0, 0,  ,  ,  ,  , 4,
-        4,  ,  ,  ,  ,  ,  , 6, 4, 0,  ,  ,  ,  ,  ,  ,  ,  ,  , 0, 0, 4, 4, 4, 4, 4, 4, 6, 6, 4,  ,  ,  ,  ,  ,  , 4,
-        4, 0, 0, 0, 0, 0, 0, 4,47,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4, 4, 4, 4, 4, 6, 6, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 4,
-        4, 4, 4, 4, 6, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4, 6, 6, 4, 4, 4, 4, 4, 4, 4, 4, 6, 6, 4, 6,
-        4, 4, 4, 6, 4, 6, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 6, 6, 4, 6, 6
+let tiles = [
+    4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+    4, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 4,
+    4, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 4,
+    4, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 4,
+    4, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 4,
+    4, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 4,
+    4, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 4,
+    4, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 4,
+    4, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 4,
+    4, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 4,
+    4, , , , , , , , , , , , , , , , , , , , , 0, 0, 0, 0, 0, , , , , , , , , , , 4,
+    4, , , , , , , , , , , , , , , , , , , , , , , , , , , 0, 0, 0, 0, 0, , , , , 4,
+    4, , , , , , , , , , , , , , , 0, 0, 0, 0, 0, , , , , , , , , , , , , , , , , 4,
+    4, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 4,
+    4, , , , , , , , , , 0, 0, 0, 0, , , , , , , , , , 0, 0, 0, 0, 0, 0, 0, , , , , , , 4,
+    4, , , , , , , , , , , , , , , , , , , , , , 0, 4, 4, 4, 4, 4, 4, 4, , , , , , , 4,
+    4, , , , , , , 0, 0, , , , , , , , , , , , , 0, 4, 4, 4, 4, 4, 4, 6, 4, 0, 0, , , , , 4,
+    4, , , , , , , 6, 4, 0, , , , , , , , , , 0, 0, 4, 4, 4, 4, 4, 4, 6, 6, 4, , , , , , , 4,
+    4, 0, 0, 0, 0, 0, 0, 4, 47, , , , , , , , , , , 4, 4, 4, 4, 4, 6, 6, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 4,
+    4, 4, 4, 4, 6, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4, 6, 6, 4, 4, 4, 4, 4, 4, 4, 4, 6, 6, 4, 6,
+    4, 4, 4, 6, 4, 6, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 6, 6, 4, 6, 6
 ];
 tileImage.addEventListener('load', drawTile);
 let display = document.getElementById("myCanvas");
@@ -232,7 +232,7 @@ function Colliston() {
     let tiley = Math.floor((player1.yPosition + player1.height + 2) / tileHeight);
     let currentTile = tiles[(tiley * mapColumns) + tilex - 1]
     let upTile = tiles[((tiley) * mapColumns) + tilex - (37 * 2) - 1]
-    let downTile = tiles[((tiley) * mapColumns) + tilex + (38 * 2)]
+    let midTile = tiles[((tiley) * mapColumns) + tilex - 38]
     let previousTile = tiles[(tiley * mapColumns) + tilex - 2]
     let nextTile = tiles[(tiley * mapColumns) + tilex];
     if (currentTile === 0 || currentTile === 6) {
@@ -240,30 +240,29 @@ function Colliston() {
             player1.jumping = false;
             player1.yPosition = tiley * tileHeight - player1.height + 3;
             player1.y_velocity = 0;
-            player1.falling = false;
+
         }
     }
-    if (currentTile == undefined && !player1.jumping) {
-        player1.falling = true;
-
-    }
+    if (currentTile == undefined && !player1.jumping) {}
     if (nextTile === 51 || nextTile === 4 || nextTile === 6) {
         if (player1.xPosition > tilex * tileWidth - player1.width + 12 && player1.x_velocity > 0) {
             player1.xPosition = tilex * tileWidth - player1.width + 12;
             player1.x_velocity = 0;
-            player1.falling = false;
+
         }
     }
     if (previousTile === 51 || previousTile === 4 || previousTile === 6)
         if (player1.xPosition < tilex * tileWidth - player1.width + 12 && player1.x_velocity < 0) {
             player1.xPosition = tilex * tileWidth - player1.width + 12;
             player1.x_velocity = 0;
-            player1.falling = false;
+
         }
-    if (upTile === 0 || upTile === 4 || upTile === 51 || upTile === 47) {
-        if (player1.y_velocity < 1)
+    if (upTile === 0 || upTile === 4 || upTile === 51 || upTile === 47 || midTile === 0 || midTile === 4 || midTile === 51 || midTile === 47) {
+        if (player1.y_velocity < 0)
             player1.y_velocity += 0.8;
     }
+    console.log(midTile)
+    console.log(upTile)
     //////////////when touching banana /////////////////
     //console.log(Banana_y[0]+"+"+(Math.floor(player1.yPosition)+3)+player1.width+2)+"+"+Banana_x[0]);
     let currentY = (Math.floor(player1.yPosition) + 3),
