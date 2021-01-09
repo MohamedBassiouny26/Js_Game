@@ -351,6 +351,76 @@ function ClickonResetFn(event) {
 
 }
 
+function drawTile() {
+    ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
+    for (let i = 0; i < mapColumns * mapHeight; i++) {
+        let tile = tiles[i];
+        let sourceX = (tile % (mapColumns + 10)) * tileWidth;
+
+        //console.log(sourceX);
+        let sourceY = Math.floor(tile / (mapColumns + 10)) * tileHeight;
+
+        //console.log(sourceY);
+        let targetX = (i % mapColumns) * tileWidth;
+        //console.log("x=")
+        //console.log("x= "+targetX,i);
+        let targetY = Math.floor(i / mapColumns) * tileHeight;
+        //console.log("y= "+targetY,i);
+        ctx.drawImage(tileImage, sourceX, sourceY, tileWidth, tileHeight, targetX, targetY, tileWidth, tileHeight);
+    }
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////end esraa
+
+
+function drawCharacter() {
+    characterImage.src = player1.animate.frame;
+    ctx.drawImage(characterImage, player1.xPosition, player1.yPosition, player1.width, player1.height);
+}
+//end of creation of variables..............
+//main loop function
+function loop() {
+    player1.spirit();
+    player1.animate.update();
+    drawTile();
+    drawCharacter();
+    Colliston();
+    window.requestAnimationFrame(loop);
+}
+
+function Colliston() {
+    let tilex = Math.floor((player1.xPosition + player1.width + 2) / tileWidth);
+    let tiley = Math.floor((player1.yPosition + player1.height + 2) / tileHeight);
+    let currentTile = tiles[(tiley * mapColumns) + tilex - 1]
+    let upTile = tiles[((tiley) * mapColumns) + tilex - (37 * 2) - 1]
+    let downTile = tiles[((tiley) * mapColumns) + tilex + (38 * 2)]
+    let previousTile = tiles[(tiley * mapColumns) + tilex - 2]
+    let nextTile = tiles[(tiley * mapColumns) + tilex];
+    if (currentTile === 0 || currentTile === 6) {
+        if (player1.height + player1.yPosition > tiley * tileHeight + 3) {
+            player1.jumping = false;
+            player1.yPosition = tiley * tileHeight - player1.height + 3;
+            player1.y_velocity = 0;
+        }
+    }
+    if (currentTile == undefined) {
+        player1.jumping = true;
+    }
+    if (nextTile === 51 || nextTile === 4 || nextTile === 6) {
+        if (player1.xPosition > tilex * tileWidth - player1.width + 12 && player1.x_velocity > 0) {
+            player1.xPosition = tilex * tileWidth - player1.width + 12;
+            player1.x_velocity = 0;
+        }
+    }
+    if (previousTile === 51 || previousTile === 4 || previousTile === 6)
+        if (player1.xPosition < tilex * tileWidth - player1.width + 12 && player1.x_velocity < 0) {
+            player1.xPosition = tilex * tileWidth - player1.width + 12;
+            player1.x_velocity = 0;
+        }
+    if ((upTile === 0 || upTile === 4 || upTile === 51 || upTile === 47)) {
+        if (player1.y_velocity < 1)
+            player1.y_velocity += 0.8;
+    }
+}
 //create all eventlisteners here
 window.addEventListener("load", (event) => {
     window.requestAnimationFrame(loop);
