@@ -31,37 +31,69 @@ class Animate {
     }
 }
 //controller class to specify the state of every controller in the game
-class Controller {
-    leftActive = false;
-    rightActive = false;
-    upActive = false;
-    dActive = false;
+let ArrowController = {
+
+    leftActive: false,
+    rightActive: false,
+    upActive: false,
+    dActive: false,
 
     keyUpDown(event) {
         let key_state = (event.type == "keydown") ? true : false;
+        console.log(event.key)
         switch (event.key) {
             case "ArrowUp":
-                if (controller.upActive != key_state)
-                    controller.upActive = key_state
+                if (ArrowController.upActive != key_state)
+                    ArrowController.upActive = key_state
                 break;
             case "ArrowLeft":
-                if (controller.leftActive != key_state)
-                    controller.leftActive = key_state;
+                if (ArrowController.leftActive != key_state)
+                    ArrowController.leftActive = key_state;
                 break;
             case "ArrowRight":
-                if (controller.rightActive != key_state)
-                    controller.rightActive = key_state;
+                if (ArrowController.rightActive != key_state)
+                    ArrowController.rightActive = key_state;
                 break;
             case "ArrowDown":
-                if (controller.dActive != key_state)
-                    controller.dActive = key_state;
+                if (ArrowController.dActive != key_state)
+                    ArrowController.dActive = key_state;
                 break;
         }
     }
 }
+// let ArrowController2 = {
+
+//     leftActive: false,
+//     rightActive: false,
+//     upActive: false,
+//     dActive: false,
+
+//     keyUpDown(event) {
+//         let key_state = (event.type == "keydown") ? true : false;
+//         console.log(event.key)
+//         switch (event.key) {
+//             case "ArrowUp":
+//                 if (ArrowController.leftActive != key_state)
+//                     ArrowController.leftActive = key_state
+//                 break;
+//             case "ArrowLeft":
+//                 if (ArrowController.rightActive != key_state)
+//                     ArrowController.rightActive = key_state;
+//                 break;
+//             case "ArrowRight":
+//                 if (ArrowController.leftActive != key_state)
+//                     ArrowController.leftActive = key_state;
+//                 break;
+//             case "ArrowDown":
+//                 if (ArrowController.dActive != key_state)
+//                     ArrowController.dActive = key_state;
+//                 break;
+//         }
+//     }
+// }
 //create character class.......................................
 class Character {
-    constructor(x, y, height, width, x_velocity = 0, y_velocity = 0, jumping = false) {
+    constructor(x, y, height, width, frame_set, controller, x_velocity = 0, y_velocity = 0, jumping = false, ) {
         this.xPosition = x;
         this.yPosition = y;
         this.x_velocity = x_velocity;
@@ -69,20 +101,19 @@ class Character {
         this.jumping = jumping;
         this.height = height;
         this.width = width
-        this.Frame_set = {
-            idle: ["./img/monkey_idle.png", "./img/monkey_idle.png"],
-            idleLeft: ["./img/monkey_idle_left.png", "./img/monkey_idle_left.png"],
-            walkRight: ["./img/monkey_walk_1.png", "./img/monkey_walk_2.png", "./img/monkey_walk_3.png", "./img/monkey_walk_4.png"],
-            walkLeft: ["./img/monkey_walkleft_1.png", "./img/monkey_walkleft_2.png", "./img/monkey_walkleft_3.png", "./img/monkey_walkleft_4.png"],
-            jumpRight: ["./img/monkey_jump_1.png", "./img/monkey_jump_2.png", "./img/monkey_jump_3.png", "./img/monkey_jump_4.png"],
-            jumpLeft: ["./img/monkey_jumpleft_1.png", "./img/monkey_jumpleft_2.png", "./img/monkey_jumpleft_3.png", "./img/monkey_jumpleft_4.png"],
-        }
+        this.Frame_set = frame_set
         this.animate = new Animate(this.Frame_set.idle, 15);
         this.face = "right";
         this.falling = false
+        this.characterImage = new Image();
+        this.controller = controller;
+    }
+    drawCharacter() {
+        this.characterImage.src = this.animate.frame;
+        ctx.drawImage(this.characterImage, this.xPosition, this.yPosition, this.width, this.height);
     }
     spirit() {
-        if (controller.upActive && !this.jumping && !this.falling) {
+        if (this.controller.upActive && !this.jumping && !this.falling) {
             this.jumping = true;
             this.y_velocity -= 12;
             if (this.face == "right")
@@ -90,27 +121,21 @@ class Character {
             else if (this.face == "left")
                 this.animate.change(this.Frame_set.jumpLeft, 15);
         }
-        if (controller.leftActive && !this.falling) {
+        if (this.controller.leftActive && !this.falling) {
             this.face = "left"
             this.x_velocity -= 0.06;
             if (!this.jumping) {
                 this.animate.change(this.Frame_set.walkLeft, 15);
             }
-            //else {
-            //     this.y_velocity += 0.15;
-            // }
         }
-        if (controller.rightActive && !this.falling) {
+        if (this.controller.rightActive && !this.falling) {
             this.face = "right"
             this.x_velocity += 0.06;
             if (!this.jumping) {
                 this.animate.change(this.Frame_set.walkRight, 15);
             }
-            // else {
-            //     this.y_velocity += 0.15;
-            // }
         }
-        if (!controller.rightActive && !controller.leftActive) {
+        if (!this.controller.rightActive && !this.controller.leftActive) {
             if (this.face == "right")
                 this.animate.change(this.Frame_set.idle, 15);
             else if (this.face == "left")
@@ -127,13 +152,65 @@ class Character {
             this.xPosition = myCanvas.width - (this.width) / 1.4;
         }
     }
-}
 
+    Colliston() {
+        console.log(this)
+        let tilex = Math.floor((this.xPosition + this.width + 2) / tileWidth);
+        let tiley = Math.floor((this.yPosition + this.height + 2) / tileHeight);
+        let currentTile = tiles[(tiley * mapColumns) + tilex - 1]
+        let upTile = tiles[((tiley) * mapColumns) + tilex - (37 * 2) - 1]
+        let previousTile = tiles[(tiley * mapColumns) + tilex - 2]
+        let nextTile = tiles[(tiley * mapColumns) + tilex];
+        if (currentTile === 0 || currentTile === 6) {
+            if (this.height + this.yPosition > tiley * tileHeight + 3) {
+                this.jumping = false;
+                this.yPosition = tiley * tileHeight - this.height + 3;
+                this.y_velocity = 0;
+            }
+        }
+        if (currentTile == undefined && !this.jumping) {}
+        if (nextTile === 51 || nextTile === 4 || nextTile === 6) {
+            if (this.xPosition > tilex * tileWidth - this.width + 12 && this.x_velocity > 0) {
+                this.xPosition = tilex * tileWidth - this.width + 12;
+                this.x_velocity = 0;
+            }
+        }
+        if (previousTile === 51 || previousTile === 4 || previousTile === 6)
+            if (this.xPosition < tilex * tileWidth - this.width + 12 && this.x_velocity < 0) {
+                this.xPosition = tilex * tileWidth - this.width + 12;
+                this.x_velocity = 0;
+            }
+        if (upTile === 0 || upTile === 4 || upTile === 51 || upTile === 47) {
+            if (this.y_velocity < 0)
+                this.y_velocity += 0.8;
+        }
+        //////////////when touching banana /////////////////
+        let currentY = (Math.floor(this.yPosition) + 3),
+            currentX = Math.floor(this.xPosition) + (this.width / 1.5);
+        for (var l = 0; l < Banana_y.length; l++) {
+            if ((currentX >= Banana_x[l] && currentX <= Banana_x[l] + 32) && (currentY >= Banana_y[l] && currentY <= Banana_y[l] + 32)) {
+                Banana_x.splice(l, 1)
+                Banana_y.splice(l, 1)
+            }
+        }
+    }
+
+
+}
 //end of class creation.....................
 //create all variables here:................
-let characterImage = new Image();
-let controller = new Controller;
-let player1 = new Character(30, 380, 70, 70); //da al character henzl mnen
+let Frame_set = {
+    player1: {
+        idle: ["./img/monkey_idle.png", "./img/monkey_idle.png"],
+        idleLeft: ["./img/monkey_idle_left.png", "./img/monkey_idle_left.png"],
+        walkRight: ["./img/monkey_walk_1.png", "./img/monkey_walk_2.png", "./img/monkey_walk_3.png", "./img/monkey_walk_4.png"],
+        walkLeft: ["./img/monkey_walkleft_1.png", "./img/monkey_walkleft_2.png", "./img/monkey_walkleft_3.png", "./img/monkey_walkleft_4.png"],
+        jumpRight: ["./img/monkey_jump_1.png", "./img/monkey_jump_2.png", "./img/monkey_jump_3.png", "./img/monkey_jump_4.png"],
+        jumpLeft: ["./img/monkey_jumpleft_1.png", "./img/monkey_jumpleft_2.png", "./img/monkey_jumpleft_3.png", "./img/monkey_jumpleft_4.png"],
+    }
+}
+let player1 = new Character(30, 380, 70, 70, Frame_set.player1, ArrowController); //da al character henzl mnen
+let player2 = new Character(90, 380, 70, 70, Frame_set.player1, ArrowController); //da al character henzl mnen
 var score = 0
 var Banana_x = [],
     Banana_y = [],
@@ -175,38 +252,25 @@ display.style.height = window.innerHeight;
 display.width = 1170;
 display.height = 670;
 let ctx = display.getContext("2d");
-
 tileImage.addEventListener('load', drawTile);
 
 function drawTile() {
-
     ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
     for (let i = 0; i < mapColumns * mapHeight; i++) {
         let tile = tiles[i];
         let sourceX = (tile % (mapColumns + 10)) * tileWidth;
-
-        //console.log(sourceX);
         let sourceY = Math.floor(tile / (mapColumns + 10)) * tileHeight;
-
-        //console.log(sourceY);
         let targetX = (i % mapColumns) * tileWidth;
-        //console.log("x=")
-        //console.log("x= "+targetX,i);
         let targetY = Math.floor(i / mapColumns) * tileHeight;
-        //console.log("y= "+targetY,i);
         ctx.drawImage(tileImage, sourceX, sourceY, tileWidth, tileHeight, targetX, targetY, tileWidth, tileHeight);
     }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////end esraa
-function drawCharacter() {
-    characterImage.src = player1.animate.frame;
-    ctx.drawImage(characterImage, player1.xPosition, player1.yPosition, player1.width, player1.height);
-}
+
 
 function showScore_Reset() {
     ctx.fillStyle = "#58391c";
     ctx.font = "italic bold 20pt Tahoma";
-    //syntax : .fillText("text", x, y)
     ctx.fillText("Score : " + (10 - Banana_x.length) + " /10", 200, 60);
     let reset_imag = new Image()
     reset_imag.id = "ResetImage"
@@ -219,66 +283,60 @@ function showScore_Reset() {
 function loop() {
     player1.spirit();
     player1.animate.update();
+    player2.spirit();
+    player2.animate.update();
     drawTile();
     DrawBanana();
-    drawCharacter();
+    player1.drawCharacter();
+    player2.drawCharacter();
     showScore_Reset();
-    Colliston();
+    player1.Colliston();
+    player2.Colliston();
     window.requestAnimationFrame(loop);
 }
 
-function Colliston() {
-    let tilex = Math.floor((player1.xPosition + player1.width + 2) / tileWidth);
-    let tiley = Math.floor((player1.yPosition + player1.height + 2) / tileHeight);
-    let currentTile = tiles[(tiley * mapColumns) + tilex - 1]
-    let upTile = tiles[((tiley) * mapColumns) + tilex - (37 * 2) - 1]
-    let midTile = tiles[((tiley) * mapColumns) + tilex - 38]
-    let previousTile = tiles[(tiley * mapColumns) + tilex - 2]
-    let nextTile = tiles[(tiley * mapColumns) + tilex];
-    if (currentTile === 0 || currentTile === 6) {
-        if (player1.height + player1.yPosition > tiley * tileHeight + 3) {
-            player1.jumping = false;
-            player1.yPosition = tiley * tileHeight - player1.height + 3;
-            player1.y_velocity = 0;
+// function Colliston() {
+//     let tilex = Math.floor((player1.xPosition + player1.width + 2) / tileWidth);
+//     let tiley = Math.floor((player1.yPosition + player1.height + 2) / tileHeight);
+//     let currentTile = tiles[(tiley * mapColumns) + tilex - 1]
+//     let upTile = tiles[((tiley) * mapColumns) + tilex - (37 * 2) - 1]
+//     let previousTile = tiles[(tiley * mapColumns) + tilex - 2]
+//     let nextTile = tiles[(tiley * mapColumns) + tilex];
+//     if (currentTile === 0 || currentTile === 6) {
+//         if (player1.height + player1.yPosition > tiley * tileHeight + 3) {
+//             player1.jumping = false;
+//             player1.yPosition = tiley * tileHeight - player1.height + 3;
+//             player1.y_velocity = 0;
+//         }
+//     }
+//     if (currentTile == undefined && !player1.jumping) {}
+//     if (nextTile === 51 || nextTile === 4 || nextTile === 6) {
+//         if (player1.xPosition > tilex * tileWidth - player1.width + 12 && player1.x_velocity > 0) {
+//             player1.xPosition = tilex * tileWidth - player1.width + 12;
+//             player1.x_velocity = 0;
+//         }
+//     }
+//     if (previousTile === 51 || previousTile === 4 || previousTile === 6)
+//         if (player1.xPosition < tilex * tileWidth - player1.width + 12 && player1.x_velocity < 0) {
+//             player1.xPosition = tilex * tileWidth - player1.width + 12;
+//             player1.x_velocity = 0;
 
-        }
-    }
-    if (currentTile == undefined && !player1.jumping) {}
-    if (nextTile === 51 || nextTile === 4 || nextTile === 6) {
-        if (player1.xPosition > tilex * tileWidth - player1.width + 12 && player1.x_velocity > 0) {
-            player1.xPosition = tilex * tileWidth - player1.width + 12;
-            player1.x_velocity = 0;
+//         }
+//     if (upTile === 0 || upTile === 4 || upTile === 51 || upTile === 47) {
+//         if (player1.y_velocity < 0)
+//             player1.y_velocity += 0.8;
+//     }
 
-        }
-    }
-    if (previousTile === 51 || previousTile === 4 || previousTile === 6)
-        if (player1.xPosition < tilex * tileWidth - player1.width + 12 && player1.x_velocity < 0) {
-            player1.xPosition = tilex * tileWidth - player1.width + 12;
-            player1.x_velocity = 0;
-
-        }
-    if (upTile === 0 || upTile === 4 || upTile === 51 || upTile === 47 || midTile === 0 || midTile === 4 || midTile === 51 || midTile === 47) {
-        if (player1.y_velocity < 0)
-            player1.y_velocity += 0.8;
-    }
-    console.log(midTile)
-    console.log(upTile)
-    //////////////when touching banana /////////////////
-    //console.log(Banana_y[0]+"+"+(Math.floor(player1.yPosition)+3)+player1.width+2)+"+"+Banana_x[0]);
-    let currentY = (Math.floor(player1.yPosition) + 3),
-        currentX = Math.floor(player1.xPosition) + (player1.width / 1.5);
-    for (var l = 0; l < Banana_y.length; l++) {
-        if ((currentX >= Banana_x[l] && currentX <= Banana_x[l] + 32) && (currentY >= Banana_y[l] && currentY <= Banana_y[l] + 32)) {
-            Banana_x.splice(l, 1)
-            Banana_y.splice(l, 1)
-        }
-        /* else if((currentX>=Banana_x[l]-15 && currentX<=Banana_x[l]+32)&&( currentY+(player1.height)/0.6<=Banana_y[l] )){
-             Banana_x.splice(l,1)
-             Banana_y.splice(l,1)
-         }*/
-    }
-
-}
+//////////////when touching banana /////////////////
+// let currentY = (Math.floor(player1.yPosition) + 3),
+//     currentX = Math.floor(player1.xPosition) + (player1.width / 1.5);
+// for (var l = 0; l < Banana_y.length; l++) {
+//     if ((currentX >= Banana_x[l] && currentX <= Banana_x[l] + 32) && (currentY >= Banana_y[l] && currentY <= Banana_y[l] + 32)) {
+//         Banana_x.splice(l, 1)
+//         Banana_y.splice(l, 1)
+//     }
+// }
+// }
 
 function DrawBanana() {
     let currentRow = 0,
@@ -310,8 +368,6 @@ function DrawBanana() {
                 } else {
                     skip = false
                 }
-
-
             }
         }
         first_time = false
@@ -329,9 +385,7 @@ function ClickonResetFn(event) {
     console.log(event.x + "+" + event.y)
     if ((event.x >= 933 && event.x <= 1018) && (event.y >= 40 && event.y <= 75)) {
         window.location.reload()
-
     }
-
 }
 
 function drawTile() {
@@ -355,60 +409,16 @@ function drawTile() {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////end esraa
 
 
-function drawCharacter() {
-    characterImage.src = player1.animate.frame;
-    ctx.drawImage(characterImage, player1.xPosition, player1.yPosition, player1.width, player1.height);
-}
-//end of creation of variables..............
-//main loop function
-function loop() {
-    player1.spirit();
-    player1.animate.update();
-    drawTile();
-    drawCharacter();
-    Colliston();
-    window.requestAnimationFrame(loop);
-}
 
-function Colliston() {
-    let tilex = Math.floor((player1.xPosition + player1.width + 2) / tileWidth);
-    let tiley = Math.floor((player1.yPosition + player1.height + 2) / tileHeight);
-    let currentTile = tiles[(tiley * mapColumns) + tilex - 1]
-    let upTile = tiles[((tiley) * mapColumns) + tilex - (37 * 2) - 1]
-    let downTile = tiles[((tiley) * mapColumns) + tilex + (38 * 2)]
-    let previousTile = tiles[(tiley * mapColumns) + tilex - 2]
-    let nextTile = tiles[(tiley * mapColumns) + tilex];
-    if (currentTile === 0 || currentTile === 6) {
-        if (player1.height + player1.yPosition > tiley * tileHeight + 3) {
-            player1.jumping = false;
-            player1.yPosition = tiley * tileHeight - player1.height + 3;
-            player1.y_velocity = 0;
-        }
-    }
-    if (currentTile == undefined) {
-        player1.jumping = true;
-    }
-    if (nextTile === 51 || nextTile === 4 || nextTile === 6) {
-        if (player1.xPosition > tilex * tileWidth - player1.width + 12 && player1.x_velocity > 0) {
-            player1.xPosition = tilex * tileWidth - player1.width + 12;
-            player1.x_velocity = 0;
-        }
-    }
-    if (previousTile === 51 || previousTile === 4 || previousTile === 6)
-        if (player1.xPosition < tilex * tileWidth - player1.width + 12 && player1.x_velocity < 0) {
-            player1.xPosition = tilex * tileWidth - player1.width + 12;
-            player1.x_velocity = 0;
-        }
-    if ((upTile === 0 || upTile === 4 || upTile === 51 || upTile === 47)) {
-        if (player1.y_velocity < 1)
-            player1.y_velocity += 0.8;
-    }
-}
+//end of creation of variables..............
+
 //create all eventlisteners here
 window.addEventListener("load", (event) => {
     window.requestAnimationFrame(loop);
 })
-window.addEventListener("keydown", controller.keyUpDown)
-window.addEventListener("keyup", controller.keyUpDown)
+window.addEventListener("keydown", player1.controller.keyUpDown)
+window.addEventListener("keyup", player1.controller.keyUpDown)
+// window.addEventListener("keydown", player2.controller.keyUpDown)
+// window.addEventListener("keyup", player2.controller.keyUpDown)
 display.addEventListener("click", ClickonResetFn)
 // end of eventlisteners creation
