@@ -277,8 +277,7 @@ function Colliston() {
         if (player1.y_velocity < 0)
             player1.y_velocity += 0.8;
     }
-    console.log(midTile)
-    console.log(upTile)
+
     //////////////when touching banana /////////////////
     //console.log(Banana_y[0]+"+"+(Math.floor(player1.yPosition)+3)+player1.width+2)+"+"+Banana_x[0]);
     let currentY = (Math.floor(player1.yPosition) + 3),
