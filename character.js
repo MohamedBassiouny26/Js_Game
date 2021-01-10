@@ -112,14 +112,11 @@ class Character {
                 this.y_velocity += 0.8;
         }
         //////////////when touching banana /////////////////
+        //console.log(Banana_y[0]+"+"+(Math.floor(player1.yPosition)+3)+player1.width+2)+"+"+Banana_x[0]);
         let currentY = (Math.floor(this.yPosition) + 3),
             currentX = Math.floor(this.xPosition) + (this.width / 1.5);
-        for (var l = 0; l < Banana_y.length; l++) {
-            if ((currentX >= Banana_x[l] && currentX <= Banana_x[l] + 32) && (currentY >= Banana_y[l] && currentY <= Banana_y[l] + 32)) {
-                Banana_x.splice(l, 1)
-                Banana_y.splice(l, 1)
-            }
-        }
+        banana.collistionOfTarget(currentX, currentY)
+
         if ((this.yPosition - (player1.yPosition + 11.75) >= 0 && this.yPosition - (player1.yPosition + 11.75) <= 20) && (Math.abs(this.xPosition - player1.xPosition) <= 20 && Math.abs(this.xPosition - player1.xPosition) >= 0)) {
             player2.carry = true
             player1.isCarried = true
