@@ -1,20 +1,22 @@
-
+window.onload = function(){
+  
 var modal = document.getElementById("myModal");
 
-var btn = document.getElementById("myBtn");
-
+var btnC = document.getElementById("c");
 var span = document.getElementsByClassName("close")[0];
 
-btn.onclick = function() {
-  modal.style.display = "block";
+$("#myModal").show(400)
+
+btnC.onclick = function() {
+  $("#myModal").hide(500)
 }
 
 span.onclick = function() {
-  modal.style.display = "none";
+  $("#myModal").hide(500)
 }
 
 window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
-  }
+  }}
 }
