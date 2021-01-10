@@ -1,9 +1,3 @@
-//create class here
-//object frame set to add all photos
-//class animate to control the animation of character
-//controller class to specify the state of every controller in the game
-//create character class.......................................
-//end of class creation.....................
 //create all variables here:................
 let Frame_set = {
     player1: {
