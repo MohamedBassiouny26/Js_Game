@@ -75,7 +75,7 @@ class Character {
             this.yPosition = player2.yPosition - player2.height + 15;
             this.jumping = false
         }
-        if (Math.abs(this.xPosition - player1.xPosition) > 20) {
+        if (Math.abs(this.xPosition - player1.xPosition) > 20 || Math.abs((player1.yPosition + player1.height) - player2.yPosition) > 20) {
             player1.isCarried = false;
             player2.carry = false;
         }
