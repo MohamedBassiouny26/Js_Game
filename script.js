@@ -145,15 +145,84 @@ class Character {
     }
 }
 
+class targetItems{
+    constructor(imag_src,tar_width,tar_height){
+        this.SourceOfImag = imag_src;
+        this.targetWidth = tar_width;
+        this.targetHeight = tar_height;
+        this.ArrayOfXpos = [];
+        this.ArrayOfYpos = [];
+        this.firstTime = true;
+    }
+    
+ DrawTargetItem() {
+   
+    let currentRow = 0,
+        currentCol = 0,
+        index = 0,
+        skip = false,
+        count_fire = 0;
+    if (this.firstTime === true) {
+        
+        for (var x = 0; x < mapColumns * mapHeight; x++) {
+     
+      
+            if (tiles[x] === 0 && tiles[x + 1] === 0 && tiles[x + 2] === 0) {
+                if (skip == false) {
+                    index = x
+                    while (index > 36) {
+                        index = index - 37
+                        currentRow++;
+                    }
+                    x = x + 2;
+                    currentCol = index
+                    let BananaImage = new Image();
+                    BananaImage.src = this.SourceOfImag
+                    ctx.drawImage(BananaImage, (currentCol + 2) * tileWidth, (currentRow - 2) * tileHeight, this.targetWidth, this.targetHeight);
+                   this.ArrayOfXpos.push((currentCol + 2) * tileWidth)
+                   this.ArrayOfYpos.push((currentRow - 2) * tileHeight)
+                    //current Row :to put banana above stage
+                    //current col+w: w is to put in which col 
+                    currentRow = 0
+                    skip = true
+                } else {
+                    skip = false
+                }
+
+
+            }
+        }
+        this.firstTime = false
+    } else {
+        for (let j = 0; j < this.ArrayOfYpos.length; j++) {
+            let BananaImage = new Image();
+            BananaImage.src = this.SourceOfImag
+            ctx.drawImage(BananaImage, this.ArrayOfXpos[j], this.ArrayOfYpos[j],this.targetWidth, this.targetHeight);
+        }
+    }
+
+}
+collistionOfTarget(cur_x,cur_y){
+    for (var l = 0; l < this.ArrayOfYpos.length; l++) {
+        if ((cur_x >= this.ArrayOfXpos[l]+2 && cur_x <= this.ArrayOfXpos[l] + this.targetWidth) && (cur_y >= this.ArrayOfYpos[l] && cur_y <= this.ArrayOfYpos[l] +this.targetHeight)) {
+            this.ArrayOfXpos.splice(l, 1)
+            this.ArrayOfYpos.splice(l, 1)
+            mySound.play();
+        }
+    }
+}
+
+}
 //end of class creation.....................
 //create all variables here:................
 let characterImage = new Image();
 let controller = new Controller;
 let player1 = new Character(30, 380, 70, 70); //da al character henzl mnen
-var score = 0
-var Banana_x = [],
-    Banana_y = [],
-    first_time = true;
+let banana = new targetItems("banana.png",32,32)
+
+var score =0;
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////esraa
 let tileImage = new Image();
 tileImage.src = "Tiles_32x32.png";
@@ -223,7 +292,8 @@ function showScore_Reset() {
     ctx.fillStyle = "#58391c";
     ctx.font = "italic bold 20pt Tahoma";
     //syntax : .fillText("text", x, y)
-    ctx.fillText("Score : " + (10 - Banana_x.length) + " /10", 200, 60);
+    console.log(banana.ArrayOfXpos.length)
+   ctx.fillText("Score : " + (10 - banana.ArrayOfXpos.length) + " /10", 200, 60);
     let reset_imag = new Image()
     reset_imag.id = "ResetImage"
     reset_imag.src = "reset.png"
@@ -236,7 +306,7 @@ function loop() {
     player1.spirit();
     player1.animate.update();
     drawTile();
-    DrawBanana();
+    banana.DrawTargetItem();
     drawCharacter();
     showScore_Reset();
     Colliston();
@@ -282,64 +352,10 @@ function Colliston() {
     //console.log(Banana_y[0]+"+"+(Math.floor(player1.yPosition)+3)+player1.width+2)+"+"+Banana_x[0]);
     let currentY = (Math.floor(player1.yPosition) + 3),
         currentX = Math.floor(player1.xPosition) + (player1.width / 1.5);
-    for (var l = 0; l < Banana_y.length; l++) {
-        if ((currentX >= Banana_x[l] && currentX <= Banana_x[l] + 32) && (currentY >= Banana_y[l] && currentY <= Banana_y[l] + 32)) {
-            Banana_x.splice(l, 1)
-            Banana_y.splice(l, 1)
-            mySound.play();
-        }
-        /* else if((currentX>=Banana_x[l]-15 && currentX<=Banana_x[l]+32)&&( currentY+(player1.height)/0.6<=Banana_y[l] )){
-             Banana_x.splice(l,1)
-             Banana_y.splice(l,1)
-         }*/
-    }
+       banana.collistionOfTarget(currentX,currentY)
 
 }
 
-function DrawBanana() {
-    let currentRow = 0,
-        currentCol = 0,
-        index = 0,
-        skip = false,
-        count_fire = 0;
-    if (first_time === true) {
-        for (var x = 0; x < mapColumns * mapHeight; x++) {
-
-            if (tiles[x] === 0 && tiles[x + 1] === 0 && tiles[x + 2] === 0) {
-                if (skip == false) {
-                    index = x
-                    while (index > 36) {
-                        index = index - 37
-                        currentRow++;
-                    }
-                    x = x + 2;
-                    currentCol = index
-                    let BananaImage = new Image();
-                    BananaImage.src = "Banana.png"
-                    ctx.drawImage(BananaImage, (currentCol + 2) * tileWidth, (currentRow - 2) * tileHeight, 32, 32);
-                    Banana_x.push((currentCol + 2) * tileWidth)
-                    Banana_y.push((currentRow - 2) * tileHeight)
-                    //current Row :to put banana above stage
-                    //current col+w: w is to put in which col 
-                    currentRow = 0
-                    skip = true
-                } else {
-                    skip = false
-                }
-
-
-            }
-        }
-        first_time = false
-    } else {
-        for (let j = 0; j < Banana_y.length; j++) {
-            let BananaImage = new Image();
-            BananaImage.src = "Banana.png"
-            ctx.drawImage(BananaImage, Banana_x[j], Banana_y[j], 32, 32);
-        }
-    }
-
-}
 
 function ClickonResetFn(event) {
     console.log(event.x + "+" + event.y)
