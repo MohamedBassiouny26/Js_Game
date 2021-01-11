@@ -29,18 +29,12 @@ class Character {
                 this.animate.change(this.Frame_set.jumpRight, 15);
             else if (this.face == "left")
                 this.animate.change(this.Frame_set.jumpLeft, 15);
-            if (this.carry)
-                player1.jumping = true;
-            this.isCarried = false
         }
         if (this.controller.leftActive && !this.falling) {
             this.face = "left"
             this.x_velocity -= 0.06;
             if (!this.jumping) {
                 this.animate.change(this.Frame_set.walkLeft, 15);
-            }
-            if (this.carry) {
-                player1.x_velocity = player2.x_velocity;
             }
         }
         if (this.controller.rightActive && !this.falling) {
@@ -49,10 +43,6 @@ class Character {
             if (!this.jumping) {
                 this.animate.change(this.Frame_set.walkRight, 15);
             }
-            if (this.carry) {
-                player1.x_velocity = player2.x_velocity;
-            }
-
         }
         if (!this.controller.rightActive && !this.controller.leftActive) {
             if (this.face == "right")
@@ -70,14 +60,6 @@ class Character {
             this.xPosition = -5;
         } else if (this.xPosition + (this.width) / 1.4 > myCanvas.width) {
             this.xPosition = myCanvas.width - (this.width) / 1.4;
-        }
-        if (this.isCarried && this.name === "player1") {
-            this.yPosition = player2.yPosition - player2.height + 15;
-            this.jumping = false
-        }
-        if (Math.abs(this.xPosition - player1.xPosition) > 20 || Math.abs((player1.yPosition + player1.height) - player2.yPosition) > 20) {
-            player1.isCarried = false;
-            player2.carry = false;
         }
     }
 
@@ -116,15 +98,5 @@ class Character {
         let currentY = (Math.floor(this.yPosition) + 3),
             currentX = Math.floor(this.xPosition) + (this.width / 1.5);
         banana.collistionOfTarget(currentX, currentY)
-
-        if ((this.yPosition - (player1.yPosition + 11.75) >= 0 && this.yPosition - (player1.yPosition + 11.75) <= 20) && (Math.abs(this.xPosition - player1.xPosition) <= 20 && Math.abs(this.xPosition - player1.xPosition) >= 0)) {
-            if (player2 != undefined) {
-                player2.carry = true
-                player1.isCarried = true
-                player1.jumping = false
-                player1.falling = false;
-
-            }
-        }
     }
 }

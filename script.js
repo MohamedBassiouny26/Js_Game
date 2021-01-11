@@ -37,7 +37,6 @@ let Frame_set = {
     },
 }
 let player1 = new Character("player1", 30, 380, 70, 70, Frame_set.player1, ArrowController); //da al character henzl mnen
-let player2 = new Character("player2", 90, 380, 70, 70, Frame_set.player2, lettersController); //da al character henzl mnen
 let banana = new targetItems("banana.png", 32, 32)
 var score = 0;
 let tileImage = new Image();
@@ -57,9 +56,9 @@ let tiles = [
     4, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 4,
     4, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 4,
     4, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 4,
-    4, , , , , , , , , , , , , , , 0, 0, 0, 0, 0, , 0, 0, 0, 0, 0, , , , , , , , , , , 4,
+    4, , , , , , , , , , , , , , , , , , , , , 0, 0, 0, 0, 0, , , , , , , , , , , 4,
     4, , , , , , , , , , , , , , , , , , , , , , , , , , , 0, 0, 0, 0, 0, , , , , 4,
-    4, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 4,
+    4, , , , , , , , , , , , , , , 0, 0, 0, 0, 0, , , , , , , , , , , , , , , , , 4,
     4, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 4,
     4, , , , , , , , , , 0, 0, 0, 0, , , , , , , , , , 0, 0, 0, 0, 0, 0, 0, , , , , , , 4,
     4, , , , , , , , , , , , , , , , , , , , , , 0, 4, 4, 4, 4, 4, 4, 4, , , , , , , 4,
@@ -105,15 +104,11 @@ function showScore_Reset() {
 function loop() {
     player1.spirit();
     player1.animate.update();
-    player2.spirit();
-    player2.animate.update();
     drawTile();
     player1.drawCharacter();
-    player2.drawCharacter();
     banana.DrawTargetItem();
     showScore_Reset();
     player1.Colliston();
-    player2.Colliston();
     window.requestAnimationFrame(loop);
 }
 
@@ -152,7 +147,5 @@ window.addEventListener("load", (event) => {
 })
 window.addEventListener("keydown", player1.controller.keyUpDown)
 window.addEventListener("keyup", player1.controller.keyUpDown)
-window.addEventListener("keydown", player2.controller.keyUpDown)
-window.addEventListener("keyup", player2.controller.keyUpDown)
 display.addEventListener("click", ClickonResetFn)
 // end of eventlisteners creation
