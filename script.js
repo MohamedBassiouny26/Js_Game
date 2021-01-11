@@ -109,6 +109,9 @@ function showScore_Reset() {
     music_imag.src = "NoMusic.png"}
     else{music_imag.src = "music.png"}
     ctx.drawImage(music_imag, 900, 42, 50, 45)
+    let exit_imag = new Image()
+    exit_imag.src = "exit.png"
+    ctx.drawImage(exit_imag, 970, 42, 50, 45)
 }
 //end of creation of variables..............
 //main loop function
