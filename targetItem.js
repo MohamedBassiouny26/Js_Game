@@ -56,7 +56,11 @@ class targetItems {
             if ((cur_x >= this.ArrayOfXpos[l] + 2 && cur_x <= this.ArrayOfXpos[l] + this.targetWidth) && (cur_y >= this.ArrayOfYpos[l] && cur_y <= this.ArrayOfYpos[l] + this.targetHeight)) {
                 this.ArrayOfXpos.splice(l, 1)
                 this.ArrayOfYpos.splice(l, 1)
-                mySound.play();
+                if(mute==false){
+                mySound.playmusic()}
+                else{
+                    mySound.stopmusic();
+                }
             }
         }
     }
