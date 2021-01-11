@@ -88,7 +88,7 @@ class Character {
         let upTile = tiles[((tiley) * mapColumns) + tilex - (37 * 2) - 1]
         let previousTile = tiles[(tiley * mapColumns) + tilex - 2]
         let nextTile = tiles[(tiley * mapColumns) + tilex];
-        if (currentTile === 0 || currentTile === 6) {
+        if (currentTile === 0 || currentTile === 6 || currentTile === 4) {
             if (this.height + this.yPosition > tiley * tileHeight + 3) {
                 this.jumping = false;
                 this.yPosition = tiley * tileHeight - this.height + 3;
@@ -118,10 +118,13 @@ class Character {
         banana.collistionOfTarget(currentX, currentY)
 
         if ((this.yPosition - (player1.yPosition + 11.75) >= 0 && this.yPosition - (player1.yPosition + 11.75) <= 20) && (Math.abs(this.xPosition - player1.xPosition) <= 20 && Math.abs(this.xPosition - player1.xPosition) >= 0)) {
-            player2.carry = true
-            player1.isCarried = true
-            player1.jumping = false
-            player1.falling = false;
+            if (player2 != undefined) {
+                player2.carry = true
+                player1.isCarried = true
+                player1.jumping = false
+                player1.falling = false;
+
+            }
         }
     }
 }
