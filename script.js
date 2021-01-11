@@ -70,8 +70,8 @@ let tiles = [
 ];
 tileImage.addEventListener('load', drawTile);
 let display = document.getElementById("myCanvas");
-display.style.width = window.innerWidth;
-display.style.height = window.innerHeight;
+display.style.width = window.innerWidth + 'px';
+display.style.height = window.innerHeight + 'px';
 display.width = 1170;
 display.height = 670;
 let ctx = display.getContext("2d");
