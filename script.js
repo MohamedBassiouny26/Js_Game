@@ -124,24 +124,24 @@ function ClickonResetFn(event) {
     }
 }
 
-function drawTile() {
-    ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
-    for (let i = 0; i < mapColumns * mapHeight; i++) {
-        let tile = tiles[i];
-        let sourceX = (tile % (mapColumns + 10)) * tileWidth;
+// function drawTile() {
+//     ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
+//     for (let i = 0; i < mapColumns * mapHeight; i++) {
+//         let tile = tiles[i];
+//         let sourceX = (tile % (mapColumns + 10)) * tileWidth;
 
-        //console.log(sourceX);
-        let sourceY = Math.floor(tile / (mapColumns + 10)) * tileHeight;
+//         //console.log(sourceX);
+//         let sourceY = Math.floor(tile / (mapColumns + 10)) * tileHeight;
 
-        //console.log(sourceY);
-        let targetX = (i % mapColumns) * tileWidth;
-        //console.log("x=")
-        //console.log("x= "+targetX,i);
-        let targetY = Math.floor(i / mapColumns) * tileHeight;
-        //console.log("y= "+targetY,i);
-        ctx.drawImage(tileImage, sourceX, sourceY, tileWidth, tileHeight, targetX, targetY, tileWidth, tileHeight);
-    }
-}
+//         //console.log(sourceY);
+//         let targetX = (i % mapColumns) * tileWidth;
+//         //console.log("x=")
+//         //console.log("x= "+targetX,i);
+//         let targetY = Math.floor(i / mapColumns) * tileHeight;
+//         //console.log("y= "+targetY,i);
+//         ctx.drawImage(tileImage, sourceX, sourceY, tileWidth, tileHeight, targetX, targetY, tileWidth, tileHeight);
+//     }
+// }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////end esraa
 
 //end of creation of variables..............
