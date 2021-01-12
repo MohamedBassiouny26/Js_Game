@@ -5,20 +5,20 @@ let ArrowController = {
     dActive: false,
     keyUpDown(event) {
         let key_state = (event.type == "keydown") ? true : false;
-        switch (event.key) {
-            case "ArrowUp":
+        switch (event.keyCode) {
+            case 38:
                 if (ArrowController.upActive != key_state)
                     ArrowController.upActive = key_state
                 break;
-            case "ArrowLeft":
+            case 37:
                 if (ArrowController.leftActive != key_state)
                     ArrowController.leftActive = key_state;
                 break;
-            case "ArrowRight":
+            case 39:
                 if (ArrowController.rightActive != key_state)
                     ArrowController.rightActive = key_state;
                 break;
-            case "ArrowDown":
+            case 40:
                 if (ArrowController.dActive != key_state)
                     ArrowController.dActive = key_state;
                 break;
@@ -31,21 +31,22 @@ let lettersController = {
     upActive: false,
     dActive: false,
     keyUpDown(event) {
+        console.log(event.keyCode)
         let key_state = (event.type == "keydown") ? true : false;
-        switch (event.key) {
-            case 'w':
+        switch (event.keyCode) {
+            case 87:
                 if (lettersController.upActive != key_state)
                     lettersController.upActive = key_state
                 break;
-            case "a":
+            case 65:
                 if (lettersController.leftActive != key_state)
                     lettersController.leftActive = key_state;
                 break;
-            case "d":
+            case 68:
                 if (lettersController.rightActive != key_state)
                     lettersController.rightActive = key_state;
                 break;
-            case "s":
+            case 83:
                 if (lettersController.dActive != key_state)
                     lettersController.dActive = key_state;
                 break;
