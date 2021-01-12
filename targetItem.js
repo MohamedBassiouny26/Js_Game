@@ -13,6 +13,7 @@ class targetItems {
             currentCol = 0,
             index = 0,
             skip = false,
+            upLow =false,
             count_fire = 0;
         if (this.firstTime === true) {
 
@@ -30,9 +31,17 @@ class targetItems {
                         currentCol = index
                         let BananaImage = new Image();
                         BananaImage.src = this.SourceOfImag
+                        if(upLow === false){
                         ctx.drawImage(BananaImage, (currentCol + 2) * tileWidth, (currentRow - 2) * tileHeight, this.targetWidth, this.targetHeight);
                         this.ArrayOfXpos.push((currentCol + 2) * tileWidth)
                         this.ArrayOfYpos.push((currentRow - 2) * tileHeight)
+                        upLow=true }
+                        else{
+                            ctx.drawImage(BananaImage, (currentCol + 2) * tileWidth, (currentRow - 3) * tileHeight, this.targetWidth, this.targetHeight);
+                        this.ArrayOfXpos.push((currentCol + 2) * tileWidth)
+                        this.ArrayOfYpos.push((currentRow - 3) * tileHeight) 
+                        upLow=false
+                        }
                         //current Row :to put banana above stage
                         //current col+w: w is to put in which col 
                         currentRow = 0
