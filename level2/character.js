@@ -87,6 +87,10 @@ class Character {
         let upTile = tiles[((tiley) * mapColumns) + tilex - (37 * 2) - 1]
         let previousTile = tiles[(tiley * mapColumns) + tilex - 2]
         let nextTile = tiles[(tiley * mapColumns) + tilex];
+        let previousTile_upper = tiles[(tiley * mapColumns) + tilex -2-(37*2 )]
+        let previousTile_lower = tiles[(tiley * mapColumns) + tilex -2-(37 )]
+        let nextTile_upper = tiles[(tiley * mapColumns) + tilex - (37*2 )]
+        let nextTile_lower = tiles[(tiley * mapColumns) + tilex - (37 )]
         if (this.dead)
             alert("Game Over")
         if (currentTile === 0 || currentTile === 6 || currentTile === 4) {
@@ -97,13 +101,15 @@ class Character {
             }
         }
         if (currentTile == undefined && !this.jumping) {}
-        if (nextTile === 51 || nextTile === 4 || nextTile === 6) {
+        if ((nextTile === 51 || nextTile === 4 || nextTile === 6)||(nextTile_upper===0 && nextTile_lower == undefined)  ) {
+           
             if (this.xPosition > tilex * tileWidth - this.width + 12 && this.x_velocity > 0) {
                 this.xPosition = tilex * tileWidth - this.width + 12;
                 this.x_velocity = 0;
             }
         }
-        if (previousTile === 51 || previousTile === 4 || previousTile === 6)
+        if ((previousTile === 51 || previousTile === 4 || previousTile === 6)||(previousTile_upper===0 && previousTile_lower == undefined && !this.jumping))
+        
             if (this.xPosition < tilex * tileWidth - this.width + 12 && this.x_velocity < 0) {
                 this.xPosition = tilex * tileWidth - this.width + 12;
                 this.x_velocity = 0;
@@ -129,3 +135,5 @@ class Character {
         }
     }
 }
+
+        
