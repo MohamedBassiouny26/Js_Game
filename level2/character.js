@@ -60,7 +60,7 @@ class Character {
             else if (this.face == "left")
                 this.animate.change(this.Frame_set.idleLeft, 15);
         }
-        this.y_velocity += 0.25; //used as a graphity
+        this.y_velocity += 0.5; //used as a graphity
         this.xPosition += this.x_velocity;
         this.yPosition += this.y_velocity;
         this.x_velocity *= 0.96;
