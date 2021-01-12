@@ -74,13 +74,16 @@ tileImage.addEventListener('load', drawTile);
 let display = document.getElementById("myCanvas");
 display.style.width = window.innerWidth + 'px';
 display.style.height = window.innerHeight + 'px';
+
 display.width = 1170;
 display.height = 670;
 let ctx = display.getContext("2d");
 tileImage.addEventListener('load', drawTile);
 
 function drawTile() {
-   
+    display.style.width = window.innerWidth + 'px';
+display.style.height = window.innerHeight + 'px';
+ctx = display.getContext("2d");
     ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
     for (let i = 0; i < mapColumns * mapHeight; i++) {
         let tile = tiles[i];
@@ -129,10 +132,13 @@ function loop() {
 }
 
 function ClickonResetFn(event) {
-    console.log(event.x + "+" + event.y)
-    if ((event.x >= 933 && event.x <= 1018) && (event.y >= 40 && event.y <= 75)) {
+    console.log(event.y);
+    console.log(parseInt(display.style.width))
+      let Xpercent = event.x/parseInt(display.style.width);
+      let Ypercent = event.y/parseInt(display.style.height);
+    if ((Xpercent >= 768/1119 && Xpercent <= 838/1119) && (Ypercent>= 43/657 && Ypercent <= 83/657)) {
         window.location.reload()
-    }else if ((event.x >= 1047 && event.x <= 1102) && (event.y >= 42 && event.y <= 83)){
+    }else if ((Xpercent >= 861/1119 && Xpercent <= 907/1119) && (Ypercent>= 41/657 && Ypercent <= 83/657)){
       if(mute==true){
           backgroundSound.playmusic()
           mute=false;
@@ -160,4 +166,4 @@ window.addEventListener("load", (event) => {
 
 window.addEventListener("keydown", player1.controller.keyUpDown)
 window.addEventListener("keyup", player1.controller.keyUpDown)
-display.addEventListener("click", ClickonResetFn)
+window.addEventListener("click", ClickonResetFn)

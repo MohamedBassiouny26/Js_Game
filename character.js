@@ -74,7 +74,7 @@ class Character {
         let nextTile = tiles[(tiley * mapColumns) + tilex];
         let nextTile_upper = tiles[(tiley * mapColumns) + tilex - (37*2 )]
         let nextTile_lower = tiles[(tiley * mapColumns) + tilex - (37 )]
-        console.log(previousTile+"+"+nextTile+"+"+upTile+"+"+previousTile_upper+"+"+previousTile_lower+"+"+nextTile_upper)
+      //  console.log(previousTile+"+"+nextTile+"+"+upTile+"+"+previousTile_upper+"+"+previousTile_lower+"+"+nextTile_upper)
         if (currentTile === 0 || currentTile === 6 || currentTile === 4) {
             
             if (this.height + this.yPosition > tiley * tileHeight + 3) {
