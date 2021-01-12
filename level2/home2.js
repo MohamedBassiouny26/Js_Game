@@ -40,7 +40,6 @@ let player1 = new Character("player1", 30, 380, 70, 70, Frame_set.player1, Arrow
 let player2 = new Character("player2", 90, 380, 70, 70, Frame_set.player2, lettersController); //da al character henzl mnen
 let banana = new targetItems("banana.png", 32, 32)
 var score = 0;
-document.getElementById("divv").style.boxShadow = "10px 0px 20px 30px darkgreen"
 let image = new Image();
 image.src = "Tiles_32x32.png";
 let imagefire = new Image();
@@ -51,29 +50,28 @@ const tileWidth = 32,
     tileHeight = 32;
 const mapHeight = 21,
     mapColumns = 37;
-let tiles = [, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 0, 0, 6, 6, 6, 0, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 0, 0, 4, 47, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 0, 0, 4, 4, 47, , , , , , , , , 2, 0, 0, 1, , , , , , , , , , , , 2, 0, 0, 0, 0, , , , , 51, 4, 4, 47, , , , , , , , , , 51, 4, 4, 47, , , , , , , , , , , , , , 51, 4, 4, , , , , , 51, 4, , , , , , , , , , , , , , , , 2, 0, 1, , , , , , , , , , , , , , , , , , , 4, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,
-    0, 0, 0, 0, 0, 0, 4, 80, 80, , , , , , , , , , , , , , , , , 2, 0, 0, 6, 6, 1, , , , , , ,
-    4, 4, 4, 4, 4, 4, 4, 0, 0, , , , , 2, 0, 1, , , , , , , , , , 51, 4, 47, , , , , , , , , ,
-    4, 4, 4, 47, , , , , , , , , , , , , , , , , , 2, 0, 1, , , , , , , , , , , , , ,
-    47, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 2, 0, 1, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 2, 6, 6, 1, , , , 2, 6, 6, 1, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 80, 80, 80, 80, 80, 80, , , , , , , , 0, 0, , , , , , 0, 1, , , , , , , , , , , , , , , 2, 0, 0, 0, 0, 0, 0, 0, , , , , , , 4, 4, 60, 60, 60, 60, 60, 4, 4, 1, , , , , , , , , , , , , , 4, 4, 4, 4, 4, 4, 50, 4,
-    0, 0, 0, 0, 0, 0, 4, 4, 4, 4, 4, 4, 4, 4, 50, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4, 50, 6, 4, 50,
+let tiles = [, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 0, 0, 0, 0, 0, 0, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 0, 0, 4, 47, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 0, 0, 4, 4, 47, , , , , , , , , 0, 0, 0, 0, , , , , , , , , , , , 0, 0, 0, 0, 0, , , , , 51, 4, 4, 47, , , , , , , , , , 51, 4, 4, 47, , , , , , , , , , , , , , 51, 4, 4, , , , , , 51, 4, , , , , , , , , , , , , , , , 0, 0, 0, , , , , , , , , , , , , , , , , , , 4, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,
+    0, 0, 0, 0, 0, 0, 4, 80, 80, , , , , , , , , , , , , , , , , 0, 0, 0, 0, 0, 0, , , , , , ,
+    4, 4, 4, 4, 4, 4, 4, 0, 0, , , , , 0, 0, 0, , , , , , , , , , 51, 4, 47, , , , , , , , , ,
+    4, 4, 4, 47, , , , , , , , , , , , , , , , , , 0, 0, 0, , , , , , , , , , , , , ,
+    47, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 0, 0, 0, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 0, 0, 0, 0, , , , 0, 0, 0, 0, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 80, 80, 80, 80, 80, 80, , , , , , , , 0, 0, , , , , , 0, 0, , , , , , , , , , , , , , , 0, 0, 0, 0, 0, 0, 0, 0, , , , , , , 4, 4, 60, 60, 60, 60, 60, 4, 4, 0, , , , , , , , , , , , , , 4, 4, 4, 4, 4, 4, 50, 4,
+    0, 0, 0, 0, 0, 0, 4, 4, 0, 0, 0, 0, 0, 4, 50, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4, 50, 6, 4, 50,
     4, 4, 6, 6, 4, 6, 4, 4, 4, 4, 4, 50, 4, 50, 4, 50, 4, 4, 4, 50, 4, 4, 50, 4, 4, 4, 4, 4, 4, 4, 4, 4, 6, 6, 4, 6, 6
 ];
 
 image.addEventListener('load', drawTile);
 let display = document.getElementById("myCanvas");
-display.style.width = document.getElementById("divv").innerWidth;
+display.style.width = window.innerWidth;
 display.style.height = window.innerHeight;
 display.width = 1183;
 display.height = 670;
 let ctx = display.getContext("2d");
 image.addEventListener('load', drawTile);
-imagefire.addEventListener('load', drawTile);
+// imagefire.addEventListener('load', drawTile);
 imagewave.addEventListener('load', drawTile);
 
 function drawTile() {
     ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
-
     for (let i = 0; i < mapColumns * mapHeight; i++) {
         let tile = tiles[i];
         let sourceX = (tile % (mapColumns + 10)) * tileWidth;
@@ -93,7 +91,7 @@ function drawTile() {
             ctx.drawImage(imagefire, 225, 313, 1452, 1472, targetX, targetY, tileWidth, tileHeight);
 
         } else if (tile === 60) {
-            // ctx.drawImage(imagefire, 17, 2329, 1960, 904, targetX, targetY, tileWidth, tileHeight);
+            // context.drawImage(imagefire, 17, 2329, 1960, 904, targetX, targetY, tileWidth, tileHeight);
             ctx.drawImage(imagewave, 5, 33, 595, 297, targetX, targetY, tileWidth, tileHeight);
         }
     }
@@ -121,8 +119,9 @@ function loop() {
     player2.drawCharacter();
     banana.DrawTargetItem();
     showScore_Reset();
-    player1.Colliston();
     player2.Colliston();
+    player1.Colliston();
+    drwaTrap();
     window.requestAnimationFrame(loop);
 }
 
@@ -142,3 +141,28 @@ window.addEventListener("keydown", player2.controller.keyUpDown)
 window.addEventListener("keyup", player2.controller.keyUpDown)
 display.addEventListener("click", ClickonResetFn)
 // end of eventlisteners creation
+function drwaTrap() {
+    let player1Tilex = Math.floor((player1.xPosition + player1.width + 2) / tileWidth);
+    let player1Tiley = Math.floor((player1.yPosition + player1.height + 2) / tileHeight);
+    let Player1trap = tiles[(player1Tiley * mapColumns) + player1Tilex - 38];
+    let player2Tilex = Math.floor((player2.xPosition + player2.width + 2) / tileWidth);
+    let player2Tiley = Math.floor((player2.yPosition + player2.height + 2) / tileHeight);
+    let player2trap = tiles[(player2Tiley * mapColumns) + player2Tilex - 38];
+    if (Player1trap === 80) {
+        if (imagefire.getAttribute('src')) {
+            player1.dead = true
+        }
+    } else if (Player1trap === 60) {
+        imagewave.src = ""
+    } else {
+        imagewave.src = "Waves.png"
+    }
+    if (player2trap === 80) {
+        imagefire.src = ""
+    } else if (player2trap === 60) {
+        if (imagewave.getAttribute("src"))
+            player2.dead = true
+    } else {
+        imagefire.src = "Fire.png"
+    }
+}

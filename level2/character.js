@@ -16,6 +16,7 @@ class Character {
         this.controller = controller;
         this.carry = false;
         this.isCarried = false;
+        this.dead = false;
     }
     drawCharacter() {
         this.characterImage.src = this.animate.frame;
@@ -82,10 +83,12 @@ class Character {
         let tilex = Math.floor((this.xPosition + this.width + 2) / tileWidth);
         let tiley = Math.floor((this.yPosition + this.height + 2) / tileHeight);
         let currentTile = tiles[(tiley * mapColumns) + tilex - 1]
-        let trap = tiles[(tiley * mapColumns) + tilex - 37]
+        let trap = tiles[(tiley * mapColumns) + tilex - 38]
         let upTile = tiles[((tiley) * mapColumns) + tilex - (37 * 2) - 1]
         let previousTile = tiles[(tiley * mapColumns) + tilex - 2]
         let nextTile = tiles[(tiley * mapColumns) + tilex];
+        if (this.dead)
+            alert("Game Over")
         if (currentTile === 0 || currentTile === 6 || currentTile === 4) {
             if (this.height + this.yPosition > tiley * tileHeight + 3) {
                 this.jumping = false;
@@ -109,15 +112,7 @@ class Character {
             if (this.y_velocity < 0)
                 this.y_velocity += 0.8;
         }
-        if (trap === 80) {
-            if (this.name === "player1") {
-                player1.animate.change(player1.Frame_set.dead, 15);
-                // console.log("brown is dead")
 
-            } else {
-                console.log("blue loves fire");
-            }
-        }
         //////////////when touching banana /////////////////
         //console.log(Banana_y[0]+"+"+(Math.floor(player1.yPosition)+3)+player1.width+2)+"+"+Banana_x[0]);
         let currentY = (Math.floor(this.yPosition) + 3),
@@ -130,7 +125,6 @@ class Character {
                 player1.isCarried = true
                 player1.jumping = false
                 player1.falling = false;
-
             }
         }
     }
