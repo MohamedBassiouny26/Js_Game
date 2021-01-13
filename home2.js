@@ -207,7 +207,7 @@ function drawTrap() {
        player2.currentRow = player2Tiley;
        player2.touchWaterFire = true;
       
-   }else if(player2trap == 60 && player1.touchWaterFire ==false){
+   }else if(player2trap == 60 && (player1.touchWaterFire ==false || player2Tiley != player1Tiley)  ){
     player2 = new Character("player2", 40, 380, 70, 70, Frame_set.player2, lettersController,1); 
     player2.touchWaterFire = false;
     lifes--;
