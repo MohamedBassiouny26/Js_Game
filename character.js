@@ -17,6 +17,8 @@ class Character {
         this.carry = false;
         this.isCarried = false;
         this.dead = false;
+        this.currentRow = 0;
+        this.touchWaterFire = false
     }
     drawCharacter() {
         this.characterImage.src = this.animate.frame;
@@ -91,8 +93,9 @@ class Character {
         let previousTile_lower = tiles[(tiley * mapColumns) + tilex -2-(37 )]
         let nextTile_upper = tiles[(tiley * mapColumns) + tilex - (37*2 )]
         let nextTile_lower = tiles[(tiley * mapColumns) + tilex - (37 )]
-        if (this.dead)
-            alert("Game Over")
+        console.log(this.yPosition +"+"+ this.y_velocity)
+      
+            
         if (currentTile === 0 || currentTile === 6 || currentTile === 4) {
             if (this.height + this.yPosition > tiley * tileHeight + 3) {
                 this.jumping = false;
