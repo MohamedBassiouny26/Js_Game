@@ -13,8 +13,8 @@ class targetItems {
             currentCol = 0,
             index = 0,
             skip = false,
-            upLow =false,
-            count_fire = 0;
+            upLow =false;
+            
         if (this.firstTime === true) {
 
             for (var x = 0; x < mapColumns * mapHeight; x++) {

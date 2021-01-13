@@ -1,5 +1,5 @@
 class Character {
-    constructor(name, x, y, height, width, frame_set, controller, x_velocity = 0, y_velocity = 0, jumping = false, ) {
+    constructor(name, x, y, height, width, frame_set, controller,doublejumping , x_velocity = 0, y_velocity = 0, jumping = false,countJumps=0) {
         this.name = name;
         this.xPosition = x;
         this.yPosition = y;
@@ -19,6 +19,9 @@ class Character {
         this.dead = false;
         this.currentRow = 0;
         this.touchWaterFire = false
+        this.doublejumping = doublejumping
+        this.countJumps = countJumps
+
     }
     drawCharacter() {
         this.characterImage.src = this.animate.frame;
@@ -26,7 +29,13 @@ class Character {
     }
     spirit() {
         if (this.controller.upActive && !this.jumping && !this.falling) {
+          if(this.doublejumping == this.countJumps){
             this.jumping = true;
+            this.countJumps =0;
+          }else{
+           this.countJumps++;
+           this.controller.upActive =false
+          }
             this.y_velocity -= 10;
             if (this.face == "right")
                 this.animate.change(this.Frame_set.jumpRight, 15);
@@ -151,12 +160,12 @@ class Character {
                 player1.falling = false;
             }
         }
-        if ((this.yPosition - (player2.yPosition + 11.75) >= 0 && this.yPosition - (player2.yPosition + 11.75) <= 20) && (Math.abs(this.xPosition - player2.xPosition) <= 20 && Math.abs(this.xPosition - player2.xPosition) >= 0)) {
+      /*  if ((this.yPosition - (player2.yPosition + 11.75) >= 0 && this.yPosition - (player2.yPosition + 11.75) <= 20) && (Math.abs(this.xPosition - player2.xPosition) <= 20 && Math.abs(this.xPosition - player2.xPosition) >= 0)) {
             player1.carry = true
             player2.isCarried = true
             player2.jumping = false
             player2.falling = false;
-       }
+       }*/
     }
 }
 
