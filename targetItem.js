@@ -61,8 +61,11 @@ class targetItems {
         }
     }
     collistionOfTarget(cur_x, cur_y) {
+       
         for (var l = 0; l < this.ArrayOfYpos.length; l++) {
-            if ((cur_x >= this.ArrayOfXpos[l] + 2 && cur_x <= this.ArrayOfXpos[l] + this.targetWidth) && (cur_y >= this.ArrayOfYpos[l] && cur_y <= this.ArrayOfYpos[l] + this.targetHeight)) {
+            console.log(this.ArrayOfXpos[l]+"+"+this.ArrayOfYpos[l])
+            if ((cur_x >= this.ArrayOfXpos[l] + 2 && cur_x <= this.ArrayOfXpos[l] + this.targetWidth) && (cur_y >= this.ArrayOfYpos[l] && cur_y <= (this.ArrayOfYpos[l] + this.targetHeight)-3)) {
+                
                 this.ArrayOfXpos.splice(l, 1)
                 this.ArrayOfYpos.splice(l, 1)
                 if(mute==false){

@@ -27,7 +27,7 @@ class Character {
     spirit() {
         if (this.controller.upActive && !this.jumping && !this.falling) {
             this.jumping = true;
-            this.y_velocity -= 12;
+            this.y_velocity -= 10;
             if (this.face == "right")
                 this.animate.change(this.Frame_set.jumpRight, 15);
             else if (this.face == "left")
@@ -38,22 +38,28 @@ class Character {
         }
         if (this.controller.leftActive && !this.falling) {
             this.face = "left"
-            this.x_velocity -= 0.06;
+            this.x_velocity -= 0.07;
             if (!this.jumping) {
                 this.animate.change(this.Frame_set.walkLeft, 15);
             }
-            if (this.carry) {
+            if (this.carry&&this.name=="player2") {
                 player1.x_velocity = player2.x_velocity;
+            }
+            if (this.carry&&this.name=="player1") {
+                player2.x_velocity = player1.x_velocity;
             }
         }
         if (this.controller.rightActive && !this.falling) {
             this.face = "right"
-            this.x_velocity += 0.06;
+            this.x_velocity += 0.07;
             if (!this.jumping) {
                 this.animate.change(this.Frame_set.walkRight, 15);
             }
-            if (this.carry) {
+            if (this.carry&&this.name=="player2") {
                 player1.x_velocity = player2.x_velocity;
+            }
+            if (this.carry&&this.name=="player1") {
+                player2.x_velocity = player1.x_velocity;
             }
         }
         if (!this.controller.rightActive && !this.controller.leftActive) {
@@ -62,7 +68,7 @@ class Character {
             else if (this.face == "left")
                 this.animate.change(this.Frame_set.idleLeft, 15);
         }
-        this.y_velocity += 0.25; //used as a graphity
+        this.y_velocity += 0.20; //used as a graphity
         this.xPosition += this.x_velocity;
         this.yPosition += this.y_velocity;
         this.x_velocity *= 0.96;
@@ -80,6 +86,14 @@ class Character {
             player1.isCarried = false;
             player2.carry = false;
         }
+        if (this.isCarried && this.name === "player2") {
+            this.yPosition = player1.yPosition - player1.height + 15;
+            this.jumping = false;
+        }
+        if (Math.abs(this.xPosition - player2.xPosition) > 20) {
+             player2.isCarried = false;
+             player1.carry = false;
+         }
     }
     Colliston() {
         let tilex = Math.floor((this.xPosition + this.width + 2) / tileWidth);
@@ -93,7 +107,7 @@ class Character {
         let previousTile_lower = tiles[(tiley * mapColumns) + tilex -2-(37 )]
         let nextTile_upper = tiles[(tiley * mapColumns) + tilex - (37*2 )]
         let nextTile_lower = tiles[(tiley * mapColumns) + tilex - (37 )]
-        console.log(this.yPosition +"+"+ this.y_velocity)
+        
       
             
         if (currentTile === 0 || currentTile === 6 || currentTile === 4) {
@@ -124,8 +138,9 @@ class Character {
 
         //////////////when touching banana /////////////////
         //console.log(Banana_y[0]+"+"+(Math.floor(player1.yPosition)+3)+player1.width+2)+"+"+Banana_x[0]);
-        let currentY = (Math.floor(this.yPosition) + 3),
+        let currentY = (Math.floor(this.yPosition)+3),
             currentX = Math.floor(this.xPosition) + (this.width / 1.5);
+            console.log(currentX+"+"+currentY)
         banana.collistionOfTarget(currentX, currentY)
 
         if ((this.yPosition - (player1.yPosition + 11.75) >= 0 && this.yPosition - (player1.yPosition + 11.75) <= 20) && (Math.abs(this.xPosition - player1.xPosition) <= 20 && Math.abs(this.xPosition - player1.xPosition) >= 0)) {
@@ -136,7 +151,13 @@ class Character {
                 player1.falling = false;
             }
         }
+        if ((this.yPosition - (player2.yPosition + 11.75) >= 0 && this.yPosition - (player2.yPosition + 11.75) <= 20) && (Math.abs(this.xPosition - player2.xPosition) <= 20 && Math.abs(this.xPosition - player2.xPosition) >= 0)) {
+            player1.carry = true
+            player2.isCarried = true
+            player2.jumping = false
+            player2.falling = false;
+       }
     }
 }
 
-        
+
