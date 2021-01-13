@@ -40,7 +40,7 @@ let banana = new targetItems("banana.png", 32, 32)
 var mySound = new SoundClass("bounce.mp3")
 var backgroundSound = new SoundClass("melodyloops.mp3")
 var score = 0,music_imag,mute=true;
-var lifes =0;
+var lifes =3;
 let image = new Image();
 image.src = "Tiles_32x32.png";
 let imagefire = new Image();
@@ -121,7 +121,7 @@ function showScore_Reset() {
     ctx.drawImage(score_imag,170,35,32,32)
    ctx.fillText(":"+(15 - banana.ArrayOfXpos.length) + " /15", 200, 60);
    ctx.fillText("lifes:", 400, 60);
-   for(let i=0;i<3;i++){
+   for(let i=0;i<lifes;i++){
        let heart = new Image()
        heart.src = "heart.png"
        ctx.drawImage(heart,480+(50*i),40,30,30)
@@ -198,6 +198,7 @@ function drawTrap() {
    }else if(Player1trap == 80 && player2.touchWaterFire == false){
     player1 = new Character("player1", 15, 380, 70, 70, Frame_set.player1, ArrowController);
     player1.touchWaterFire = false;
+    lifes--;
    }else{
     player1.currentRow = 0;
     player1.touchWaterFire = false;
@@ -205,13 +206,17 @@ function drawTrap() {
    if(player2trap == 80){
        player2.currentRow = player2Tiley;
        player2.touchWaterFire = true;
+      
    }else if(player2trap == 60 && player1.touchWaterFire ==false){
     player2 = new Character("player2", 40, 380, 70, 70, Frame_set.player2, lettersController); 
     player2.touchWaterFire = false;
+    lifes--;
    }else{
     player2.currentRow = 0;
     player2.touchWaterFire = false;
    }
     
-   
+   if(lifes === 0){
+     //  alert("gameOver")
+   }
 }
