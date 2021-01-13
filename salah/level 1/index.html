@@ -1,0 +1,42 @@
+
+<html >
+<header><title>Monkey game</title>
+<link rel="stylesheet" href="popup_level.css">
+</header>
+<body style="background-image: url('background2.PNG');background-repeat: no-repeat;
+background-size: cover;
+background-position: center;">
+    <canvas id='myCanvas' style="position:absolute; left:0px; top:0px; "></canvas>
+    
+    <div id="levelOneWinModal" class="levelOneWinModal">
+        <div class="level1-win-modal-content">
+            <img src="https://img.icons8.com/bubbles/200/000000/trophy.png" alt="not found image" srcset="">
+            <p><b>Congratulations! You've reached the Intermediate Level with Score : </b></p>
+            <button id="nextLevel1Btn">Go To Level 2</button>
+        </div>
+    </div>
+    <div id="levelOneBeginModal" class="levelOneBeginModal">
+        <div class="level1-begin-modal-content">
+            <img id="m" src="monkey_idle.png" alt="not found image" srcset="">
+            <img id="add" src="add.png" alt="not found image" srcset="">
+            <img id="a" src="arrow.png" alt="not found image" srcset="">
+            <img id="add" src="add.png" alt="not found image" srcset="">
+            <img id="ban" src="banana.png" alt="not found image" srcset=""><br>
+            <img id="eq" src="equal.png" alt="not found image" srcset="">
+            <img id="lev" src="level2.png" alt="not found image" srcset="">
+            
+            <p><b>Welcome to Level 1, Your Challenge to next level: </b><br>Using the Arrow keys move the monkey to Collect all the bananas</p>
+            <button id="okLevel1">OK</button>
+        </div>
+    </div>
+    
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="animation.js"></script>
+    <script src="controller.js"></script>
+    <script src="character.js"></script>
+    <script src="targetItem.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
