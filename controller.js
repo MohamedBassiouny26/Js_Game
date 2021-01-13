@@ -4,21 +4,22 @@ let ArrowController = {
     upActive: false,
     dActive: false,
     keyUpDown(event) {
+        console.log(event.keyCode)
         let key_state = (event.type == "keydown") ? true : false;
-        switch (event.key) {
-            case "ArrowUp":
+        switch (event.keyCode) {
+            case 38:
                 if (ArrowController.upActive != key_state)
                     ArrowController.upActive = key_state
                 break;
-            case "ArrowLeft":
+            case 37:
                 if (ArrowController.leftActive != key_state)
                     ArrowController.leftActive = key_state;
                 break;
-            case "ArrowRight":
+            case 39:
                 if (ArrowController.rightActive != key_state)
                     ArrowController.rightActive = key_state;
                 break;
-            case "ArrowDown":
+            case 40:
                 if (ArrowController.dActive != key_state)
                     ArrowController.dActive = key_state;
                 break;
