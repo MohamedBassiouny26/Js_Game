@@ -1,20 +1,20 @@
-var mySound;
-mySound = new sound("bounce.mp3")
-
-function sound(src) {
-    this.sound = document.createElement("audio");
-    this.sound.src = src;
-    this.sound.setAttribute("preload", "auto");
-    this.sound.setAttribute("controls", "none");
-    this.sound.style.display = "none";
-    document.body.appendChild(this.sound);
-    this.play = function () {
-        this.sound.play();
+class SoundClass{
+    constructor(source){
+        this.soundElement = document.createElement("audio")
+        this.soundElement.src = source;
+        this.soundElement.setAttribute("preload", "auto");
+        this.soundElement.setAttribute("controls", "none");
+        this.soundElement.style.display = "none";
+        document.body.appendChild(this.soundElement);
     }
-    this.stop = function () {
-        this.sound.pause();
+    playmusic(){
+        this.soundElement.play()
+    }
+    stopmusic(){
+        this.soundElement.pause();
     }
 }
+
 //create all variables here:................
 let Frame_set = {
     player1: {
@@ -34,10 +34,13 @@ let Frame_set = {
         jumpLeft: ["./img_blue/monkey_jumpleft_1.png", "./img_blue/monkey_jumpleft_2.png", "./img_blue/monkey_jumpleft_3.png", "./img_blue/monkey_jumpleft_4.png"],
     },
 }
-let player1 = new Character("player1", 30, 380, 70, 70, Frame_set.player1, ArrowController); //da al character henzl mnen
-let player2 = new Character("player2", 90, 380, 70, 70, Frame_set.player2, lettersController); //da al character henzl mnen
+let player1 = new Character("player1", 15, 380, 70, 70, Frame_set.player1, ArrowController); //da al character henzl mnen
+let player2 = new Character("player2", 40, 380, 70, 70,Frame_set.player2, lettersController,true); //da al character henzl mnen
 let banana = new targetItems("banana.png", 32, 32)
-var score = 0;
+var mySound = new SoundClass("bounce.mp3")
+var backgroundSound = new SoundClass("melodyloops.mp3")
+var score = 0,music_imag,mute=true;
+var lifes =3;
 let image = new Image();
 image.src = "Tiles_32x32.png";
 let imagefire = new Image();
@@ -48,29 +51,31 @@ const tileWidth = 32,
     tileHeight = 32;
 const mapHeight = 21,
     mapColumns = 37;
-let tiles = [, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 
-            , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 
-            , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 
-            , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 
-            , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 
-            , , , , , , , , 0, 0, 0, 0, 0, 0, 0, 0, , , , , , , , , , , , , , , , , , 
-            , , , , , , , , , 0, 0, 0, 4, 47, , , , , , , , , 0, 0, 0, 0, , , , , , , 
-            , , , , , , , , , , , , , , 51, 4, 4, 4, , , , , , , , , , 51, 4, 4, 47, , 
-            , , , , , , , , , 0, 0, 0, 0, 0, 0, , , , , , 51, 4, 47, , , , , , , , , , 
-            , , , , , 0, 0, 0, , , , , , , , , , 51, 4, 4, , , , , , , 4, , , , , , ,
-            , , , , , , , , , , , , , , , , , , , , , , , , 0, 0, 0, 0, 0, 0, 4, 80, 80,
-            , , , , , , , , , , , , , , , , 0, 0, 0, 0, 0, 0, , , , , , ,4, 4, 4, 4, 4, 4, 4, 0, 0, , 
-            , , , 0, 0, 0, , , , , , , , , , 51, 4, 47, , , , , , , , , ,4, 4, 4, 47, , , , , , , ,
-             , , , , , , , , , , 0, 0, 0, , , , , , , , , , , , , ,47, , , , , , , , , , , , , , , , , 
-             , , , , , , , , , , , , , , 0, 0, 0, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 0, 0, 0, 0, , , , 0, 0, 0, 0, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 80, 80, 80, 80, 80, 80, , , , , , , , 0, 0, , , , , , 0, 0, , , , , , , , , , , , , , , 0, 0, 0, 0, 0, 0, 0, 0, , , , , , , 4, 4, 60, 60, 60, 60, 60, 4, 4, 0, , , , , , , , , , , , , , 4, 4, 4, 4, 4, 4, 50, 4,
-    0, 0, 0, 0, 0, 0, 4, 4, 0, 0, 0, 0, 0, 4, 50, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4, 50, 6, 4, 50,
-    4, 4, 6, 6, 4, 6, 4, 4, 4, 4, 4, 50, 4, 50, 4, 50, 4, 4, 4, 50, 4, 4, 50, 4, 4, 4, 4, 4, 4, 4, 4, 4, 6, 6, 4, 6, 6
+let tiles = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+             4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
+             4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
+             4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
+             4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
+             4,  ,  ,  ,  ,  ,  , 0, 0, 0, 0, 0, 0, 0, 0,  ,  ,  ,,,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
+             4,  ,  ,  , 0, 0, 0, 4,47,  ,  ,  ,  ,  ,  ,  ,  , 0, 0, 0, 0,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
+             4,  ,  ,  ,51, 4, 4, 4,  ,  ,  ,  ,  ,  ,  ,  ,  ,51, 4, 4,47,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , , , , , , 4,
+             4,  ,  ,  ,  ,51, 4,47,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 0, 0, 0,  ,  ,  ,  ,  ,  , 0 ,0 , 0, 0 ,0,4,
+             4,  ,  ,  ,  ,  , 4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,51 ,4, 4,
+             4, 0, 0, 0, 0, 0, 4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 0,60,60,60,60, 0,  ,  ,  ,  ,  , 4,
+             4, 4, 4, 4, 4, 4, 4, 0, 0,  ,  ,  ,  , 0, 0, 0,  ,  ,  ,  ,  ,  ,  ,  ,  ,51, 0, 0, 0, 0,47,  ,  ,  ,  ,  , 4,
+             4, 4, 4,47,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 0, 0, 0,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
+             4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 0, 0, 0,  ,  , 4,
+             4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  6,  , 6 ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
+             4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 0, 0, 0, 0,  ,  ,  , 0, 0, 0, 0,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
+             4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,80,80,80,80,80,80, 4,
+             4,  ,  ,  ,  ,  , 0, 0,  ,  ,  ,  ,  , 0, 0,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 0, 0, 0, 0, 0, 0, 0, 4,
+             4,  ,  ,  ,  ,  , 4, 4,60,60,60,60,60, 4, 4, 0,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4, 4, 4, 4, 4, 4,50, 4,
+             4, 0, 0, 0, 0, 0, 4, 4, 0, 0, 0, 0, 0, 4,50, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4,50, 6, 4, 4,
+             4, 4, 6, 6, 4, 6, 4, 4, 4, 4, 4,50, 4,50, 4,50, 4, 4, 4,50, 4, 4,50, 4, 4, 4, 4, 4, 4, 4, 4, 4, 6, 6, 4, 6, 4
 ];
 
 image.addEventListener('load', drawTile);
 let display = document.getElementById("myCanvas");
-display.style.width = window.innerWidth + 'px';
-display.style.height = window.innerHeight + 'px';
 display.width = 1183;
 display.height = 670;
 let ctx = display.getContext("2d");
@@ -97,48 +102,77 @@ function drawTile() {
         //console.log("y= "+targetY,i);
         if (tile !== 60 & tile !== 80) {
             ctx.drawImage(image, sourceX, sourceY, tileWidth, tileHeight, targetX, targetY, tileWidth, tileHeight);
-        } else if (tile === 80) {
+        } else if (tile === 80 && (Math.floor(i / mapColumns)+1 != player2.currentRow) ) {
             ctx.drawImage(imagefire, 225, 313, 1452, 1472, targetX, targetY, tileWidth, tileHeight);
-
-        } else if (tile === 60) {
+        } else if (tile === 60 && (Math.floor(i / mapColumns)+1 != player1.currentRow) ) {
+             
             // context.drawImage(imagefire, 17, 2329, 1960, 904, targetX, targetY, tileWidth, tileHeight);
             ctx.drawImage(imagewave, 5, 33, 595, 297, targetX, targetY, tileWidth, tileHeight);
         }
+       // console.log(Math.floor(i / mapColumns))
     }
 }
 
 function showScore_Reset() {
     ctx.fillStyle = "#58391c";
     ctx.font = "italic bold 20pt Tahoma";
-    console.log(banana.ArrayOfXpos.length)
-    ctx.fillText("Score : " + (10 - banana.ArrayOfXpos.length) + " /10", 200, 60);
+    let score_imag = new Image()
+    score_imag.src ="banana.png"
+    ctx.drawImage(score_imag,170,35,32,32)
+   ctx.fillText(":"+(15 - banana.ArrayOfXpos.length) + " /15", 200, 60);
+   ctx.fillText("lifes:", 400, 60);
+   for(let i=0;i<lifes;i++){
+       let heart = new Image()
+       heart.src = "heart.png"
+       ctx.drawImage(heart,480+(50*i),40,30,30)
+   }
     let reset_imag = new Image()
     reset_imag.id = "ResetImage"
     reset_imag.src = "reset.png"
     ctx.drawImage(reset_imag, 800, 40, 80, 50)
+     music_imag =new Image()
+     if(mute==true){
+    music_imag.src = "NoMusic.png"}
+    else{music_imag.src = "music.png"}
+    ctx.drawImage(music_imag, 900, 42, 50, 45)
+    let exit_imag = new Image()
+    exit_imag.src = "exit.png"
+    ctx.drawImage(exit_imag, 970, 42, 50, 45)
+    
 }
 //end of creation of variables..............
 //main loop function
 function loop() {
+  
     player1.spirit();
     player1.animate.update();
     player2.spirit();
     player2.animate.update();
     drawTile();
+    banana.DrawTargetItem();
     player1.drawCharacter();
     player2.drawCharacter();
-    banana.DrawTargetItem();
     showScore_Reset();
     player2.Colliston();
     player1.Colliston();
-    drwaTrap();
+    drawTrap();
     window.requestAnimationFrame(loop);
 }
 
-function ClickonResetFn(event) {
-    console.log(event.x + "+" + event.y)
-    if ((event.x >= 933 && event.x <= 1018) && (event.y >= 40 && event.y <= 75)) {
+function ClickonFn(event) {
+      let Xpercent = event.x/parseInt(display.style.width);
+      let Ypercent = event.y/parseInt(display.style.height);
+    if ((Xpercent >= 768/1119 && Xpercent <= 838/1119) && (Ypercent>= 43/657 && Ypercent <= 83/657)) {
         window.location.reload()
+    }else if ((Xpercent >= 861/1119 && Xpercent <= 907/1119) && (Ypercent>= 41/657 && Ypercent <= 83/657)){
+      if(mute==true){
+          backgroundSound.playmusic()
+          mute=false;
+      }else{
+        backgroundSound.stopmusic()
+        mute=true;
+      }
+    
     }
 }
 
@@ -149,30 +183,45 @@ window.addEventListener("keydown", player1.controller.keyUpDown)
 window.addEventListener("keyup", player1.controller.keyUpDown)
 window.addEventListener("keydown", player2.controller.keyUpDown)
 window.addEventListener("keyup", player2.controller.keyUpDown)
-display.addEventListener("click", ClickonResetFn)
+display.addEventListener("click", ClickonFn)
 // end of eventlisteners creation
-function drwaTrap() {
+function drawTrap() {
     let player1Tilex = Math.floor((player1.xPosition + player1.width + 2) / tileWidth);
     let player1Tiley = Math.floor((player1.yPosition + player1.height + 2) / tileHeight);
     let Player1trap = tiles[(player1Tiley * mapColumns) + player1Tilex - 38];
     let player2Tilex = Math.floor((player2.xPosition + player2.width + 2) / tileWidth);
     let player2Tiley = Math.floor((player2.yPosition + player2.height + 2) / tileHeight);
     let player2trap = tiles[(player2Tiley * mapColumns) + player2Tilex - 38];
-    if (Player1trap === 80) {
-        if (imagefire.getAttribute('src')) {
-            player1.dead = true
-        }
-    } else if (Player1trap === 60) {
-        imagewave.src = ""
-    } else {
-        imagewave.src = "Waves.png"
-    }
-    if (player2trap === 80) {
-        imagefire.src = ""
-    } else if (player2trap === 60) {
-        if (imagewave.getAttribute("src"))
-            player2.dead = true
-    } else {
-        imagefire.src = "Fire.png"
-    }
+    console.log(player1Tiley)
+   if(Player1trap == 60){
+       player1.currentRow = player1Tiley;
+       player1.touchWaterFire = true;
+   }else if(Player1trap == 80 && player2.touchWaterFire == false){
+        player1.xPosition=15;
+        player1.yPosition=450;
+        player1.touchWaterFire = false;
+        lifes--;
+   }else{
+    player1.currentRow = 0;
+    player1.touchWaterFire = false;
+   }
+   if(player2trap == 80){
+       player2.currentRow = player2Tiley;
+       player2.touchWaterFire = true;
+      
+   }else if(player2trap == 60 && player1.touchWaterFire ==false){
+        player2.xPosition=30;
+        player2.yPosition=450;
+        player2.touchWaterFire = false;
+        lifes--;
+   }else if(player2trap==6)
+   {
+   }
+   else{
+    player2.currentRow = 0;
+    player2.touchWaterFire = false;
+   }
+    
+   if(lifes === 0){
+   }
 }
