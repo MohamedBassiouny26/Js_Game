@@ -28,7 +28,7 @@ class Character {
         ctx.drawImage(this.characterImage, this.xPosition, this.yPosition, this.width, this.height);
     }
     spirit() {
-        if (this.controller.upActive && !this.jumping && !this.falling) {
+        if ((this.controller.upActive && !this.jumping && !this.falling)||(this.controller.upActive &&this.countJumps===1 &&this.doublejumping===1)) {
           if(this.doublejumping == this.countJumps){
             this.jumping = true;
             this.countJumps =0;
@@ -36,7 +36,7 @@ class Character {
            this.countJumps++;
            this.controller.upActive =false
           }
-            this.y_velocity -= 10;
+            this.y_velocity -= 12;
             if (this.face == "right")
                 this.animate.change(this.Frame_set.jumpRight, 15);
             else if (this.face == "left")
@@ -160,12 +160,12 @@ class Character {
                 player1.falling = false;
             }
         }
-      /*  if ((this.yPosition - (player2.yPosition + 11.75) >= 0 && this.yPosition - (player2.yPosition + 11.75) <= 20) && (Math.abs(this.xPosition - player2.xPosition) <= 20 && Math.abs(this.xPosition - player2.xPosition) >= 0)) {
+        if ((this.yPosition - (player2.yPosition + 11.75) >= 0 && this.yPosition - (player2.yPosition + 11.75) <= 20) && (Math.abs(this.xPosition - player2.xPosition) <= 20 && Math.abs(this.xPosition - player2.xPosition) >= 0)) {
             player1.carry = true
             player2.isCarried = true
             player2.jumping = false
             player2.falling = false;
-       }*/
+       }
     }
 }
 
