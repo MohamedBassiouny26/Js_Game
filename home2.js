@@ -119,7 +119,7 @@ function showScore_Reset() {
     let score_imag = new Image()
     score_imag.src ="banana.png"
     ctx.drawImage(score_imag,170,35,32,32)
-   ctx.fillText(":"+(15 - banana.ArrayOfXpos.length) + " /15", 200, 60);
+   ctx.fillText(":"+(banana.maxNumber - banana.ArrayOfXpos.length) + " /"+ banana.maxNumber, 200, 60);
    ctx.fillText("lifes:", 400, 60);
    for(let i=0;i<lifes;i++){
        let heart = new Image()
