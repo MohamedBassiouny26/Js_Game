@@ -28,7 +28,7 @@ class Character {
         ctx.drawImage(this.characterImage, this.xPosition, this.yPosition, this.width, this.height);
     }
     spirit() {
-        if ((this.controller.upActive && !this.jumping && !this.falling)||(this.controller.upActive &&this.countJumps===1 &&this.doublejumping===1)) {
+        if ((this.controller.upActive && !this.jumping && !this.falling)||(this.controller.upActive&&this.countJumps===1 &&this.doublejumping===1)) {
           if(this.doublejumping == this.countJumps){
             this.jumping = true;
             this.countJumps =0;
