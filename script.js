@@ -101,7 +101,7 @@ function showScore_Reset() {
     let score_imag = new Image()
     score_imag.src ="banana.png"
     ctx.drawImage(score_imag,170,35,32,32)
-   ctx.fillText(":"+(10 - banana.ArrayOfXpos.length) + " /10", 200, 60);
+    ctx.fillText(":"+(banana.maxNumber - banana.ArrayOfXpos.length) + " /"+ banana.maxNumber, 200, 60);
     let reset_imag = new Image()
     reset_imag.id = "ResetImage"
     reset_imag.src = "reset.png"
