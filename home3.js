@@ -33,9 +33,17 @@ let Frame_set = {
         jumpRight: ["./img_blue/monkey_jump_1.png", "./img_blue/monkey_jump_2.png", "./img_blue/monkey_jump_3.png", "./img_blue/monkey_jump_4.png"],
         jumpLeft: ["./img_blue/monkey_jumpleft_1.png", "./img_blue/monkey_jumpleft_2.png", "./img_blue/monkey_jumpleft_3.png", "./img_blue/monkey_jumpleft_4.png"],
     },
+    Enemy: {
+        walkRight:["./Monster/walking_Right_01.png","./Monster/walking_Right_03.png","./Monster/walking_Right_05.png","./Monster/walking_Right_07.png",
+        "./Monster/walking_Right_09.png","./Monster/walking_Right_11.png"],
+        walkLeft:["./Monster/walking_Left_01.png","./Monster/walking_Left_03.png","./Monster/walking_Left_05.png","./Monster/walking_Left_07.png",
+        "./Monster/walking_Left_09.png","./Monster/walking_Left_11.png"]
+    }
 }
 let player1 = new Character("player1", 15, 510, 70, 70, Frame_set.player1, ArrowController,0); //da al character henzl mnen
 let player2 = new Character("player2", 40, 510, 70, 70, Frame_set.player2, lettersController,1); //da al character henzl mnen
+let enemy1 = new Enemy("Enemy1",30*32,(5*32)-10,80,80,Frame_set.Enemy)
+let enemy2 = new Enemy("Enemy2",6*32,(3*32)-10,80,80,Frame_set.Enemy)
 let banana = new targetItems("banana.png", 32, 32)
 var mySound = new SoundClass("bounce.mp3")
 var backgroundSound = new SoundClass("melodyloops.mp3")
@@ -62,11 +70,11 @@ let tiles = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4
              4,  ,  ,  ,  ,51, 4,47,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 0, 0, 0,  ,  ,  ,  ,  ,  ,  ,  ,  ,51, 4, 4,
              4,  ,  ,  ,  ,  , 4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
              4, 0, 0, 0, 0, 0, 4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 0,60,60,60,60, 0,  ,  ,  ,  ,  , 4,
-             4, 4, 4, 4, 4, 4, 4, , ,  ,  ,  ,  , , , ,  ,  ,  ,  ,  ,  ,  ,  ,  ,51, 0, 0, 0, 0,47,  ,  ,  ,  ,  , 4,
-             4, 4, 4,47,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 0, 0, 0, ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
+             4, 4, 4, 4, 4, 4, 4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,51, 0, 0, 0, 0,47,  ,  ,  ,  ,  , 4,
+             4, 4, 4,47,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 0, 0, 0,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
              4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 0, 0, 0,  ,  , 4,
              4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
-             4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , , , , ,  ,  ,  , 0, 0, 0, 0,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
+             4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 0, 0, 0, 0,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
              4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,80,80,80,80,80,80, 4,
              4,  ,  ,  ,  ,  , 0, 0,  ,  ,  ,  ,  , 0, 0,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 0, 0, 0, 0, 0, 0, 0, 4,
              4,  ,  ,  ,  ,  , 4, 4,60,60,60,60,60, 4, 4, 0,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4, 4, 4, 4, 4, 4,50, 4,
@@ -119,7 +127,7 @@ function showScore_Reset() {
     let score_imag = new Image()
     score_imag.src ="banana.png"
     ctx.drawImage(score_imag,170,35,32,32)
-   ctx.fillText(":"+(15 - banana.ArrayOfXpos.length) + " /15", 200, 60);
+    ctx.fillText(":"+(banana.maxNumber - banana.ArrayOfXpos.length) + " /"+ banana.maxNumber, 200, 60);
    ctx.fillText("lifes:", 400, 60);
    for(let i=0;i<lifes;i++){
        let heart = new Image()
@@ -151,6 +159,8 @@ function loop() {
     banana.DrawTargetItem();
     player1.drawCharacter();
     player2.drawCharacter();
+    enemy1.drawCharacter();
+    enemy2.drawCharacter();
     showScore_Reset();
     player2.Colliston();
     player1.Colliston();
@@ -159,6 +169,7 @@ function loop() {
 }
 
 function ClickonFn(event) {
+    console.log(event.x+"+"+event.y)
       let Xpercent = event.x/parseInt(display.style.width);
       let Ypercent = event.y/parseInt(display.style.height);
     if ((Xpercent >= 768/1119 && Xpercent <= 838/1119) && (Ypercent>= 43/657 && Ypercent <= 83/657)) {

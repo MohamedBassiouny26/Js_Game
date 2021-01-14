@@ -6,6 +6,7 @@ class targetItems {
         this.ArrayOfXpos = [];
         this.ArrayOfYpos = [];
         this.firstTime = true;
+        this.maxNumber = 0
     }
     DrawTargetItem() {
 
@@ -51,6 +52,7 @@ class targetItems {
                     }
                 }
             }
+            this.maxNumber = this.ArrayOfXpos.length;
             this.firstTime = false
         } else {
             for (let j = 0; j < this.ArrayOfYpos.length; j++) {

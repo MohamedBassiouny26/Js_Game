@@ -29,7 +29,7 @@ class Character {
     }
     spirit() {
         if ((this.controller.upActive && !this.jumping && !this.falling)||
-        (this.controller.upActive&&this.doublejumping===1&&this.countJumps===1&&this.y_velocity>-1)) {
+        (this.controller.upActive&&this.doublejumping===1&&this.countJumps===1&&this.y_velocity>=-1)) {
             this.jumping = true;
             if(this.countJumps>=1)
                 this.countJumps=0;
@@ -142,9 +142,8 @@ class Character {
                 this.x_velocity = 0;
             }
         if (upTile === 0 || upTile === 4 || upTile === 51 || upTile === 47) {
-            if (this.y_velocity > 0)
+            if (this.y_velocity < 0)
                 this.y_velocity += 0.8;
-                this.countJumps=2;
         }
 
         let currentY = (Math.floor(this.yPosition)+3),
@@ -170,3 +169,35 @@ class Character {
 }
 
 
+
+class Enemy {
+    constructor(name, x, y, height, width, frame_set){
+        this.name = name;
+        this.xPosition = x;
+        this.yPosition = y;
+        this.height = height;
+        this.width = width
+        this.moveCounter=0;
+        this.Frame_set = frame_set;
+        this.characterImage = new Image();
+        this.animate= new Animate(this.Frame_set.walkRight, 15);
+    }
+    drawCharacter() {
+        this.characterImage.src = this.animate.frame;
+        ctx.drawImage(this.characterImage, this.xPosition, this.yPosition, this.width, this.height);
+    }
+    constantMove(){
+        this.moveCounter++;
+        if(this.moveCounter>200){
+            if(this.moveCounter===400)
+                this.moveCounter=0;
+            this.x_velocity-=1;
+        }        
+        else
+            this.x_velocity+=1;
+        this.y_velocity += 0.25; //used as a graphity
+        this.xPosition += this.x_velocity;
+        this.yPosition += this.y_velocity;
+        this.x_velocity = 0;
+    }
+}
