@@ -28,19 +28,18 @@ class Character {
         ctx.drawImage(this.characterImage, this.xPosition, this.yPosition, this.width, this.height);
     }
     spirit() {
-        if ((this.controller.upActive && !this.jumping && !this.falling)||(this.controller.upActive&&this.countJumps===1 &&this.doublejumping===1)) {
-          if(this.doublejumping == this.countJumps){
+        if ((this.controller.upActive && !this.jumping && !this.falling)||
+        (this.controller.upActive&&this.doublejumping===1&&this.countJumps===1&&this.y_velocity>-1)) {
             this.jumping = true;
-            this.countJumps =0;
-          }else{
-           this.countJumps++;
-           this.controller.upActive =false
-          }
-            this.y_velocity -= 12;
+            if(this.countJumps>=1)
+                this.countJumps=0;
+            else 
+                this.countJumps=1;
+            this.y_velocity -= 13;
             if (this.face == "right")
-                this.animate.change(this.Frame_set.jumpRight, 15);
+                this.animate.change(this.Frame_set.jumpRight, 30);
             else if (this.face == "left")
-                this.animate.change(this.Frame_set.jumpLeft, 15);
+                this.animate.change(this.Frame_set.jumpLeft, 30);
             if (this.carry)
                 player1.jumping = true;
             this.isCarried = false
@@ -49,7 +48,7 @@ class Character {
             this.face = "left"
             this.x_velocity -= 0.07;
             if (!this.jumping) {
-                this.animate.change(this.Frame_set.walkLeft, 15);
+                this.animate.change(this.Frame_set.walkLeft, 30);
             }
             if (this.carry&&this.name=="player2") {
                 player1.x_velocity = player2.x_velocity;
@@ -62,7 +61,7 @@ class Character {
             this.face = "right"
             this.x_velocity += 0.07;
             if (!this.jumping) {
-                this.animate.change(this.Frame_set.walkRight, 15);
+                this.animate.change(this.Frame_set.walkRight, 30);
             }
             if (this.carry&&this.name=="player2") {
                 player1.x_velocity = player2.x_velocity;
@@ -73,11 +72,11 @@ class Character {
         }
         if (!this.controller.rightActive && !this.controller.leftActive) {
             if (this.face == "right")
-                this.animate.change(this.Frame_set.idle, 15);
+                this.animate.change(this.Frame_set.idle, 30);
             else if (this.face == "left")
-                this.animate.change(this.Frame_set.idleLeft, 15);
+                this.animate.change(this.Frame_set.idleLeft, 30);
         }
-        this.y_velocity += 0.20; //used as a graphity
+        this.y_velocity += 0.25; //used as a graphity
         this.xPosition += this.x_velocity;
         this.yPosition += this.y_velocity;
         this.x_velocity *= 0.96;
@@ -119,7 +118,7 @@ class Character {
         
       
             
-        if (currentTile === 0 || currentTile === 6 || currentTile === 4) {
+        if (currentTile === 0 || currentTile === 6) {
             if (this.height + this.yPosition > tiley * tileHeight + 3) {
                 this.jumping = false;
                 this.yPosition = tiley * tileHeight - this.height + 3;
@@ -127,7 +126,7 @@ class Character {
             }
         }
         if (currentTile == undefined && !this.jumping) {}
-        if ((nextTile === 51 || nextTile === 4 || nextTile === 6)||(nextTile_upper===0 && nextTile_lower == undefined)  ) {
+        if ((nextTile === 51 || nextTile === 4 || nextTile === 6||nextTile===47)||(nextTile_upper===0 && nextTile_lower == undefined)  ) {
            
             if (this.xPosition > tilex * tileWidth - this.width + 12 && this.x_velocity > 0) {
                 this.xPosition = tilex * tileWidth - this.width + 12;
@@ -145,8 +144,6 @@ class Character {
                 this.y_velocity += 0.8;
         }
 
-        //////////////when touching banana /////////////////
-        //console.log(Banana_y[0]+"+"+(Math.floor(player1.yPosition)+3)+player1.width+2)+"+"+Banana_x[0]);
         let currentY = (Math.floor(this.yPosition)+3),
             currentX = Math.floor(this.xPosition) + (this.width / 1.5);
             console.log(currentX+"+"+currentY)
