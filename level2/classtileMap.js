@@ -17,8 +17,7 @@ class map{
         this.tileHeight=tiHeight;
         this.mapColumns=mapColum;
         this.mapHeight=mapeigh;
-        this.tiles=til;
-        
+        this.tiles=til; 
     }
     draw() {
         for (let i = 0; i < Maps.mapColumns * Maps.mapHeight; i++) {
