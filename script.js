@@ -38,6 +38,7 @@ let Frame_set = {
 }
 let player1 = new Character("player1", 30, 380, 70, 70, Frame_set.player1, ArrowController); //da al character henzl mnen
 let player2 = new Character("player2", 90, 380, 70, 70, Frame_set.player2, lettersController); //da al character henzl mnen
+let enimy1 = new Enimy("enimy1", 300, 510, 70, 70, Frame_set.player2,lettersController); //da al character henzl mnen
 let banana = new targetItems("banana.png", 32, 32)
 var score = 0;
 let tileImage = new Image();
@@ -89,16 +90,10 @@ function drawTile() {
         ctx.drawImage(tileImage, sourceX, sourceY, tileWidth, tileHeight, targetX, targetY, tileWidth, tileHeight);
     }
 }
-
 function showScore_Reset() {
     ctx.fillStyle = "#58391c";
     ctx.font = "italic bold 20pt Tahoma";
-    console.log(banana.ArrayOfXpos.length)
     ctx.fillText("Score : " + (10 - banana.ArrayOfXpos.length) + " /10", 200, 60);
-    let reset_imag = new Image()
-    reset_imag.id = "ResetImage"
-    reset_imag.src = "reset.png"
-    ctx.drawImage(reset_imag, 800, 40, 80, 50)
 }
 //end of creation of variables..............
 //main loop function
@@ -107,7 +102,11 @@ function loop() {
     player1.animate.update();
     player2.spirit();
     player2.animate.update();
+    enimy1.constantMove();
+    enimy1.animate.update();
+    enimy1.Colliston();
     drawTile();
+    enimy1.drawCharacter();
     player1.drawCharacter();
     player2.drawCharacter();
     banana.DrawTargetItem();
@@ -117,33 +116,12 @@ function loop() {
     window.requestAnimationFrame(loop);
 }
 
-function ClickonResetFn(event) {
-    console.log(event.x + "+" + event.y)
-    if ((event.x >= 933 && event.x <= 1018) && (event.y >= 40 && event.y <= 75)) {
-        window.location.reload()
-    }
-}
-
-// function drawTile() {
-//     ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
-//     for (let i = 0; i < mapColumns * mapHeight; i++) {
-//         let tile = tiles[i];
-//         let sourceX = (tile % (mapColumns + 10)) * tileWidth;
-
-//         //console.log(sourceX);
-//         let sourceY = Math.floor(tile / (mapColumns + 10)) * tileHeight;
-
-//         //console.log(sourceY);
-//         let targetX = (i % mapColumns) * tileWidth;
-//         //console.log("x=")
-//         //console.log("x= "+targetX,i);
-//         let targetY = Math.floor(i / mapColumns) * tileHeight;
-//         //console.log("y= "+targetY,i);
-//         ctx.drawImage(tileImage, sourceX, sourceY, tileWidth, tileHeight, targetX, targetY, tileWidth, tileHeight);
+// function ClickonResetFn(event) {
+//     console.log(event.x + "+" + event.y)
+//     if ((event.x >= 933 && event.x <= 1018) && (event.y >= 40 && event.y <= 75)) {
+//         window.location.reload()
 //     }
 // }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////end esraa
-
 //end of creation of variables..............
 
 //create all eventlisteners here
@@ -154,5 +132,4 @@ window.addEventListener("keydown", player1.controller.keyUpDown)
 window.addEventListener("keyup", player1.controller.keyUpDown)
 window.addEventListener("keydown", player2.controller.keyUpDown)
 window.addEventListener("keyup", player2.controller.keyUpDown)
-display.addEventListener("click", ClickonResetFn)
 // end of eventlisteners creation

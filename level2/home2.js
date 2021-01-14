@@ -34,8 +34,8 @@ let Frame_set = {
         jumpLeft: ["./img_blue/monkey_jumpleft_1.png", "./img_blue/monkey_jumpleft_2.png", "./img_blue/monkey_jumpleft_3.png", "./img_blue/monkey_jumpleft_4.png"],
     },
 }
-let player1 = new Character("player1", 15, 380, 70, 70, Frame_set.player1, ArrowController); //da al character henzl mnen
-let player2 = new Character("player2", 40, 380, 70, 70,Frame_set.player2, lettersController,true); //da al character henzl mnen
+let player1 = new Character("player1", 15, 540, 70, 70, Frame_set.player1, ArrowController,0); //da al character henzl mnen
+let player2 = new Character("player2", 40, 540, 70, 70, Frame_set.player2, lettersController,1); //da al character henzl mnen
 let banana = new targetItems("banana.png", 32, 32)
 var mySound = new SoundClass("bounce.mp3")
 var backgroundSound = new SoundClass("melodyloops.mp3")
@@ -56,17 +56,17 @@ let tiles = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4
              4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
              4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
              4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
-             4,  ,  ,  ,  ,  ,  , 0, 0, 0, 0, 0, 0, 0, 0,  ,  ,  ,,,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
+             4,  ,  ,  ,  ,  ,  , 0, 0, 0, 0, 0, 0, 0, 0,  ,  ,  ,80,80,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
              4,  ,  ,  , 0, 0, 0, 4,47,  ,  ,  ,  ,  ,  ,  ,  , 0, 0, 0, 0,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
-             4,  ,  ,  ,51, 4, 4, 4,  ,  ,  ,  ,  ,  ,  ,  ,  ,51, 4, 4,47,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , , , , , , 4,
-             4,  ,  ,  ,  ,51, 4,47,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 0, 0, 0,  ,  ,  ,  ,  ,  , 0 ,0 , 0, 0 ,0,4,
-             4,  ,  ,  ,  ,  , 4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,51 ,4, 4,
+             4,  ,  ,  ,51, 4, 4, 4,  ,  ,  ,  ,  ,  ,  ,  ,  ,51, 4, 4,47,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 0, 0, 0, 0, 0, 4,
+             4,  ,  ,  ,  ,51, 4,47,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 0, 0, 0,  ,  ,  ,  ,  ,  ,  ,  ,  ,51, 4, 4,
+             4,  ,  ,  ,  ,  , 4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
              4, 0, 0, 0, 0, 0, 4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 0,60,60,60,60, 0,  ,  ,  ,  ,  , 4,
-             4, 4, 4, 4, 4, 4, 4, 0, 0,  ,  ,  ,  , 0, 0, 0,  ,  ,  ,  ,  ,  ,  ,  ,  ,51, 0, 0, 0, 0,47,  ,  ,  ,  ,  , 4,
-             4, 4, 4,47,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 0, 0, 0,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
+             4, 4, 4, 4, 4, 4, 4, , ,  ,  ,  ,  , , , ,  ,  ,  ,  ,  ,  ,  ,  ,  ,51, 0, 0, 0, 0,47,  ,  ,  ,  ,  , 4,
+             4, 4, 4,47,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 0, 0, 0, ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
              4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 0, 0, 0,  ,  , 4,
-             4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  6,  , 6 ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
-             4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 0, 0, 0, 0,  ,  ,  , 0, 0, 0, 0,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
+             4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
+             4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , , , , ,  ,  ,  , 0, 0, 0, 0,  ,  ,  ,  ,  ,  ,  ,  ,  , 4,
              4,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,80,80,80,80,80,80, 4,
              4,  ,  ,  ,  ,  , 0, 0,  ,  ,  ,  ,  , 0, 0,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 0, 0, 0, 0, 0, 0, 0, 4,
              4,  ,  ,  ,  ,  , 4, 4,60,60,60,60,60, 4, 4, 0,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  , 4, 4, 4, 4, 4, 4,50, 4,
@@ -143,7 +143,6 @@ function showScore_Reset() {
 //end of creation of variables..............
 //main loop function
 function loop() {
-  
     player1.spirit();
     player1.animate.update();
     player2.spirit();
@@ -155,6 +154,9 @@ function loop() {
     showScore_Reset();
     player2.Colliston();
     player1.Colliston();
+    player2.collectBanan();
+    player1.collectBanan();
+    
     drawTrap();
     window.requestAnimationFrame(loop);
 }
@@ -196,11 +198,10 @@ function drawTrap() {
    if(Player1trap == 60){
        player1.currentRow = player1Tiley;
        player1.touchWaterFire = true;
-   }else if(Player1trap == 80 && player2.touchWaterFire == false){
-        player1.xPosition=15;
-        player1.yPosition=450;
-        player1.touchWaterFire = false;
-        lifes--;
+   }else if(Player1trap == 80 && (player2.touchWaterFire == false|| player2Tiley != player1Tiley)){
+    player1 = new Character("player1", 15, 380, 70, 70, Frame_set.player1, ArrowController,0);
+    player1.touchWaterFire = false;
+    lifes--;
    }else{
     player1.currentRow = 0;
     player1.touchWaterFire = false;
@@ -209,19 +210,16 @@ function drawTrap() {
        player2.currentRow = player2Tiley;
        player2.touchWaterFire = true;
       
-   }else if(player2trap == 60 && player1.touchWaterFire ==false){
-        player2.xPosition=30;
-        player2.yPosition=450;
-        player2.touchWaterFire = false;
-        lifes--;
-   }else if(player2trap==6)
-   {
-   }
-   else{
+   }else if(player2trap == 60 && (player1.touchWaterFire ==false || player2Tiley != player1Tiley)  ){
+    player2 = new Character("player2", 40, 380, 70, 70, Frame_set.player2, lettersController,1); 
+    player2.touchWaterFire = false;
+    lifes--;
+   }else{
     player2.currentRow = 0;
     player2.touchWaterFire = false;
    }
     
    if(lifes === 0){
+     //  alert("gameOver")
    }
 }

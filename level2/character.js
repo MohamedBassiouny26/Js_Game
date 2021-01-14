@@ -1,5 +1,5 @@
 class Character {
-    constructor(name, x, y, height, width, frame_set, controller,doubleJump=false, x_velocity = 0, y_velocity = 0, jumping = false, ) {
+    constructor(name, x, y, height, width, frame_set, controller,doublejumping , x_velocity = 0, y_velocity = 0, jumping = false,countJumps=0) {
         this.name = name;
         this.xPosition = x;
         this.yPosition = y;
@@ -19,29 +19,36 @@ class Character {
         this.dead = false;
         this.currentRow = 0;
         this.touchWaterFire = false
-        this.doubleJumpAbility=doubleJump;
-        if(this.doubleJumpAbility)
-            this.secondJump=false;
+        this.doublejumping = doublejumping
+        this.countJumps = countJumps
+
     }
     drawCharacter() {
         this.characterImage.src = this.animate.frame;
         ctx.drawImage(this.characterImage, this.xPosition, this.yPosition, this.width, this.height);
     }
     spirit() {
-        if (this.controller.upActive && !this.jumping && !this.falling) {
+        if ((this.controller.upActive && !this.jumping && !this.falling)||
+        (this.controller.upActive&&this.doublejumping===1&&this.countJumps===1&&this.y_velocity>=1)) {
             this.jumping = true;
-            this.y_velocity -= 10;
+            if(this.countJumps>=1)
+                this.countJumps=0;
+            else 
+                this.countJumps=1;
+            this.y_velocity -= 13;
             if (this.face == "right")
-                this.animate.change(this.Frame_set.jumpRight, 15);
+                this.animate.change(this.Frame_set.jumpRight, 30);
             else if (this.face == "left")
-                this.animate.change(this.Frame_set.jumpLeft, 15);
+                this.animate.change(this.Frame_set.jumpLeft, 30);
+            if (this.carry)
+                player1.jumping = true;
             this.isCarried = false
         }
-        if (this.controller.leftActive) {
+        if (this.controller.leftActive && !this.falling) {
             this.face = "left"
             this.x_velocity -= 0.07;
             if (!this.jumping) {
-                this.animate.change(this.Frame_set.walkLeft, 15);
+                this.animate.change(this.Frame_set.walkLeft, 30);
             }
             if (this.carry&&this.name=="player2") {
                 player1.x_velocity = player2.x_velocity;
@@ -50,11 +57,11 @@ class Character {
                 player2.x_velocity = player1.x_velocity;
             }
         }
-        if (this.controller.rightActive) {
+        if (this.controller.rightActive && !this.falling) {
             this.face = "right"
             this.x_velocity += 0.07;
             if (!this.jumping) {
-                this.animate.change(this.Frame_set.walkRight, 15);
+                this.animate.change(this.Frame_set.walkRight, 30);
             }
             if (this.carry&&this.name=="player2") {
                 player1.x_velocity = player2.x_velocity;
@@ -65,11 +72,11 @@ class Character {
         }
         if (!this.controller.rightActive && !this.controller.leftActive) {
             if (this.face == "right")
-                this.animate.change(this.Frame_set.idle, 15);
+                this.animate.change(this.Frame_set.idle, 30);
             else if (this.face == "left")
-                this.animate.change(this.Frame_set.idleLeft, 15);
+                this.animate.change(this.Frame_set.idleLeft, 30);
         }
-        this.y_velocity += 0.20; //used as a graphity
+        this.y_velocity += 0.25; //used as a graphity
         this.xPosition += this.x_velocity;
         this.yPosition += this.y_velocity;
         this.x_velocity *= 0.96;
@@ -108,20 +115,18 @@ class Character {
         let previousTile_lower = tiles[(tiley * mapColumns) + tilex -2-(37 )]
         let nextTile_upper = tiles[(tiley * mapColumns) + tilex - (37*2 )]
         let nextTile_lower = tiles[(tiley * mapColumns) + tilex - (37 )]
+        
       
             
-        if (currentTile === 0 || currentTile === 6 || currentTile === 4) {
+        if (currentTile === 0 || currentTile === 6) {
             if (this.height + this.yPosition > tiley * tileHeight + 3) {
                 this.jumping = false;
-                this.falling = false;
                 this.yPosition = tiley * tileHeight - this.height + 3;
                 this.y_velocity = 0;
             }
         }
-        if (currentTile == undefined && !this.jumping&&!this.isCarried) {
-            this.jumping=true
-        }
-        if ((nextTile === 51 || nextTile === 4 || nextTile === 6)||nextTile === 47||(nextTile_upper===0 && nextTile_lower == undefined)  ) {
+        if (currentTile == undefined && !this.jumping) {}
+        if ((nextTile === 51 || nextTile === 4 || nextTile === 6||nextTile===47)||(nextTile_upper===0 && nextTile_lower == undefined)  ) {
            
             if (this.xPosition > tilex * tileWidth - this.width + 12 && this.x_velocity > 0) {
                 this.xPosition = tilex * tileWidth - this.width + 12;
@@ -138,10 +143,7 @@ class Character {
             if (this.y_velocity < 0)
                 this.y_velocity += 0.8;
         }
-        //////////////when touching banana /////////////////
-        let currentY = (Math.floor(this.yPosition) + 3),
-            currentX = Math.floor(this.xPosition) + (this.width / 1.5);
-        banana.collistionOfTarget(currentX, currentY)
+
 
         if ((this.yPosition - (player1.yPosition + 11.75) >= 0 && this.yPosition - (player1.yPosition + 11.75) <= 20) && (Math.abs(this.xPosition - player1.xPosition) <= 20 && Math.abs(this.xPosition - player1.xPosition) >= 0)) {
             if (player2 != undefined) {
@@ -157,6 +159,33 @@ class Character {
             player2.jumping = false
             player2.falling = false;
        }
+    }
+    collectBanan(){
+        let currentY = (Math.floor(this.yPosition)+3),
+        currentX = Math.floor(this.xPosition) + (this.width / 1.5);
+        console.log(currentX+"+"+currentY)
+    banana.collistionOfTarget(currentX, currentY)
+
+    }
+}
+class Enimy extends Character{
+    constructor(name, x, y, height, width, frame_set,controller){
+        super(name, x, y, height, width, frame_set,controller)
+        this.moveCounter=0;
+    }
+    constantMove(){
+        this.moveCounter++;
+        if(this.moveCounter>200){
+            if(this.moveCounter===400)
+                this.moveCounter=0;
+            this.x_velocity-=1;
+        }        
+        else
+            this.x_velocity+=1;
+        this.y_velocity += 0.25; //used as a graphity
+        this.xPosition += this.x_velocity;
+        this.yPosition += this.y_velocity;
+        this.x_velocity = 0;
     }
 }
 
