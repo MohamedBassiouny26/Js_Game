@@ -34,8 +34,8 @@ let Frame_set = {
         jumpLeft: ["./img_blue/monkey_jumpleft_1.png", "./img_blue/monkey_jumpleft_2.png", "./img_blue/monkey_jumpleft_3.png", "./img_blue/monkey_jumpleft_4.png"],
     },
 }
-let player1 = new Character("player1", 15, 420, 70, 70, Frame_set.player1, ArrowController,0); //da al character henzl mnen
-let player2 = new Character("player2", 40, 420, 70, 70, Frame_set.player2, lettersController,1); //da al character henzl mnen
+let player1 = new Character("player1", 15, 510, 70, 70, Frame_set.player1, ArrowController,0); //da al character henzl mnen
+let player2 = new Character("player2", 40, 510, 70, 70, Frame_set.player2, lettersController,1); //da al character henzl mnen
 let banana = new targetItems("banana.png", 32, 32)
 var mySound = new SoundClass("bounce.mp3")
 var backgroundSound = new SoundClass("melodyloops.mp3")
