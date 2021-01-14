@@ -29,7 +29,7 @@ class Character {
     }
     spirit() {
         if ((this.controller.upActive && !this.jumping && !this.falling)||
-        (this.controller.upActive&&this.doublejumping===1&&this.countJumps===1&&this.y_velocity>=-1)) {
+        (this.controller.upActive&&this.doublejumping===1&&this.countJumps===1&&this.y_velocity>-1)) {
             this.jumping = true;
             if(this.countJumps>=1)
                 this.countJumps=0;
@@ -142,8 +142,9 @@ class Character {
                 this.x_velocity = 0;
             }
         if (upTile === 0 || upTile === 4 || upTile === 51 || upTile === 47) {
-            if (this.y_velocity < 0)
+            if (this.y_velocity > 0)
                 this.y_velocity += 0.8;
+                this.countJumps=2;
         }
 
         let currentY = (Math.floor(this.yPosition)+3),
