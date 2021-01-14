@@ -29,7 +29,7 @@ class Character {
     }
     spirit() {
         if ((this.controller.upActive && !this.jumping && !this.falling)||
-        (this.controller.upActive&&this.doublejumping===1&&this.countJumps===1&&this.y_velocity>-1)) {
+        (this.controller.upActive&&this.doublejumping===1&&this.countJumps===1&&this.y_velocity>=-1)) {
             this.jumping = true;
             if(this.countJumps>=1)
                 this.countJumps=0;
@@ -88,7 +88,8 @@ class Character {
         }
         if (this.isCarried && this.name === "player1") {
             this.yPosition = player2.yPosition - player2.height + 15;
-            this.jumping = false
+            if(this.y_velocity>=0)
+                this.jumping = false
         }
         if (Math.abs(this.xPosition - player1.xPosition) > 20 || Math.abs((player1.yPosition + player1.height) - player2.yPosition) > 20) {
             player1.isCarried = false;
@@ -96,7 +97,8 @@ class Character {
         }
         if (this.isCarried && this.name === "player2") {
             this.yPosition = player1.yPosition - player1.height + 15;
-            this.jumping = false;
+            if(this.y_velocity>=0)
+                this.jumping = false
         }
         if (Math.abs(this.xPosition - player2.xPosition) > 20) {
              player2.isCarried = false;
@@ -153,14 +155,14 @@ class Character {
             if (player2 != undefined) {
                 player2.carry = true
                 player1.isCarried = true
-                player1.jumping = false
+                player1.jumping = true
                 player1.falling = false;
             }
         }
         if ((this.yPosition - (player2.yPosition + 11.75) >= 0 && this.yPosition - (player2.yPosition + 11.75) <= 20) && (Math.abs(this.xPosition - player2.xPosition) <= 20 && Math.abs(this.xPosition - player2.xPosition) >= 0)) {
             player1.carry = true
             player2.isCarried = true
-            player2.jumping = false
+            player2.jumping = true
             player2.falling = false;
        }
     }
