@@ -171,16 +171,18 @@ class Character {
 
 
 class Enemy {
-    constructor(name, x, y, height, width, frame_set){
+    constructor(name, x, y, height, width, frame_set,maxCounter,x_velocity =0){
         this.name = name;
         this.xPosition = x;
         this.yPosition = y;
+        this.x_velocity = x_velocity;
         this.height = height;
         this.width = width
+        this.maxCounter = maxCounter
         this.moveCounter=0;
         this.Frame_set = frame_set;
         this.characterImage = new Image();
-        this.animate= new Animate(this.Frame_set.walkRight, 15);
+        this.animate= new Animate(this.Frame_set.walkLeft, 15);
     }
     drawCharacter() {
         this.characterImage.src = this.animate.frame;
@@ -188,16 +190,23 @@ class Enemy {
     }
     constantMove(){
         this.moveCounter++;
-        if(this.moveCounter>200){
-            if(this.moveCounter===400)
-                this.moveCounter=0;
-            this.x_velocity-=1;
-        }        
-        else
+        if(this.moveCounter<this.maxCounter){
             this.x_velocity+=1;
-        this.y_velocity += 0.25; //used as a graphity
-        this.xPosition += this.x_velocity;
-        this.yPosition += this.y_velocity;
-        this.x_velocity = 0;
+            this.xPosition += this.x_velocity;
+            this.x_velocity = 0;
+        this.animate.update();
+        }else if(this.moveCounter==this.maxCounter){
+            this.animate.change(this.Frame_set.walkRight,15)
+        }else if(this.moveCounter>this.maxCounter && this.moveCounter<this.maxCounter*2){
+             
+            this.x_velocity-=1;
+            this.xPosition += this.x_velocity;
+            this.x_velocity = 0;
+            this.animate.update()
+        }else{
+            this.moveCounter=0;
+            this.animate.change(this.Frame_set.walkLeft,15)
+        }
     }
+
 }

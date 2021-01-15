@@ -34,16 +34,18 @@ let Frame_set = {
         jumpLeft: ["./img_blue/monkey_jumpleft_1.png", "./img_blue/monkey_jumpleft_2.png", "./img_blue/monkey_jumpleft_3.png", "./img_blue/monkey_jumpleft_4.png"],
     },
     Enemy: {
-        walkRight:["./Monster/walking_Right_01.png","./Monster/walking_Right_03.png","./Monster/walking_Right_05.png","./Monster/walking_Right_07.png",
-        "./Monster/walking_Right_09.png","./Monster/walking_Right_11.png"],
-        walkLeft:["./Monster/walking_Left_01.png","./Monster/walking_Left_03.png","./Monster/walking_Left_05.png","./Monster/walking_Left_07.png",
-        "./Monster/walking_Left_09.png","./Monster/walking_Left_11.png"]
+        walkRight:["./Monster/walking_Right_01.png","./Monster/walking_Right_02.png","./Monster/walking_Right_03.png","./Monster/walking_Right_04.png",
+        "./Monster/walking_Right_05.png","./Monster/walking_Right_06.png","./Monster/walking_Right_07.png","./Monster/walking_Right_08.png",
+        "./Monster/walking_Right_09.png","./Monster/walking_Right_10.png","./Monster/walking_Right_11.png"],
+        walkLeft:["./Monster/walking_Left_01.png","./Monster/walking_Left_02.png","./Monster/walking_Left_03.png","./Monster/walking_Left_04.png",
+        "./Monster/walking_Left_05.png","./Monster/walking_Left_06.png","./Monster/walking_Left_07.png","./Monster/walking_Left_08.png",
+        "./Monster/walking_Left_09.png","./Monster/walking_Left_10.png","./Monster/walking_Left_11.png"]
     }
 }
 let player1 = new Character("player1", 15, 510, 70, 70, Frame_set.player1, ArrowController,0); //da al character henzl mnen
 let player2 = new Character("player2", 40, 510, 70, 70, Frame_set.player2, lettersController,1); //da al character henzl mnen
-let enemy1 = new Enemy("Enemy1",30*32,(5*32)-10,80,80,Frame_set.Enemy)
-let enemy2 = new Enemy("Enemy2",6*32,(3*32)-10,80,80,Frame_set.Enemy)
+let enemy1 = new Enemy("Enemy1",30*32,(5*32)-10,80,80,Frame_set.Enemy,140)
+let enemy2 = new Enemy("Enemy2",6*32,(3*32)-10,80,80,Frame_set.Enemy,240)
 let banana = new targetItems("banana.png", 32, 32)
 var mySound = new SoundClass("bounce.mp3")
 var backgroundSound = new SoundClass("melodyloops.mp3")
@@ -156,6 +158,8 @@ function loop() {
     player2.spirit();
     player2.animate.update();
     drawTile();
+    enemy1.constantMove();
+    enemy2.constantMove();
     banana.DrawTargetItem();
     player1.drawCharacter();
     player2.drawCharacter();
@@ -169,7 +173,7 @@ function loop() {
 }
 
 function ClickonFn(event) {
-    console.log(event.x+"+"+event.y)
+  //  console.log(event.x+"+"+event.y)
       let Xpercent = event.x/parseInt(display.style.width);
       let Ypercent = event.y/parseInt(display.style.height);
     if ((Xpercent >= 768/1119 && Xpercent <= 838/1119) && (Ypercent>= 43/657 && Ypercent <= 83/657)) {
