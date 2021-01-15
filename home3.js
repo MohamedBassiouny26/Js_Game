@@ -131,7 +131,7 @@ function showScore_Reset() {
     ctx.drawImage(score_imag,170,35,32,32)
     ctx.fillText(":"+(banana.maxNumber - banana.ArrayOfXpos.length) + " /"+ banana.maxNumber, 200, 60);
    ctx.fillText("lifes:", 400, 60);
-   for(let i=0;i<lifes;i++){
+   for(let i=0;i<lifes-enemy1.touchedCount-enemy2.touchedCount;i++){
        let heart = new Image()
        heart.src = "heart.png"
        ctx.drawImage(heart,480+(50*i),40,30,30)
@@ -206,7 +206,7 @@ function drawTrap() {
     let player2Tilex = Math.floor((player2.xPosition + player2.width + 2) / tileWidth);
     let player2Tiley = Math.floor((player2.yPosition + player2.height + 2) / tileHeight);
     let player2trap = tiles[(player2Tiley * mapColumns) + player2Tilex - 38];
-    console.log(player1Tiley)
+   // console.log(player1Tiley)
    if(Player1trap == 60){
        player1.currentRow = player1Tiley;
        player1.touchWaterFire = true;
@@ -231,7 +231,7 @@ function drawTrap() {
     player2.touchWaterFire = false;
    }
     
-   if(lifes === 0){
-     //  alert("gameOver")
+   if(lifes-enemy1.touchedCount-enemy2.touchedCount === 0){
+      alert("gameOver")
    }
 }

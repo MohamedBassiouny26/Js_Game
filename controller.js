@@ -31,7 +31,7 @@ let lettersController = {
     upActive: false,
     dActive: false,
     keyUpDown(event) {
-        console.log(event.keyCode)
+       // console.log(event.keyCode)
         let key_state = (event.type == "keydown") ? true : false;
         switch (event.keyCode) {
             case 87:

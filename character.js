@@ -148,8 +148,9 @@ class Character {
 
         let currentY = (Math.floor(this.yPosition)+3),
             currentX = Math.floor(this.xPosition) + (this.width / 1.5);
-            console.log(currentX+"+"+currentY)
+          //  console.log(currentX+"+"+currentY)
         banana.collistionOfTarget(currentX, currentY)
+      
 
         if ((this.yPosition - (player1.yPosition + 11.75) >= 0 && this.yPosition - (player1.yPosition + 11.75) <= 20) && (Math.abs(this.xPosition - player1.xPosition) <= 20 && Math.abs(this.xPosition - player1.xPosition) >= 0)) {
             if (player2 != undefined) {
@@ -183,18 +184,22 @@ class Enemy {
         this.Frame_set = frame_set;
         this.characterImage = new Image();
         this.animate= new Animate(this.Frame_set.walkLeft, 15);
+        this.touchedCount=0
     }
     drawCharacter() {
         this.characterImage.src = this.animate.frame;
         ctx.drawImage(this.characterImage, this.xPosition, this.yPosition, this.width, this.height);
     }
     constantMove(){
-        this.moveCounter++;
+        var XRange;
+       this.moveCounter++;
         if(this.moveCounter<this.maxCounter){
             this.x_velocity+=1;
             this.xPosition += this.x_velocity;
             this.x_velocity = 0;
         this.animate.update();
+        XRange = this.xPosition+this.width
+       
         }else if(this.moveCounter==this.maxCounter){
             this.animate.change(this.Frame_set.walkRight,15)
         }else if(this.moveCounter>this.maxCounter && this.moveCounter<this.maxCounter*2){
@@ -203,10 +208,21 @@ class Enemy {
             this.xPosition += this.x_velocity;
             this.x_velocity = 0;
             this.animate.update()
+            XRange = this.xPosition;
+            
         }else{
             this.moveCounter=0;
             this.animate.change(this.Frame_set.walkLeft,15)
         }
-    }
+        if((XRange== Math.floor(player1.xPosition+(player1.width)/2.5))&&(Math.floor(player1.yPosition+player1.height)>this.yPosition &&  Math.floor(player1.yPosition+player1.height)<=(this.yPosition+this.height  ))){
+            this.touchedCount++;
+            player1 = new Character("player1", 15, 510, 70, 70, Frame_set.player1, ArrowController,0);
+        }
+        if((XRange== Math.floor(player2.xPosition+(player2.width)/2.5))&&(Math.floor(player2.yPosition+player2.height)>this.yPosition &&  Math.floor(player2.yPosition+player2.height)<=(this.yPosition+this.height  ))){
+            this.touchedCount++;
+            player2 = new Character("player2", 40, 510, 70, 70, Frame_set.player2, lettersController,1);        }
 
+        
+    }
+    
 }
