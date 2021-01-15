@@ -91,7 +91,7 @@ class Character {
             if(this.y_velocity>=0)
                 this.jumping = false
         }
-        if (Math.abs(this.xPosition - player1.xPosition) > 20 || Math.abs((player1.yPosition + player1.height) - player2.yPosition) > 20) {
+        if (Math.abs(this.xPosition - player1.xPosition) > 20 ) {
             player1.isCarried = false;
             player2.carry = false;
         }
@@ -142,8 +142,11 @@ class Character {
                 this.x_velocity = 0;
             }
         if (upTile === 0 || upTile === 4 || upTile === 51 || upTile === 47) {
-            if (this.y_velocity < 0)
+            if(this.isCarried)
+                this.jumping=true;                  
+            if (this.y_velocity > 0)
                 this.y_velocity += 0.8;
+                this.countJumps=2;
         }
 
         let currentY = (Math.floor(this.yPosition)+3),
