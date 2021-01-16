@@ -9,7 +9,7 @@ class Character {
         this.height = height;
         this.width = width
         this.Frame_set = frame_set
-        this.animate = new Animate(this.Frame_set.idle, 15);
+        this.animate = new Animate(this.Frame_set.idle, 50);
         this.face = "right";
         this.falling = false
         this.characterImage = new Image();
@@ -36,9 +36,9 @@ class Character {
                 this.countJumps=1;
             this.y_velocity -= 13;
             if (this.face == "right")
-                this.animate.change(this.Frame_set.jumpRight, 30);
+                this.animate.change(this.Frame_set.jumpRight, 50);
             else if (this.face == "left")
-                this.animate.change(this.Frame_set.jumpLeft, 30);
+                this.animate.change(this.Frame_set.jumpLeft, 50);
             if (this.carry)
                 player1.jumping = true;
             this.isCarried = false
@@ -47,7 +47,7 @@ class Character {
             this.face = "left"
             this.x_velocity -= 0.07;
             if (!this.jumping) {
-                this.animate.change(this.Frame_set.walkLeft, 30);
+                this.animate.change(this.Frame_set.walkLeft, 50);
             }
             if (this.carry&&this.name=="player2") {
                 player1.x_velocity = player2.x_velocity;
@@ -60,7 +60,7 @@ class Character {
             this.face = "right"
             this.x_velocity += 0.07;
             if (!this.jumping) {
-                this.animate.change(this.Frame_set.walkRight, 30);
+                this.animate.change(this.Frame_set.walkRight, 50);
             }
             if (this.carry&&this.name=="player2") {
                 player1.x_velocity = player2.x_velocity;
@@ -71,9 +71,9 @@ class Character {
         }
         if (!this.controller.rightActive && !this.controller.leftActive) {
             if (this.face == "right")
-                this.animate.change(this.Frame_set.idle, 30);
+                this.animate.change(this.Frame_set.idle, 50);
             else if (this.face == "left")
-                this.animate.change(this.Frame_set.idleLeft, 30);
+                this.animate.change(this.Frame_set.idleLeft, 50);
         }
         this.y_velocity += 0.25; //used as a graphity
         this.xPosition += this.x_velocity;
@@ -90,19 +90,23 @@ class Character {
             if(this.y_velocity>=0)
                 this.jumping = false
         }
-        if (Math.abs(this.xPosition - player1.xPosition) > 20||(Math.abs(this.xPosition - player1.xPosition) > 20 )) {
-            player1.isCarried = false;
-            player2.carry = false;
+        if(this.carry||this.isCarried)
+        {
+            if (Math.abs(this.xPosition - player1.xPosition) > 20|| Math.abs((player1.yPosition + player1.height) - player2.yPosition) > 30) {
+                player1.isCarried = false;
+                player2.carry = false;
+            }
+            if (this.isCarried && this.name === "player2") {
+                this.yPosition = player1.yPosition - player1.height + 15;
+                if(this.y_velocity>=0)
+                    this.jumping = false
+            }
+            if (Math.abs(this.xPosition - player2.xPosition) > 20) {
+                 player2.isCarried = false;
+                 player1.carry = false;
+             }
+    
         }
-        if (this.isCarried && this.name === "player2") {
-            this.yPosition = player1.yPosition - player1.height + 15;
-            if(this.y_velocity>=0)
-                this.jumping = false
-        }
-        if (Math.abs(this.xPosition - player2.xPosition) > 20) {
-             player2.isCarried = false;
-             player1.carry = false;
-         }
     }
     getColomn(){
         return Math.floor((this.xPosition + this.width + 2) / tileWidth);

@@ -183,13 +183,12 @@ window.addEventListener("keyup", player1.controller.keyUpDown)
 window.addEventListener("keydown", player2.controller.keyUpDown)
 window.addEventListener("keyup", player2.controller.keyUpDown)
 display.addEventListener("click", ClickonFn)
-// end of eventlisteners creation
 function drawTrap() {
-    let player1Tilex = Math.floor((player1.xPosition + player1.width + 2) / tileWidth);
-    let player1Tiley = Math.floor((player1.yPosition + player1.height + 2) / tileHeight);
+    let player1Tilex = player1.getColomn();
+    let player1Tiley = player1.getRow();
     let Player1trap = tiles[(player1Tiley * mapColumns) + player1Tilex - 38];
-    let player2Tilex = Math.floor((player2.xPosition + player2.width + 2) / tileWidth);
-    let player2Tiley = Math.floor((player2.yPosition + player2.height + 2) / tileHeight);
+    let player2Tilex = player2.getColomn();
+    let player2Tiley = player2.getRow();
     let player2trap = tiles[(player2Tiley * mapColumns) + player2Tilex - 38];
     console.log(player1Tiley)
    if(Player1trap == 60){
@@ -215,7 +214,6 @@ function drawTrap() {
     player2.currentRow = 0;
     player2.touchWaterFire = false;
    }
-    
    if(lifes === 0){
      //  alert("gameOver")
    }
