@@ -99,6 +99,9 @@ function showScore_Reset() {
     exit_imag.src = "exit.png"
     ctx.drawImage(exit_imag, 970, 42, 50, 45)
 
+    
+}
+function drawcave(){
     if ((banana.maxNumber - banana.ArrayOfXpos.length) === 10) {
         let dooro = new Image();
         dooro.src = "cave2.png";
@@ -116,16 +119,29 @@ function showScore_Reset() {
 //end of creation of variables..............
 //main loop function
 function loop() {
+    
     player1.spirit();
     player1.animate.update();
     ////draw Tile maps;
     Maps.draw();
-    banana.DrawTargetItem();
-    player1.drawCharacter();
-
+    if ((banana.maxNumber - banana.ArrayOfXpos.length) === 10){
+        banana.DrawTargetItem();
+    player1.drawCharacter(); 
+    
     showScore_Reset();
     player1.Colliston();
-
+    drawcave();
+    }
+    else{
+        drawcave();
+    banana.DrawTargetItem();
+    player1.drawCharacter(); 
+    
+    showScore_Reset();
+    player1.Colliston();
+    }
+    
+    
     window.requestAnimationFrame(loop);
 }
 
