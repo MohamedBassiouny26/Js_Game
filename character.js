@@ -107,5 +107,13 @@ class Character {
         let currentY = (Math.floor(this.yPosition) + 3),
             currentX = Math.floor(this.xPosition) + (this.width / 1.5);
         banana.collistionOfTarget(currentX, currentY)
+    //     if((banana.maxNumber - banana.ArrayOfXpos.length)===10){
+    //         console.log("x="+this.xPosition,"y="+this.yPosition)
+    //     if(this.xPosition>=1018.5&&this.yPosition===509){
+    //         this.animate.count=0;
+    //     }
+    // }
     }
+    
+    
 }

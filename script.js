@@ -1,5 +1,5 @@
-class SoundClass{
-    constructor(source){
+class SoundClass {
+    constructor(source) {
         this.soundElement = document.createElement("audio")
         this.soundElement.src = source;
         this.soundElement.setAttribute("preload", "auto");
@@ -7,10 +7,10 @@ class SoundClass{
         this.soundElement.style.display = "none";
         document.body.appendChild(this.soundElement);
     }
-    playmusic(){
+    playmusic() {
         this.soundElement.play()
     }
-    stopmusic(){
+    stopmusic() {
         this.soundElement.pause();
     }
 }
@@ -40,7 +40,7 @@ let player1 = new Character("player1", 30, 380, 70, 70, Frame_set.player1, Arrow
 let banana = new targetItems("banana.png", 32, 32)
 var mySound = new SoundClass("bounce.mp3")
 var backgroundSound = new SoundClass("melodyloops.mp3")
-var score = 0,music_imag,mute=true;
+var score = 0, music_imag, mute = true;
 let tileImage = new Image();
 tileImage.src = "Tiles_32x32.png";
 const tileWidth = 32,
@@ -70,7 +70,7 @@ let tiles = [
     4, 4, 4, 4, 6, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4, 6, 6, 4, 4, 4, 4, 4, 4, 4, 4, 6, 6, 4, 6,
     4, 4, 4, 6, 4, 6, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 6, 6, 4, 6, 6
 ];
-let Maps=new tileMap(tileWidth,tileHeight,mapHeight,mapColumns,tiles)
+let Maps = new tileMap(tileWidth, tileHeight, mapHeight, mapColumns, tiles)
 let display = document.getElementById("myCanvas");
 display.style.width = window.innerWidth + 'px';
 display.style.height = window.innerHeight + 'px';
@@ -81,32 +81,36 @@ function showScore_Reset() {
     ctx.fillStyle = "#58391c";
     ctx.font = "italic bold 20pt Tahoma";
     let score_imag = new Image()
-    score_imag.src ="banana.png"
-    ctx.drawImage(score_imag,170,35,32,32)
-    ctx.fillText(":"+(banana.maxNumber - banana.ArrayOfXpos.length) + " /"+ banana.maxNumber, 200, 60);
+    score_imag.src = "banana.png"
+    ctx.drawImage(score_imag, 170, 35, 32, 32)
+    ctx.fillText(":" + (banana.maxNumber - banana.ArrayOfXpos.length) + " /" + banana.maxNumber, 200, 60);
     let reset_imag = new Image()
     reset_imag.id = "ResetImage"
     reset_imag.src = "reset.png"
     ctx.drawImage(reset_imag, 800, 40, 80, 50)
-     music_imag =new Image()
-     console.log(mute)
-     if(mute==true){
-    music_imag.src = "NoMusic.png"}
-    else{music_imag.src = "music.png"}
+    music_imag = new Image()
+    console.log(mute)
+    if (mute == true) {
+        music_imag.src = "NoMusic.png"
+    }
+    else { music_imag.src = "music.png" }
     ctx.drawImage(music_imag, 900, 42, 50, 45)
     let exit_imag = new Image()
     exit_imag.src = "exit.png"
     ctx.drawImage(exit_imag, 970, 42, 50, 45)
-    
-    if((banana.maxNumber - banana.ArrayOfXpos.length)===10){
-        let dooro=new Image();
-    dooro.src="opendoor.png";
-    ctx.drawImage(dooro, 1010, 435, 200, 150)
+
+    if ((banana.maxNumber - banana.ArrayOfXpos.length) === 10) {
+        let dooro = new Image();
+        dooro.src = "cave2.png";
+        ctx.drawImage(dooro,1070, 480, 100, 100)
     }
-    else{
-        let doorc=new Image();
-        doorc.src="closedoor.png";
-        ctx.drawImage(doorc, 1010, 435, 200, 150)
+    else {
+        let doorc = new Image();
+        doorc.src = "cave2.png";
+        ctx.drawImage(doorc, 1070, 480, 100, 100)
+        let doors = new Image();
+        doors.src = "stones2.png";
+        ctx.drawImage(doors, 1092, 530, 35, 45)
     }
 }
 //end of creation of variables..............
@@ -118,32 +122,32 @@ function loop() {
     Maps.draw();
     banana.DrawTargetItem();
     player1.drawCharacter();
-    
+
     showScore_Reset();
     player1.Colliston();
-    
+
     window.requestAnimationFrame(loop);
 }
 
 function ClickonResetFn(event) {
     console.log(event.y);
     console.log(parseInt(display.style.width))
-      let Xpercent = event.x/parseInt(display.style.width);
-      let Ypercent = event.y/parseInt(display.style.height);
-    if ((Xpercent >= 768/1119 && Xpercent <= 838/1119) && (Ypercent>= 43/657 && Ypercent <= 83/657)) {
+    let Xpercent = event.x / parseInt(display.style.width);
+    let Ypercent = event.y / parseInt(display.style.height);
+    if ((Xpercent >= 768 / 1119 && Xpercent <= 838 / 1119) && (Ypercent >= 43 / 657 && Ypercent <= 83 / 657)) {
         window.location.reload()
-    }else if ((Xpercent >= 861/1119 && Xpercent <= 907/1119) && (Ypercent>= 41/657 && Ypercent <= 83/657)){
-      if(mute==true){
-          backgroundSound.playmusic()
-          mute=false;
-      }else{
-        backgroundSound.stopmusic()
-        mute=true;
-      }
-    
+    } else if ((Xpercent >= 861 / 1119 && Xpercent <= 907 / 1119) && (Ypercent >= 41 / 657 && Ypercent <= 83 / 657)) {
+        if (mute == true) {
+            backgroundSound.playmusic()
+            mute = false;
+        } else {
+            backgroundSound.stopmusic()
+            mute = true;
+        }
+
     }
-    }
-        
+}
+
 
 
 
@@ -153,7 +157,7 @@ function ClickonResetFn(event) {
 
 //create all eventlisteners here
 window.addEventListener("load", (event) => {
-  
+
     window.requestAnimationFrame(loop);
 });
 
