@@ -119,29 +119,15 @@ function drawcave(){
 //end of creation of variables..............
 //main loop function
 function loop() {
-    
     player1.spirit();
     player1.animate.update();
     ////draw Tile maps;
-    Maps.draw();
-    if ((banana.maxNumber - banana.ArrayOfXpos.length) === 10){
-        banana.DrawTargetItem();
-    player1.drawCharacter(); 
-    
-    showScore_Reset();
-    player1.Colliston();
+    Maps.draw();        
     drawcave();
-    }
-    else{
-        drawcave();
     banana.DrawTargetItem();
-    player1.drawCharacter(); 
-    
+    player1.drawCharacter();     
     showScore_Reset();
-    player1.Colliston();
-    }
-    
-    
+    player1.Colliston();    
     window.requestAnimationFrame(loop);
 }
 
