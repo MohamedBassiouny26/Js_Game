@@ -76,7 +76,6 @@ class Character {
         } else if (this.xPosition + (this.width) / 1.4 > myCanvas.width) {
             this.xPosition = myCanvas.width - (this.width) / 1.4;
         }
-        
     }
     getColomn(){
         return Math.floor((this.xPosition + this.width + 2) / tileWidth);

@@ -195,7 +195,9 @@ function drawTrap() {
        player1.currentRow = player1Tiley;
        player1.touchWaterFire = true;
    }else if(Player1trap == 80 && (player2.touchWaterFire == false|| player2Tiley != player1Tiley)){
-    player1 = new Character("player1", 15, 380, 70, 70, Frame_set.player1, ArrowController,0);
+        player1 = new Character("player1", 15, 510, 70, 70, Frame_set.player1, ArrowController,0); //da al character henzl m   nen
+        player2 = new Character("player2", 40, 510, 70, 70, Frame_set.player2, lettersController,1); //da al character henzl mn     en
+ 
     player1.touchWaterFire = false;
     lifes--;
    }else{
@@ -207,7 +209,8 @@ function drawTrap() {
        player2.touchWaterFire = true;
       
    }else if(player2trap == 60 && (player1.touchWaterFire ==false || player2Tiley != player1Tiley)  ){
-    player2 = new Character("player2", 40, 380, 70, 70, Frame_set.player2, lettersController,1); 
+        player1 = new Character("player1", 15, 510, 70, 70, Frame_set.player1, ArrowController,0); //da al character henzl mnen
+        player2 = new Character("player2", 40, 510, 70, 70, Frame_set.player2, lettersController,1); //da al character henzl mnen
     player2.touchWaterFire = false;
     lifes--;
    }else{
