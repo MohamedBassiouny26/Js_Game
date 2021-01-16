@@ -97,6 +97,17 @@ function showScore_Reset() {
     let exit_imag = new Image()
     exit_imag.src = "exit.png"
     ctx.drawImage(exit_imag, 970, 42, 50, 45)
+    
+    if((banana.maxNumber - banana.ArrayOfXpos.length)===10){
+        let dooro=new Image();
+    dooro.src="opendoor.png";
+    ctx.drawImage(dooro, 1010, 435, 200, 150)
+    }
+    else{
+        let doorc=new Image();
+        doorc.src="closedoor.png";
+        ctx.drawImage(doorc, 1010, 435, 200, 150)
+    }
 }
 //end of creation of variables..............
 //main loop function
