@@ -39,9 +39,8 @@ class Character {
                 this.animate.change(this.Frame_set.jumpRight, 50);
             else if (this.face == "left")
                 this.animate.change(this.Frame_set.jumpLeft, 50);
-            if (this.carry)
-                player1.jumping = true;
             this.isCarried = false
+            
         }
         if (this.controller.leftActive && !this.falling) {
             this.face = "left"
@@ -101,7 +100,7 @@ class Character {
                 if(this.y_velocity>=0)
                     this.jumping = false
             }
-            if (Math.abs(this.xPosition - player2.xPosition) > 20) {
+            if (Math.abs(this.xPosition - player2.xPosition) > 20||Math.abs((player2.yPosition + player2.height) - player1.yPosition) <10) {
                  player2.isCarried = false;
                  player1.carry = false;
              }
