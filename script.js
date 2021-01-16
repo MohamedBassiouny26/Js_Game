@@ -70,31 +70,13 @@ let tiles = [
     4, 4, 4, 4, 6, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4, 6, 6, 4, 4, 4, 4, 4, 4, 4, 4, 6, 6, 4, 6,
     4, 4, 4, 6, 4, 6, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 6, 6, 4, 6, 6
 ];
-tileImage.addEventListener('load', drawTile);
+let Maps=new tileMap(tileWidth,tileHeight,mapHeight,mapColumns,tiles)
 let display = document.getElementById("myCanvas");
 display.style.width = window.innerWidth + 'px';
 display.style.height = window.innerHeight + 'px';
-
 display.width = 1170;
 display.height = 670;
 let ctx = display.getContext("2d");
-tileImage.addEventListener('load', drawTile);
-
-function drawTile() {
-    display.style.width = window.innerWidth + 'px';
-display.style.height = window.innerHeight + 'px';
-ctx = display.getContext("2d");
-    ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
-    for (let i = 0; i < mapColumns * mapHeight; i++) {
-        let tile = tiles[i];
-        let sourceX = (tile % (mapColumns + 10)) * tileWidth;
-        let sourceY = Math.floor(tile / (mapColumns + 10)) * tileHeight;
-        let targetX = (i % mapColumns) * tileWidth;
-        let targetY = Math.floor(i / mapColumns) * tileHeight;
-        ctx.drawImage(tileImage, sourceX, sourceY, tileWidth, tileHeight, targetX, targetY, tileWidth, tileHeight);
-    }
-}
-
 function showScore_Reset() {
     ctx.fillStyle = "#58391c";
     ctx.font = "italic bold 20pt Tahoma";
@@ -121,7 +103,8 @@ function showScore_Reset() {
 function loop() {
     player1.spirit();
     player1.animate.update();
-    drawTile();
+    ////draw Tile maps;
+    Maps.draw();
     banana.DrawTargetItem();
     player1.drawCharacter();
     
