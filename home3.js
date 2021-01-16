@@ -232,6 +232,6 @@ function drawTrap() {
    }
     
    if(lifes-enemy1.touchedCount-enemy2.touchedCount === 0){
-      alert("gameOver")
+     // alert("gameOver")
    }
 }
