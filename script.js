@@ -1,21 +1,3 @@
-class SoundClass {
-    constructor(source) {
-        this.soundElement = document.createElement("audio")
-        this.soundElement.src = source;
-        this.soundElement.setAttribute("preload", "auto");
-        this.soundElement.setAttribute("controls", "none");
-        this.soundElement.style.display = "none";
-        document.body.appendChild(this.soundElement);
-    }
-    playmusic() {
-        this.soundElement.play()
-    }
-    stopmusic() {
-        this.soundElement.pause();
-    }
-}
-
-
 
 //create all variables here:................
 let Frame_set = {
@@ -36,7 +18,7 @@ let Frame_set = {
         jumpLeft: ["./img_blue/monkey_jumpleft_1.png", "./img_blue/monkey_jumpleft_2.png", "./img_blue/monkey_jumpleft_3.png", "./img_blue/monkey_jumpleft_4.png"],
     },
 }
-let player1 = new Character("player1", 30, 380, 70, 70, Frame_set.player1, ArrowController); //da al character henzl mnen
+var player1 = new Character("player1", 30, 380, 70, 70, Frame_set.player1, ArrowController); //da al character henzl mnen
 let banana = new targetItems("banana.png", 32, 32)
 var mySound = new SoundClass("bounce.mp3")
 var backgroundSound = new SoundClass("melodyloops.mp3")
@@ -77,45 +59,7 @@ display.style.height = window.innerHeight + 'px';
 display.width = 1170;
 display.height = 670;
 let ctx = display.getContext("2d");
-function showScore_Reset() {
-    ctx.fillStyle = "#58391c";
-    ctx.font = "italic bold 20pt Tahoma";
-    let score_imag = new Image()
-    score_imag.src = "banana.png"
-    ctx.drawImage(score_imag, 170, 35, 32, 32)
-    ctx.fillText(":" + (banana.maxNumber - banana.ArrayOfXpos.length) + " /" + banana.maxNumber, 200, 60);
-    let reset_imag = new Image()
-    reset_imag.id = "ResetImage"
-    reset_imag.src = "reset.png"
-    ctx.drawImage(reset_imag, 800, 40, 80, 50)
-    music_imag = new Image()
-    console.log(mute)
-    if (mute == true) {
-        music_imag.src = "NoMusic.png"
-    }
-    else { music_imag.src = "music.png" }
-    ctx.drawImage(music_imag, 900, 42, 50, 45)
-    let exit_imag = new Image()
-    exit_imag.src = "exit.png"
-    ctx.drawImage(exit_imag, 970, 42, 50, 45)
 
-    
-}
-function drawcave(){
-    if ((banana.maxNumber - banana.ArrayOfXpos.length) === 10) {
-        let dooro = new Image();
-        dooro.src = "cave2.png";
-        ctx.drawImage(dooro,1070, 480, 100, 100)
-    }
-    else {
-        let doorc = new Image();
-        doorc.src = "cave2.png";
-        ctx.drawImage(doorc, 1070, 480, 100, 100)
-        let doors = new Image();
-        doors.src = "stones2.png";
-        ctx.drawImage(doors, 1092, 530, 35, 45)
-    }
-}
 //end of creation of variables..............
 //main loop function
 function loop() {
@@ -126,9 +70,24 @@ function loop() {
     drawcave();
     banana.DrawTargetItem();
     player1.drawCharacter();     
-    showScore_Reset();
+    Maps.showExtensions();
     player1.Colliston();    
     window.requestAnimationFrame(loop);
+}
+function drawcave(){
+    let cave = new Image();
+        cave.src = "cave2.png";
+        ctx.drawImage(cave,1070, 480, 100, 100)
+    if ((banana.maxNumber - banana.ArrayOfXpos.length) < banana.maxNumber) {
+        let door = new Image();
+        door.src = "stones2.png";
+        ctx.drawImage(door, 1092, 530, 35, 45)
+    }else if((banana.maxNumber - banana.ArrayOfXpos.length) == banana.maxNumber){
+    if ((player1.xPosition >=1070 && player1.xPosition <= 1170) && (player1.yPosition >= 480 && player1.yPosition <= 580)){
+       // win level 
+        
+    }}
+    
 }
 
 function ClickonResetFn(event) {
