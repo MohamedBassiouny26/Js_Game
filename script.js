@@ -1,6 +1,6 @@
 
 //create all variables here:................
-let Frame_set = {
+/*let Frame_set = {
     player1: {
         idle: ["./img/monkey_idle.png", "./img/monkey_idle.png"],
         idleLeft: ["./img/monkey_idle_left.png", "./img/monkey_idle_left.png"],
@@ -17,8 +17,8 @@ let Frame_set = {
         jumpRight: ["./img_blue/monkey_jump_1.png", "./img_blue/monkey_jump_2.png", "./img_blue/monkey_jump_3.png", "./img_blue/monkey_jump_4.png"],
         jumpLeft: ["./img_blue/monkey_jumpleft_1.png", "./img_blue/monkey_jumpleft_2.png", "./img_blue/monkey_jumpleft_3.png", "./img_blue/monkey_jumpleft_4.png"],
     },
-}
-var player1 = new Character("player1", 30, 380, 70, 70, Frame_set.player1, ArrowController); //da al character henzl mnen
+}*/
+var player1 = new Character("player1", 30, 380, 70, 70, Frame_set.player2, ArrowController); //da al character henzl mnen
 let banana = new targetItems("banana.png", 32, 32)
 var mySound = new SoundClass("bounce.mp3")
 var backgroundSound = new SoundClass("melodyloops.mp3")
@@ -63,7 +63,7 @@ let ctx = display.getContext("2d");
 //end of creation of variables..............
 //main loop function
 function loop() {
-    player1.spirit();
+   player1.spirit();
     player1.animate.update();
     ////draw Tile maps;
     Maps.draw();        
@@ -85,7 +85,7 @@ function drawcave(){
     }else if((banana.maxNumber - banana.ArrayOfXpos.length) == banana.maxNumber){
     if ((player1.xPosition >=1070 && player1.xPosition <= 1170) && (player1.yPosition >= 480 && player1.yPosition <= 580)){
        // win level 
-        
+    
     }}
     
 }

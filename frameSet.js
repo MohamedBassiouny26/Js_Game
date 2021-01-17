@@ -22,6 +22,10 @@ let jumpRightBlue=[];
 CreateImage(jumpRightBlue,4,'img_blue','monkey_jump');
 let jumpLeftBlue=[]; 
 CreateImage(jumpLeftBlue,4,'img_blue','monkey_jumpleft');
+let monosterRight=[]; 
+CreateImage(monosterRight,11,'Monster','walking_Right');
+let monosterLeft=[]; 
+CreateImage(monosterLeft,4,'Monster','walking_Left');
 
 let walkLeft=[new Image,new Image,new Image,new Image]
 let idle=[new Image,new Image]
@@ -48,6 +52,11 @@ let Frame_set = {
         jumpRight: jumpRightBlue,
         jumpLeft: jumpLeftBlue,
     },
+     Enemy: {
+         idle:monosterRight,
+         walkRight:monosterRight,
+         walkLeft:monosterLeft
+     }
 }
 function CreateImage(nameOfimages,numberofImages,imageFolder,imageName)
  {
@@ -55,7 +64,9 @@ function CreateImage(nameOfimages,numberofImages,imageFolder,imageName)
      {
          nameOfimages.push(new Image)
      }
+     //i is image number
      for(let i=1;i<=numberofImages;i++){
         nameOfimages[i-1].src=`./${imageFolder}/${imageName}_${i}.png`; 
     }
  }
+ 

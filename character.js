@@ -24,10 +24,13 @@ class Character {
         this.countJumps = countJumps
     }
     drawCharacter() {
-        this.characterImage.src = this.animate.frame;
+        this.characterImage = this.animate.frame;
         ctx.drawImage(this.characterImage, this.xPosition, this.yPosition, this.width, this.height);
     }
     spirit() {
+        let currentY = (Math.floor(this.yPosition)+3),
+        currentX = Math.floor(this.xPosition) + (this.width / 1.5);
+        banana.collistionOfTarget(currentX, currentY)  
         if ((this.controller.upActive && !this.jumping && !this.falling)||
         (this.controller.upActive&&this.doublejumping===1&&this.countJumps===1&&this.y_velocity>=-1)) {
             this.jumping = true;
@@ -76,6 +79,7 @@ class Character {
         } else if (this.xPosition + (this.width) / 1.4 > myCanvas.width) {
             this.xPosition = myCanvas.width - (this.width) / 1.4;
         }
+       
     }
     getColomn(){
         return Math.floor((this.xPosition + this.width + 2) / tileWidth);
@@ -126,7 +130,6 @@ class Character {
                 this.checkIfCarry(player1,player2);
             }
         }
-        banana.collistionOfTarget(currentX, currentY)    
     }
     carriedMovement()
     {
@@ -166,6 +169,7 @@ class Character {
             }
         }
     }
+    
 }
 class Enemy extends Character{
     constructor(name, x, y, height, width, frame_set,controller){
@@ -193,14 +197,14 @@ class Enemy extends Character{
         this.x_velocity = 0;
         if (Math.floor(player1.xPosition)+(player1.width)/2.5 >= this.xPosition + 2 && Math.floor(player1.xPosition)+(player1.width)/1.5 <= this.xPosition+this.width && Math.floor(player1.yPosition)+3 >= this.yPosition && Math.floor(player1.yPosition)+3 <= (this.yPosition + this.height)-3){
             this.touchedCount++;
-            player1 = new Character("player1", 15, 560, 70, 70, Frame_set.player1, ArrowController,0); 
-            player2 = new Character("player2", 40, 560, 70, 70, Frame_set.player2, lettersController,1); 
+             player1 = new Character("player1", 15, 510, 70, 70, Frame_set.player1, lettersController,0); 
+             player2 = new Character("player2", 40, 510, 70, 70, Frame_set.player2,ArrowController,1); 
      
         }
         if (Math.floor(player2.xPosition)+(player2.width)/2.5 >= this.xPosition + 2 && Math.floor(player2.xPosition)+(player2.width)/1.5 <= this.xPosition+this.width && Math.floor(player2.yPosition)+3 >= this.yPosition && Math.floor(player2.yPosition)+3 <= (this.yPosition + this.height)-3){
             this.touchedCount++;
-            player1 = new Character("player1", 15, 560, 70, 70, Frame_set.player1, ArrowController,0); 
-        player2 = new Character("player2", 40, 560, 70, 70, Frame_set.player2, lettersController,1); 
+            player1 = new Character("player1", 15, 510, 70, 70, Frame_set.player1, lettersController,0); 
+            player2 = new Character("player2", 40, 510, 70, 70, Frame_set.player2,ArrowController,1); 
     
         }
     }
