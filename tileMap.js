@@ -34,6 +34,13 @@ class tileMap{
             score_imag.src = "banana.png"
             ctx.drawImage(score_imag, 170, 35, 32, 32)
             ctx.fillText(":" + (banana.maxNumber - banana.ArrayOfXpos.length) + " /" + banana.maxNumber, 200, 60);
+            
+            if(this.level != 1){
+                ctx.fillText("lifes:", 400, 60);
+                for(let i=0;i<lifes;i++){
+                    let heart = new Image()
+                    heart.src = "heart.png"
+                    ctx.drawImage(heart,480+(50*i),40,30,30) }}
             let reset_imag = new Image()
             reset_imag.src = "reset.png"
             ctx.drawImage(reset_imag, 800, 40, 80, 50)
