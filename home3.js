@@ -59,49 +59,50 @@ let tiles = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4
              4, 0, 0, 0, 0, 0, 4, 4, 0, 0, 0, 0, 0, 4,50, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4,50, 6, 4, 4,
              4, 4, 6, 6, 4, 6, 4, 4, 4, 4, 4,50, 4,50, 4,50, 4, 4, 4,50, 4, 4,50, 4, 4, 4, 4, 4, 4, 4, 4, 4, 6, 6, 4, 6, 4
 ];
-
-image.addEventListener('load', drawTile);
+let Maps = new tileMap(tileWidth, tileHeight, mapHeight, mapColumns, tiles)
+//image.addEventListener('load', drawTile);
 let display = document.getElementById("myCanvas");
+display.style.width = window.innerWidth + 'px';
+display.style.height = window.innerHeight + 'px';
 display.width = 1183;
 display.height = 670;
 let ctx = display.getContext("2d");
-image.addEventListener('load', drawTile);
+//image.addEventListener('load', drawTile);
 // imagefire.addEventListener('load', drawTile);
-imagewave.addEventListener('load', drawTile);
+//imagewave.addEventListener('load', drawTile);
 
-function drawTile() {
-    display.style.width = window.innerWidth + 'px';
-    display.style.height = window.innerHeight + 'px';
+// function drawTile() {
+    
    
-   ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
+//    ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
   
-    for (let i = 0; i < mapColumns * mapHeight; i++) {
-        let tile = tiles[i];
-        let sourceX = (tile % (mapColumns + 10)) * tileWidth;
+//     for (let i = 0; i < mapColumns * mapHeight; i++) {
+//         let tile = tiles[i];
+//         let sourceX = (tile % (mapColumns + 10)) * tileWidth;
 
-        //console.log(sourceX);
-        let sourceY = Math.floor(tile / (mapColumns + 10)) * tileHeight;
+//         //console.log(sourceX);
+//         let sourceY = Math.floor(tile / (mapColumns + 10)) * tileHeight;
 
-        //console.log(sourceY);
-        let targetX = (i % mapColumns) * tileWidth;
-        //console.log("x=")
-        //console.log("x= "+targetX,i);
-        let targetY = Math.floor(i / mapColumns) * tileHeight;
-        //console.log("y= "+targetY,i);
-        if (tile !== 60 & tile !== 80) {
-            ctx.drawImage(image, sourceX, sourceY, tileWidth, tileHeight, targetX, targetY, tileWidth, tileHeight);
-        } else if (tile === 80 && (Math.floor(i / mapColumns)+1 != player2.currentRow) ) {
-            ctx.drawImage(imagefire, 225, 313, 1452, 1472, targetX, targetY, tileWidth, tileHeight);
+//         //console.log(sourceY);
+//         let targetX = (i % mapColumns) * tileWidth;
+//         //console.log("x=")
+//         //console.log("x= "+targetX,i);
+//         let targetY = Math.floor(i / mapColumns) * tileHeight;
+//         //console.log("y= "+targetY,i);
+//         if (tile !== 60 & tile !== 80) {
+//             ctx.drawImage(image, sourceX, sourceY, tileWidth, tileHeight, targetX, targetY, tileWidth, tileHeight);
+//         } else if (tile === 80 && (Math.floor(i / mapColumns)+1 != player2.currentRow) ) {
+//             ctx.drawImage(imagefire, 225, 313, 1452, 1472, targetX, targetY, tileWidth, tileHeight);
           
-        } else if (tile === 60 && (Math.floor(i / mapColumns)+1 != player1.currentRow) ) {
+//         } else if (tile === 60 && (Math.floor(i / mapColumns)+1 != player1.currentRow) ) {
              
-            // context.drawImage(imagefire, 17, 2329, 1960, 904, targetX, targetY, tileWidth, tileHeight);
-            ctx.drawImage(imagewave, 5, 33, 595, 297, targetX, targetY, tileWidth, tileHeight);
+//             // context.drawImage(imagefire, 17, 2329, 1960, 904, targetX, targetY, tileWidth, tileHeight);
+//             ctx.drawImage(imagewave, 5, 33, 595, 297, targetX, targetY, tileWidth, tileHeight);
             
-        }
-       // console.log(Math.floor(i / mapColumns))
-    }
-}
+//         }
+//        // console.log(Math.floor(i / mapColumns))
+//     }
+// }
 
 function showScore_Reset() {
     ctx.fillStyle = "#58391c";
@@ -127,6 +128,22 @@ function showScore_Reset() {
     exit_imag.src = "exit.png"
     ctx.drawImage(exit_imag, 970, 42, 50, 45)
 }
+function drawcave(){
+    let cave = new Image();
+        cave.src = "cave2.png";
+        ctx.drawImage(cave,1070, 130, 100, 100)
+        // ctx.drawImage(cave,1070, 480, 100, 100)
+    if ((banana.maxNumber - banana.ArrayOfXpos.length) < banana.maxNumber) {
+        let door = new Image();
+        door.src = "stones2.png";
+        ctx.drawImage(door, 1092, 180, 35, 45)
+    }else if((banana.maxNumber - banana.ArrayOfXpos.length) == banana.maxNumber){
+    if ((player1.xPosition >=1070 && player1.xPosition <= 1170) && (player1.yPosition >= 130 && player1.yPosition <= 230)){
+       // win level 
+        
+    }}
+    
+}
 //end of creation of variables..............
 //main loop function
 function loop() {
@@ -136,7 +153,8 @@ function loop() {
     player2.spirit();
     player2.animate.update();
     enemy2.animate.update();
-    drawTile();
+    Maps.draw();
+    drawcave();
     enemy1.constantMove();
     enemy2.constantMove();
     enemy1.Colliston();
