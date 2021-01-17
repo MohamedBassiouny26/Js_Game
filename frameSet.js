@@ -25,7 +25,7 @@ CreateImage(jumpLeftBlue,4,'img_blue','monkey_jumpleft');
 let monosterRight=[]; 
 CreateImage(monosterRight,11,'Monster','walking_Right');
 let monosterLeft=[]; 
-CreateImage(jumpLeftBlue,4,'img_blue','walking_Left');
+CreateImage(jumpLeftBlue,4,'Monster','walking_Left');
 
 let walkLeft=[new Image,new Image,new Image,new Image]
 let idle=[new Image,new Image]
@@ -52,10 +52,11 @@ let Frame_set = {
         jumpRight: jumpRightBlue,
         jumpLeft: jumpLeftBlue,
     },
-    Enemy: {
-        walkRight:monosterRight,
-        walkLeft:monosterLeft
-    }
+     Enemy: {
+         idle:monosterRight,
+         walkRight:monosterRight,
+         walkLeft:monosterLeft
+     }
 }
 function CreateImage(nameOfimages,numberofImages,imageFolder,imageName)
  {

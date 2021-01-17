@@ -18,8 +18,8 @@ class SoundClass{
 
 let player1 = new Character("player1", 15, 510, 70, 70, Frame_set.player1, ArrowController,0); //da al character henzl mnen
 let player2 = new Character("player2", 40, 510, 70, 70, Frame_set.player2, lettersController,1); //da al character henzl mnen
-let enemy1 = new Enemy("Enemy1",30*32,(5*32)-10,80,80,Frame_set.Enemy,140)
-let enemy2 = new Enemy("Enemy2",6*32,(3*32)-10,80,80,Frame_set.Enemy,240)
+let enemy1 = new Enemy("Enemy1",30*32,(5*32)-10,80,80,Frame_set.Enemy)
+let enemy2 = new Enemy("Enemy2",6*32,(3*32)-10,80,80,Frame_set.Enemy)
 let banana = new targetItems("banana.png", 32, 32)
 var mySound = new SoundClass("bounce.mp3")
 var backgroundSound = new SoundClass("melodyloops.mp3")
@@ -129,11 +129,15 @@ function showScore_Reset() {
 function loop() {
     player1.spirit();
     player1.animate.update();
+    enemy1.animate.update();
     player2.spirit();
     player2.animate.update();
+    enemy2.animate.update();
     drawTile();
     enemy1.constantMove();
     enemy2.constantMove();
+    enemy1.Colliston();
+    enemy2.Colliston();
     banana.DrawTargetItem();
     player1.drawCharacter();
     player2.drawCharacter();
