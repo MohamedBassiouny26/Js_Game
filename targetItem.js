@@ -7,6 +7,7 @@ class targetItems {
         this.ArrayOfYpos = [];
         this.firstTime = true;
         this.maxNumber = 0
+
     }
     DrawTargetItem() {
 
@@ -15,12 +16,8 @@ class targetItems {
             index = 0,
             skip = false,
             upLow =false;
-            
         if (this.firstTime === true) {
-
             for (var x = 0; x < mapColumns * mapHeight; x++) {
-
-
                 if (tiles[x] === 0 && tiles[x + 1] === 0 && tiles[x + 2] === 0) {
                     if (skip == false) {
                         index = x
@@ -43,13 +40,8 @@ class targetItems {
                         this.ArrayOfYpos.push((currentRow - 3) * tileHeight) 
                         upLow=false
                         }
-                        //current Row :to put banana above stage
-                        //current col+w: w is to put in which col 
                         currentRow = 0
-                        skip = true
-                    } else {
-                        skip = false
-                    }
+                        skip = true } else {skip = false}
                 }
             }
             this.maxNumber = this.ArrayOfXpos.length;
@@ -65,7 +57,10 @@ class targetItems {
     collistionOfTarget(cur_x, cur_y) {
        
         for (var l = 0; l < this.ArrayOfYpos.length; l++) {
+<<<<<<< HEAD
             // console.log(this.ArrayOfXpos[l]+"+"+this.ArrayOfYpos[l])
+=======
+>>>>>>> 2cf87cd6151bc83e04dd3a7b9ce64adb69a93853
             if ((cur_x >= this.ArrayOfXpos[l] + 2 && cur_x <= this.ArrayOfXpos[l] + this.targetWidth) && (cur_y >= this.ArrayOfYpos[l] && cur_y <= (this.ArrayOfYpos[l] + this.targetHeight)-3)) {
                 
                 this.ArrayOfXpos.splice(l, 1)
