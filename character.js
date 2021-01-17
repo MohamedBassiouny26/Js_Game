@@ -182,9 +182,14 @@ class Enemy extends Character{
             if(this.moveCounter===800)
                 this.moveCounter=0;
             this.x_velocity-=.5;
+            this.animate.change(this.Frame_set.walkRight, 15);
         }        
         else
+        {
             this.x_velocity+=.5;
+            this.animate.change(this.Frame_set.walkLeft, 15);
+
+        }
         this.y_velocity += 0.25; //used as a graphity
         this.xPosition += this.x_velocity;
         this.yPosition += this.y_velocity;
