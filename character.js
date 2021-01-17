@@ -169,6 +169,7 @@ class Character {
             }
         }
     }
+    
 }
 class Enemy extends Character{
     constructor(name, x, y, height, width, frame_set,controller){
@@ -177,13 +178,13 @@ class Enemy extends Character{
     }
     constantMove(){
         this.moveCounter++;
-        if(this.moveCounter>200){
-            if(this.moveCounter===400)
+        if(this.moveCounter>400){
+            if(this.moveCounter===800)
                 this.moveCounter=0;
-            this.x_velocity-=1;
+            this.x_velocity-=.5;
         }        
         else
-            this.x_velocity+=1;
+            this.x_velocity+=.5;
         this.y_velocity += 0.25; //used as a graphity
         this.xPosition += this.x_velocity;
         this.yPosition += this.y_velocity;

@@ -57,10 +57,7 @@ class targetItems {
     collistionOfTarget(cur_x, cur_y) {
        
         for (var l = 0; l < this.ArrayOfYpos.length; l++) {
-<<<<<<< HEAD
             // console.log(this.ArrayOfXpos[l]+"+"+this.ArrayOfYpos[l])
-=======
->>>>>>> 2cf87cd6151bc83e04dd3a7b9ce64adb69a93853
             if ((cur_x >= this.ArrayOfXpos[l] + 2 && cur_x <= this.ArrayOfXpos[l] + this.targetWidth) && (cur_y >= this.ArrayOfYpos[l] && cur_y <= (this.ArrayOfYpos[l] + this.targetHeight)-3)) {
                 
                 this.ArrayOfXpos.splice(l, 1)

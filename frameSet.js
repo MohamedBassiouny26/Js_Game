@@ -25,7 +25,7 @@ CreateImage(jumpLeftBlue,4,'img_blue','monkey_jumpleft');
 let monosterRight=[]; 
 CreateImage(monosterRight,11,'Monster','walking_Right');
 let monosterLeft=[]; 
-CreateImage(jumpLeftBlue,4,'Monster','walking_Left');
+CreateImage(monosterLeft,4,'Monster','walking_Left');
 
 let walkLeft=[new Image,new Image,new Image,new Image]
 let idle=[new Image,new Image]
