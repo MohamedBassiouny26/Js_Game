@@ -167,7 +167,7 @@ class Character {
         }
     }
 }
-class Enimy extends Character{
+class Enemy extends Character{
     constructor(name, x, y, height, width, frame_set,controller){
         super(name, x, y, height, width, frame_set,controller)
         this.moveCounter=0;
