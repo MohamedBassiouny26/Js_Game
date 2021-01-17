@@ -1,11 +1,3 @@
-$( document ).ready(function() {
-    $("#levelOneBeginModal").show(350)
-
-    $('#okLevel1').click(function(){
-        $("#levelOneBeginModal").slideUp(350)
-    })
-});
-
 class SoundClass{
     constructor(source){
         this.soundElement = document.createElement("audio")
@@ -225,10 +217,6 @@ function drawTrap() {
     player2.touchWaterFire = false;
    }
    if(lifes === 0){
-    $("#levelOneLoseModal").show(350)
-
-    $('#level1Btn').click(function(){
-        window.location.href='../level2/level2.html';
-    })
+     //  alert("gameOver")
    }
 }

@@ -1537,6 +1537,7 @@ input
 }
 .pay-block-packet:hover
 {   
+  background-color: #000;
     overflow: hidden;
     transform: scale(1.1);
   /*transform: scale(1.1);*/
@@ -1566,81 +1567,6 @@ img{
 {
     margin-left: 160px;
 }
-.soundbar-lk
-{
-    float: left;
-}
-.soundbar-lk ul 
-{
-    list-style-type: none;
-}
-.soundbar-lk ul li
-{
-    margin-top: 15px;
-}
-.soundbar-lk ul li:first-child
-{
-    margin-top: 50px;
-}
-.soundbar-lk ul li a:hover
-{
-    background: #ed5b5b;
-    color: #efc095;
-}
-.soundbar-lk ul a
-{
-    text-decoration: none;
-    color: #ed5b5b;
-    padding: 10px 60px;
-    background: #efc095;
-    display: block;
-    text-align: center;
-    border: 1.1px solid #ed5b5b;
-    border-radius: 5px;
-}
-.update-profile
-{
-    float: right;
-}
-.form-buttons
-{
-    margin-right: 78px;
-}
-.about-me p
-{
-   
-    bottom: 61px;
-    margin-left: 45px;
-}
-.change-lk 
-{
-    position: absolute;
-}
-.about-me label
-{
-    color: #be8044;
-}
-.about-me form input
-{
-    width: 200px;
-    height: 30px;
-    border-radius: 5px;
-    border: 2px solid #be8044;
-    text-align: center;
-    font-family: Gabriela;
-}
-.block-progress-section 
-  {
-    float: left;
-    position: relative;
-    bottom: 70px;
-}
-.block-progress-section
-{
-    margin-left: 20px;
-}
-
-
 
 
 
@@ -1649,20 +1575,7 @@ img{
 {
     width: 94%;
 }
-.block-description-text
-{    padding-left: 400px;
-    top: -30px;
-}
-.block-devices-img
-{
-   position: relative;
-   left: 300px;
-    top: 100px;
-}    
-.sl-slider
-{
-    padding-left: 30px;
-}
+
 .block-level-left li a
 {
        width: 136px; 
