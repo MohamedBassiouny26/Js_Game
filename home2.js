@@ -1,19 +1,4 @@
-class SoundClass{
-    constructor(source){
-        this.soundElement = document.createElement("audio")
-        this.soundElement.src = source;
-        this.soundElement.setAttribute("preload", "auto");
-        this.soundElement.setAttribute("controls", "none");
-        this.soundElement.style.display = "none";
-        document.body.appendChild(this.soundElement);
-    }
-    playmusic(){
-        this.soundElement.play()
-    }
-    stopmusic(){
-        this.soundElement.pause();
-    }
-}
+
 
 //create all variables here:................
 // let Frame_set = {
@@ -34,6 +19,7 @@ class SoundClass{
 //         jumpLeft: ["./img_blue/monkey_jumpleft_1.png", "./img_blue/monkey_jumpleft_2.png", "./img_blue/monkey_jumpleft_3.png", "./img_blue/monkey_jumpleft_4.png"],
 //     },
 // }
+//create all variables here:................
 let player1 = new Character("player1", 15, 560, 70, 70, Frame_set.player1, ArrowController,0); //da al character henzl mnen
 let player2 = new Character("player2", 40, 560, 70, 70, Frame_set.player2, lettersController,1); //da al character henzl mnen
 let banana = new targetItems("banana.png", 32, 32)
@@ -73,7 +59,7 @@ let tiles = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4
              4, 0, 0, 0, 0, 0, 4, 4, 0, 0, 0, 0, 0, 4,50, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4,50, 6, 4, 4,
              4, 4, 6, 6, 4, 6, 4, 4, 4, 4, 4,50, 4,50, 4,50, 4, 4, 4,50, 4, 4,50, 4, 4, 4, 4, 4, 4, 4, 4, 4, 6, 6, 4, 6, 4
 ];
-let Maps = new tileMap(tileWidth, tileHeight, mapHeight, mapColumns, tiles)
+let Maps = new tileMap(tileWidth, tileHeight, mapHeight, mapColumns, tiles,2)
 
 //image.addEventListener('load', drawTile);
 let display = document.getElementById("myCanvas");
@@ -82,38 +68,47 @@ display.style.height = window.innerHeight + 'px';
 display.width = 1170;
 display.height = 670;
 let ctx = display.getContext("2d");
-//image.addEventListener('load', drawTile);
-// imagefire.addEventListener('load', drawTile);
-//imagewave.addEventListener('load', drawTile);
 
 
 
-function showScore_Reset() {
-    ctx.fillStyle = "#58391c";
-    ctx.font = "italic bold 20pt Tahoma";
-    let score_imag = new Image()
-    score_imag.src ="banana.png"
-    ctx.drawImage(score_imag,170,35,32,32)
-   ctx.fillText(":"+(banana.maxNumber - banana.ArrayOfXpos.length) + " /"+ banana.maxNumber, 200, 60);
-   ctx.fillText("lifes:", 400, 60);
-   for(let i=0;i<lifes;i++){
-       let heart = new Image()
-       heart.src = "heart.png"
-       ctx.drawImage(heart,480+(50*i),40,30,30)
-   }
-    let reset_imag = new Image()
-    reset_imag.id = "ResetImage"
-    reset_imag.src = "reset.png"
-    ctx.drawImage(reset_imag, 800, 40, 80, 50)
-     music_imag =new Image()
-     if(mute==true){
-    music_imag.src = "NoMusic.png"}
-    else{music_imag.src = "music.png"}
-    ctx.drawImage(music_imag, 900, 42, 50, 45)
-    let exit_imag = new Image()
-    exit_imag.src = "exit.png"
-    ctx.drawImage(exit_imag, 970, 42, 50, 45)
+//end of creation of variables..............
+//main loop function
+function loop() {
+    player1.spirit();
+    player1.animate.update();
+    player2.spirit();
+    player2.animate.update();
+    Maps.draw();
+    drawcave();
+    banana.DrawTargetItem();
+    player1.drawCharacter();
+    player2.drawCharacter();
+    Maps.showExtensions();
+    player2.Colliston();
+    player1.Colliston();
+    drawTrap();
+    window.requestAnimationFrame(loop);
+}
+
+function ClickonFn(event) {
+    console.log(event.x+"+"+event.y+"+"+display.style.width+"+"+display.style.height)
+      let Xpercent = event.x/parseInt(display.style.width);
+      let Ypercent = event.y/parseInt(display.style.height);
+    if ((Xpercent >= 768/1119 && Xpercent <= 838/1119) && (Ypercent>= 43/657 && Ypercent <= 83/657)) {
+        window.location.reload()
+    }else if ((Xpercent >= 861/1119 && Xpercent <= 907/1119) && (Ypercent>= 41/657 && Ypercent <= 83/657)){
+      if(mute==true){
+          backgroundSound.playmusic()
+          mute=false;
+      }else{
+        backgroundSound.stopmusic()
+        mute=true;
+      }
     
+    }else if((Xpercent >= 929/1119 && Xpercent <= 974/1119) && (Ypercent>= 41/657 && Ypercent <= 83/657)){
+        //exit here 
+     
+    }
 }
 function drawcave(){
     let cave = new Image();
@@ -132,50 +127,6 @@ function drawcave(){
     
 }
 
-//end of creation of variables..............
-//main loop function
-function loop() {
-    player1.spirit();
-    player1.animate.update();
-    player2.spirit();
-    player2.animate.update();
-    Maps.draw();
-    drawcave();
-    banana.DrawTargetItem();
-    player1.drawCharacter();
-    player2.drawCharacter();
-    showScore_Reset();
-    player2.Colliston();
-    player1.Colliston();
-    drawTrap();
-    window.requestAnimationFrame(loop);
-}
-
-function ClickonFn(event) {
-      let Xpercent = event.x/parseInt(display.style.width);
-      let Ypercent = event.y/parseInt(display.style.height);
-    if ((Xpercent >= 768/1119 && Xpercent <= 838/1119) && (Ypercent>= 43/657 && Ypercent <= 83/657)) {
-        window.location.reload()
-    }else if ((Xpercent >= 861/1119 && Xpercent <= 907/1119) && (Ypercent>= 41/657 && Ypercent <= 83/657)){
-      if(mute==true){
-          backgroundSound.playmusic()
-          mute=false;
-      }else{
-        backgroundSound.stopmusic()
-        mute=true;
-      }
-    
-    }
-}
-
-window.addEventListener("load", (event) => {
-    window.requestAnimationFrame(loop);
-})
-window.addEventListener("keydown", player1.controller.keyUpDown)
-window.addEventListener("keyup", player1.controller.keyUpDown)
-window.addEventListener("keydown", player2.controller.keyUpDown)
-window.addEventListener("keyup", player2.controller.keyUpDown)
-display.addEventListener("click", ClickonFn)
 function drawTrap() {
     let player1Tilex = player1.getColomn();
     let player1Tiley = player1.getRow();
@@ -213,3 +164,11 @@ function drawTrap() {
      //  alert("gameOver")
    }
 }
+window.addEventListener("load", (event) => {
+    window.requestAnimationFrame(loop);
+})
+window.addEventListener("keydown", player1.controller.keyUpDown)
+window.addEventListener("keyup", player1.controller.keyUpDown)
+window.addEventListener("keydown", player2.controller.keyUpDown)
+window.addEventListener("keyup", player2.controller.keyUpDown)
+display.addEventListener("click", ClickonFn)

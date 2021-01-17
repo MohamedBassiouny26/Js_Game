@@ -15,12 +15,9 @@ class targetItems {
             index = 0,
             skip = false,
             upLow =false;
-            
+            var TargetX,TargetY;
         if (this.firstTime === true) {
-
             for (var x = 0; x < mapColumns * mapHeight; x++) {
-
-
                 if (tiles[x] === 0 && tiles[x + 1] === 0 && tiles[x + 2] === 0) {
                     if (skip == false) {
                         index = x
@@ -33,23 +30,21 @@ class targetItems {
                         let BananaImage = new Image();
                         BananaImage.src = this.SourceOfImag
                         if(upLow === false){
-                        ctx.drawImage(BananaImage, (currentCol + 2) * tileWidth, (currentRow - 2) * tileHeight, this.targetWidth, this.targetHeight);
-                        this.ArrayOfXpos.push((currentCol + 2) * tileWidth)
-                        this.ArrayOfYpos.push((currentRow - 2) * tileHeight)
-                        upLow=true }
+                            TargetX =  (currentCol + 2) * tileWidth;
+                            TargetY = (currentRow - 2) * tileHeight
+                            upLow=true }
                         else{
-                            ctx.drawImage(BananaImage, (currentCol + 2) * tileWidth, (currentRow - 3) * tileHeight, this.targetWidth, this.targetHeight);
-                        this.ArrayOfXpos.push((currentCol + 2) * tileWidth)
-                        this.ArrayOfYpos.push((currentRow - 3) * tileHeight) 
-                        upLow=false
-                        }
+                            TargetX =  (currentCol + 2) * tileWidth;
+                            TargetY = (currentRow - 3) * tileHeight
+                            upLow=false }
                         //current Row :to put banana above stage
                         //current col+w: w is to put in which col 
+                        ctx.drawImage(BananaImage, TargetX, TargetY, this.targetWidth, this.targetHeight);
+                        this.ArrayOfXpos.push(TargetX)
+                        this.ArrayOfYpos.push(TargetY)
                         currentRow = 0
                         skip = true
-                    } else {
-                        skip = false
-                    }
+                    } else {  skip = false   }
                 }
             }
             this.maxNumber = this.ArrayOfXpos.length;
@@ -65,8 +60,7 @@ class targetItems {
     collistionOfTarget(cur_x, cur_y) {
        
         for (var l = 0; l < this.ArrayOfYpos.length; l++) {
-            // console.log(this.ArrayOfXpos[l]+"+"+this.ArrayOfYpos[l])
-            if ((cur_x >= this.ArrayOfXpos[l] + 2 && cur_x <= this.ArrayOfXpos[l] + this.targetWidth) && (cur_y >= this.ArrayOfYpos[l] && cur_y <= (this.ArrayOfYpos[l] + this.targetHeight)-3)) {
+            if ((cur_x >= this.ArrayOfXpos[l] + 2 && cur_x <= this.ArrayOfXpos[l] + this.targetWidth) && (cur_y >= this.ArrayOfYpos[l]-3 && cur_y <= (this.ArrayOfYpos[l] + this.targetHeight)-3)) {
                 
                 this.ArrayOfXpos.splice(l, 1)
                 this.ArrayOfYpos.splice(l, 1)
