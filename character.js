@@ -37,9 +37,9 @@ class Character {
                 this.countJumps=1;
             this.y_velocity -= 13;
             if (this.face == "right")
-                this.animate.change(this.Frame_set.jumpRight, 30);
+                this.animate.change(this.Frame_set.jumpRight, 15);
             else if (this.face == "left")
-                this.animate.change(this.Frame_set.jumpLeft, 30);
+                this.animate.change(this.Frame_set.jumpLeft, 15);
             if (this.carry)
                 player1.jumping = true;
             this.isCarried = false
@@ -48,7 +48,7 @@ class Character {
             this.face = "left"
             this.x_velocity -= 0.07;
             if (!this.jumping) {
-                this.animate.change(this.Frame_set.walkLeft, 30);
+                this.animate.change(this.Frame_set.walkLeft, 15);
             }
             if (this.carry&&this.name=="player2") {
                 player1.x_velocity = player2.x_velocity;
@@ -61,7 +61,7 @@ class Character {
             this.face = "right"
             this.x_velocity += 0.07;
             if (!this.jumping) {
-                this.animate.change(this.Frame_set.walkRight, 30);
+                this.animate.change(this.Frame_set.walkRight, 15);
             }
             if (this.carry&&this.name=="player2") {
                 player1.x_velocity = player2.x_velocity;
@@ -72,9 +72,9 @@ class Character {
         }
         if (!this.controller.rightActive && !this.controller.leftActive) {
             if (this.face == "right")
-                this.animate.change(this.Frame_set.idle, 30);
+                this.animate.change(this.Frame_set.idle, 15);
             else if (this.face == "left")
-                this.animate.change(this.Frame_set.idleLeft, 30);
+                this.animate.change(this.Frame_set.idleLeft, 15);
         }
         this.y_velocity += 0.25; //used as a graphity
         this.xPosition += this.x_velocity;
@@ -187,34 +187,32 @@ class Enemy {
         this.touchedCount=0
     }
     drawCharacter() {
+       
         this.characterImage.src = this.animate.frame;
         ctx.drawImage(this.characterImage, this.xPosition, this.yPosition, this.width, this.height);
+
     }
     constantMove(){
-        var XRange;
        this.moveCounter++;
         if(this.moveCounter<this.maxCounter){
             this.x_velocity+=1;
             this.xPosition += this.x_velocity;
             this.x_velocity = 0;
-        this.animate.update();
-        XRange = this.xPosition+this.width
-       
+            this.animate.update()
         }else if(this.moveCounter==this.maxCounter){
             this.animate.change(this.Frame_set.walkRight,15)
         }else if(this.moveCounter>this.maxCounter && this.moveCounter<this.maxCounter*2){
-             
+  
             this.x_velocity-=1;
             this.xPosition += this.x_velocity;
             this.x_velocity = 0;
             this.animate.update()
-            XRange = this.xPosition;
-            
         }else{
             this.moveCounter=0;
             this.animate.change(this.Frame_set.walkLeft,15)
+            
         }
-
+       
             if (Math.floor(player1.xPosition)+(player1.width)/2.5 >= this.xPosition + 2 && Math.floor(player1.xPosition)+(player1.width)/1.5 <= this.xPosition+this.width && Math.floor(player1.yPosition)+3 >= this.yPosition && Math.floor(player1.yPosition)+3 <= (this.yPosition + this.height)-3){
                 this.touchedCount++;
             player1 = new Character("player1", 15, 510, 70, 70, Frame_set.player1, ArrowController,0); 

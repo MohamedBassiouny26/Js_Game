@@ -33,19 +33,21 @@ let Frame_set = {
         jumpRight: ["./img_blue/monkey_jump_1.png", "./img_blue/monkey_jump_2.png", "./img_blue/monkey_jump_3.png", "./img_blue/monkey_jump_4.png"],
         jumpLeft: ["./img_blue/monkey_jumpleft_1.png", "./img_blue/monkey_jumpleft_2.png", "./img_blue/monkey_jumpleft_3.png", "./img_blue/monkey_jumpleft_4.png"],
     },
-    Enemy: {
+    
+   Enemy: {
         walkRight:["./Monster/walking_Right_01.png","./Monster/walking_Right_02.png","./Monster/walking_Right_03.png","./Monster/walking_Right_04.png",
-        "./Monster/walking_Right_05.png","./Monster/walking_Right_06.png","./Monster/walking_Right_07.png","./Monster/walking_Right_08.png",
-        "./Monster/walking_Right_09.png","./Monster/walking_Right_10.png","./Monster/walking_Right_11.png"],
-        walkLeft:["./Monster/walking_Left_01.png","./Monster/walking_Left_02.png","./Monster/walking_Left_03.png","./Monster/walking_Left_04.png",
-        "./Monster/walking_Left_05.png","./Monster/walking_Left_06.png","./Monster/walking_Left_07.png","./Monster/walking_Left_08.png",
-        "./Monster/walking_Left_09.png","./Monster/walking_Left_10.png","./Monster/walking_Left_11.png"]
+        "./Monster/walking_Right_05.png","./Monster/walking_Right_06.png",/*"./Monster/walking_Right_07.png","./Monster/walking_Right_08.png",
+   "./Monster/walking_Right_09.png","./Monster/walking_Right_10.png","./Monster/walking_Right_11.png"*/],
+     walkLeft:[
+         "./Monster/walking_Left_01.png","./Monster/walking_Left_02.png","./Monster/walking_Left_03.png","./Monster/walking_Left_04.png",
+       "./Monster/walking_Left_05.png","./Monster/walking_Left_06.png"/*,"./Monster/walking_Left_07.png","./Monster/walking_Left_08.png",
+     "./Monster/walking_Left_09.png","./Monster/walking_Left_10.png","./Monster/walking_Left_11.png"*/]
     }
 }
 let player1 = new Character("player1", 15, 510, 70, 70, Frame_set.player1, ArrowController,0); //da al character henzl mnen
 let player2 = new Character("player2", 40, 510, 70, 70, Frame_set.player2, lettersController,1); //da al character henzl mnen
-let enemy1 = new Enemy("Enemy1",30*32,(5*32)-10,80,80,Frame_set.Enemy,140)
-let enemy2 = new Enemy("Enemy2",6*32,(3*32)-10,80,80,Frame_set.Enemy,240)
+let enemy1 = new Enemy("Enemy1",15*32,(17*32)-5,75,80,Frame_set.Enemy,140)
+let enemy2 = new Enemy("Enemy2",6*32,(3*32)-5,75,80,Frame_set.Enemy,240)
 let banana = new targetItems("banana.png", 32, 32)
 var mySound = new SoundClass("bounce.mp3")
 var backgroundSound = new SoundClass("melodyloops.mp3")
@@ -57,6 +59,7 @@ let imagefire = new Image();
 imagefire.src = "Fire.png";
 let imagewave = new Image();
 imagewave.src = "waves.png";
+
 const tileWidth = 32,
     tileHeight = 32;
 const mapHeight = 21,
@@ -96,7 +99,9 @@ imagewave.addEventListener('load', drawTile);
 function drawTile() {
     display.style.width = window.innerWidth + 'px';
     display.style.height = window.innerHeight + 'px';
-    ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
+   
+   ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
+  
     for (let i = 0; i < mapColumns * mapHeight; i++) {
         let tile = tiles[i];
         let sourceX = (tile % (mapColumns + 10)) * tileWidth;
@@ -114,10 +119,12 @@ function drawTile() {
             ctx.drawImage(image, sourceX, sourceY, tileWidth, tileHeight, targetX, targetY, tileWidth, tileHeight);
         } else if (tile === 80 && (Math.floor(i / mapColumns)+1 != player2.currentRow) ) {
             ctx.drawImage(imagefire, 225, 313, 1452, 1472, targetX, targetY, tileWidth, tileHeight);
+          
         } else if (tile === 60 && (Math.floor(i / mapColumns)+1 != player1.currentRow) ) {
              
             // context.drawImage(imagefire, 17, 2329, 1960, 904, targetX, targetY, tileWidth, tileHeight);
             ctx.drawImage(imagewave, 5, 33, 595, 297, targetX, targetY, tileWidth, tileHeight);
+            
         }
        // console.log(Math.floor(i / mapColumns))
     }
@@ -134,10 +141,8 @@ function showScore_Reset() {
    for(let i=0;i<lifes-enemy1.touchedCount-enemy2.touchedCount;i++){
        let heart = new Image()
        heart.src = "heart.png"
-       ctx.drawImage(heart,480+(50*i),40,30,30)
-   }
+       ctx.drawImage(heart,480+(50*i),40,30,30) }
     let reset_imag = new Image()
-    reset_imag.id = "ResetImage"
     reset_imag.src = "reset.png"
     ctx.drawImage(reset_imag, 800, 40, 80, 50)
      music_imag =new Image()
@@ -148,28 +153,28 @@ function showScore_Reset() {
     let exit_imag = new Image()
     exit_imag.src = "exit.png"
     ctx.drawImage(exit_imag, 970, 42, 50, 45)
-    
 }
 //end of creation of variables..............
 //main loop function
 function loop() {
-    player1.spirit();
+   player1.spirit();
     player1.animate.update();
     player2.spirit();
     player2.animate.update();
     drawTile();
-    enemy1.constantMove();
-    enemy2.constantMove();
     banana.DrawTargetItem();
     player1.drawCharacter();
     player2.drawCharacter();
-    enemy1.drawCharacter();
-    enemy2.drawCharacter();
+    enemy1.drawCharacter()
+    enemy2.drawCharacter()
     showScore_Reset();
     player2.Colliston();
     player1.Colliston();
+    enemy1.constantMove();
+    enemy2.constantMove();
     drawTrap();
-    window.requestAnimationFrame(loop);
+ 
+   requestAnimationFrame(loop);
 }
 
 function ClickonFn(event) {
@@ -210,6 +215,7 @@ function drawTrap() {
    if(Player1trap == 60){
        player1.currentRow = player1Tiley;
        player1.touchWaterFire = true;
+    //   ctx.drawImage(woodenImage,8*32,18*32,5*32,20)
    }else if(Player1trap == 80 && (player2.touchWaterFire == false|| player2Tiley != player1Tiley)){
     player1 = new Character("player1", 15, 380, 70, 70, Frame_set.player1, ArrowController,0);
     player1.touchWaterFire = false;
