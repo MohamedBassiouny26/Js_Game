@@ -1,27 +1,7 @@
 
-
 //create all variables here:................
-// let Frame_set = {
-//     player2: {
-//         idle: ["./img/monkey_idle.png", "./img/monkey_idle.png"],
-//         idleLeft: ["./img/monkey_idle_left.png", "./img/monkey_idle_left.png"],
-//         walkRight: ["./img/monkey_walk_1.png", "./img/monkey_walk_2.png", "./img/monkey_walk_3.png", "./img/monkey_walk_4.png"],
-//         walkLeft: ["./img/monkey_walkleft_1.png", "./img/monkey_walkleft_2.png", "./img/monkey_walkleft_3.png", "./img/monkey_walkleft_4.png"],
-//         jumpRight: ["./img/monkey_jump_1.png", "./img/monkey_jump_2.png", "./img/monkey_jump_3.png", "./img/monkey_jump_4.png"],
-//         jumpLeft: ["./img/monkey_jumpleft_1.png", "./img/monkey_jumpleft_2.png", "./img/monkey_jumpleft_3.png", "./img/monkey_jumpleft_4.png"],
-//     },
-//     player1: {
-//         idle: ["./img_blue/monkey_idle.png", "./img_blue/monkey_idle.png"],
-//         idleLeft: ["./img_blue/monkey_idle_left.png", "./img_blue/monkey_idle_left.png"],
-//         walkRight: ["./img_blue/monkey_walk_1.png", "./img_blue/monkey_walk_2.png", "./img_blue/monkey_walk_3.png", "./img_blue/monkey_walk_4.png"],
-//         walkLeft: ["./img_blue/monkey_walkleft_1.png", "./img_blue/monkey_walkleft_2.png", "./img_blue/monkey_walkleft_3.png", "./img_blue/monkey_walkleft_4.png"],
-//         jumpRight: ["./img_blue/monkey_jump_1.png", "./img_blue/monkey_jump_2.png", "./img_blue/monkey_jump_3.png", "./img_blue/monkey_jump_4.png"],
-//         jumpLeft: ["./img_blue/monkey_jumpleft_1.png", "./img_blue/monkey_jumpleft_2.png", "./img_blue/monkey_jumpleft_3.png", "./img_blue/monkey_jumpleft_4.png"],
-//     },
-// }
-//create all variables here:................
-let player1 = new Character("player1", 15, 560, 70, 70, Frame_set.player1, ArrowController,0); //da al character henzl mnen
-let player2 = new Character("player2", 40, 560, 70, 70, Frame_set.player2, lettersController,1); //da al character henzl mnen
+let player1 = new Character("player1", 15, 510, 70, 70, Frame_set.player1, lettersController,0); //da al character henzl mnen
+let player2 = new Character("player2", 40, 510, 70, 70, Frame_set.player2,ArrowController ,1); //da al character henzl mnen
 let banana = new targetItems("banana.png", 32, 32)
 var mySound = new SoundClass("bounce.mp3")
 var backgroundSound = new SoundClass("melodyloops.mp3")
@@ -121,10 +101,10 @@ function drawcave(){
         ctx.drawImage(door, 1092, 180, 35, 45)
     }else if((banana.maxNumber - banana.ArrayOfXpos.length) == banana.maxNumber){
     if ((player1.xPosition >=1070 && player1.xPosition <= 1170) && (player1.yPosition >= 130 && player1.yPosition <= 230)){
-       // win level 
-        
+         if((player2.xPosition >=1070 && player2.xPosition <= 1170) && (player2.yPosition >= 130 && player2.yPosition <= 230)){
+      // win level 
+        }  
     }}
-    
 }
 
 function drawTrap() {
