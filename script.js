@@ -109,8 +109,6 @@ window.addEventListener("load", (event) => {
 
     window.requestAnimationFrame(loop);
 });
-
-
 window.addEventListener("keydown", player1.controller.keyUpDown)
 window.addEventListener("keyup", player1.controller.keyUpDown)
 window.addEventListener("click", ClickonResetFn)
