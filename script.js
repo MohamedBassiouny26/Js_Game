@@ -52,7 +52,7 @@ let tiles = [
     4, 4, 4, 4, 6, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4, 6, 6, 4, 4, 4, 4, 4, 4, 4, 4, 6, 6, 4, 6,
     4, 4, 4, 6, 4, 6, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 6, 6, 4, 6, 6
 ];
-let Maps = new tileMap(tileWidth, tileHeight, mapHeight, mapColumns, tiles)
+let Maps = new tileMap(tileWidth, tileHeight, mapHeight, mapColumns, tiles,1)
 let display = document.getElementById("myCanvas");
 display.style.width = window.innerWidth + 'px';
 display.style.height = window.innerHeight + 'px';
@@ -106,6 +106,9 @@ function ClickonResetFn(event) {
             mute = true;
         }
 
+    }else if((Xpercent >= 929/1119 && Xpercent <= 974/1119) && (Ypercent>= 41/657 && Ypercent <= 83/657)){
+        //exit here 
+     
     }
 }
 

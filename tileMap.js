@@ -1,10 +1,11 @@
 class tileMap{
-    constructor(tiWidth,tiHeight,mapeigh,mapColum,til){
+    constructor(tiWidth,tiHeight,mapeigh,mapColum,til,level){
         this.tileWidth=tiWidth;
         this.tileHeight=tiHeight;
         this.mapColumns=mapColum;
         this.mapHeight=mapeigh;
         this.tiles=til; 
+        this.level = level
     }
     draw() {
         display.style.width = window.innerWidth + 'px';
@@ -17,7 +18,14 @@ class tileMap{
             let targetX = (i % this.mapColumns) * this.tileWidth;
             let targetY = Math.floor(i / this.mapColumns) * this.tileHeight;
             ctx.drawImage(tileImage, sourceX, sourceY, this.tileWidth, this.tileHeight, targetX, targetY, this.tileWidth, this.tileHeight);
-            
+            if(this.level== 2 || this.level == 3){
+            if (tile !== 60 & tile !== 80) {
+                ctx.drawImage(image, sourceX, sourceY, this.tileWidth, this.tileHeight, targetX, targetY, this.tileWidth, this.tileHeight);
+            } else if (tile === 80 && (Math.floor(i / mapColumns)+1 != player2.currentRow) ) {
+                ctx.drawImage(imagefire, 225, 313, 1452, 1472, targetX, targetY, this.tileWidth, this.tileHeight);
+            } else if (tile === 60 && (Math.floor(i / mapColumns)+1 != player1.currentRow) ) {
+                ctx.drawImage(imagewave, 5, 33, 595, 297, targetX, targetY, this.tileWidth, this.tileHeight);
+            }}
         }}
         showExtensions() {
             ctx.fillStyle = "#58391c";
