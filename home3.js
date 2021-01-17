@@ -1,6 +1,6 @@
 //create all variables here:................
-let player1 = new Character("player1", 15, 510, 70, 70, Frame_set.player1, lettersController,0); //da al character henzl mnen
-let player2 = new Character("player2", 40, 510, 70, 70, Frame_set.player2,ArrowController ,1); //da al character henzl mnen
+player1 = new Character("player1", 15, 510, 70, 70, Frame_set.player1, lettersController,0); 
+player2 = new Character("player2", 40, 510, 70, 70, Frame_set.player2,ArrowController,1); 
 let enemy1 = new Enemy("Enemy1",15*32,(17*32)-5,75,80,Frame_set.Enemy)
 let enemy2 = new Enemy("Enemy2",6*32,(3*32)-5,75,80,Frame_set.Enemy)
 let banana = new targetItems("banana.png", 32, 32)
@@ -8,8 +8,8 @@ var mySound = new SoundClass("bounce.mp3")
 var backgroundSound = new SoundClass("melodyloops.mp3")
 var score = 0,music_imag,mute=true;
 var lifes =3;
-let image = new Image();
-image.src = "Tiles_32x32.png";
+let tileImage = new Image();
+tileImage.src = "Tiles_32x32.png";
 let imagefire = new Image();
 imagefire.src = "Fire.png";
 let imagewave = new Image();
@@ -64,6 +64,7 @@ function drawcave(){
         if ((player1.xPosition >=1070 && player1.xPosition <= 1170) && (player1.yPosition >= 130 && player1.yPosition <= 230)){
             if((player2.xPosition >=1070 && player2.xPosition <= 1170) && (player2.yPosition >= 130 && player2.yPosition <= 230)){
          // win level 
+         console.log("yes");
            }  
        }
 }
@@ -127,9 +128,8 @@ function drawTrap() {
        player1.currentRow = player1Tiley;
        player1.touchWaterFire = true;
    }else if(Player1trap == 80 && (player2.touchWaterFire == false|| player2Tiley != player1Tiley)){
-        player1 = new Character("player1", 15, 560, 70, 70, Frame_set.player1, ArrowController,0); //da al character henzl m   nen
-        player2 = new Character("player2", 40, 560, 70, 70, Frame_set.player2, lettersController,1); //da al character henzl mn     en
- 
+    player1 = new Character("player1", 15, 510, 70, 70, Frame_set.player1, lettersController,0); 
+    player2 = new Character("player2", 40, 510, 70, 70, Frame_set.player2,ArrowController,1); 
     player1.touchWaterFire = false;
     lifes--;
    }else{
@@ -141,8 +141,8 @@ function drawTrap() {
        player2.touchWaterFire = true;
       
    }else if(player2trap == 60 && (player1.touchWaterFire ==false || player2Tiley != player1Tiley)  ){
-        player1 = new Character("player1", 15, 560, 70, 70, Frame_set.player1, ArrowController,0); //da al character henzl mnen
-        player2 = new Character("player2", 40, 560, 70, 70, Frame_set.player2, lettersController,1); //da al character henzl mnen
+    player1 = new Character("player1", 15, 510, 70, 70, Frame_set.player1, lettersController,0); 
+    player2 = new Character("player2", 40, 510, 70, 70, Frame_set.player2,ArrowController,1); 
     player2.touchWaterFire = false;
     lifes--;
    }else{
