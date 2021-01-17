@@ -1,5 +1,11 @@
 //create all variables here:................
+$(document).ready(function () {
+    $("#levelOneBeginModal").show(350)
 
+    $('#okLevel1').click(function () {
+        $("#levelOneBeginModal").slideUp(350)
+    })
+});
 var player1 = new Character("player1", 30, 380, 70, 70, Frame_set.player2, ArrowController); //da al character henzl mnen
 let banana = new targetItems("banana.png", 32, 32)
 var mySound = new SoundClass("bounce.mp3")
@@ -68,11 +74,14 @@ function drawcave() {
         ctx.drawImage(door, 1092, 530, 35, 45)
     } else if ((banana.maxNumber - banana.ArrayOfXpos.length) == banana.maxNumber) {
         if ((player1.xPosition >= 1070 && player1.xPosition <= 1170) && (player1.yPosition >= 480 && player1.yPosition <= 580)) {
-            // win level 
-
+            $("p").text("Congratulations! You've reached the Intermediate Level with Score : " + (10 - banana.ArrayOfXpos.length))
+            console.log(banana.ArrayOfXpos.length);
+            $("#levelOneWinModal").show(350)
+            $('#nextLevel1Btn').click(function () {
+                window.location.href = './level2.html';
+            })
         }
     }
-
 }
 
 function ClickonResetFn(event) {
