@@ -1,7 +1,7 @@
 class Character {
-    static counter=0;
-    constructor(name, x, y, height, width, frame_set, controller,doublejumping , x_velocity = 0, y_velocity = 0, jumping = false,countJumps=0) {
-        this.constructor.counter++; 
+    static counter = 0;
+    constructor(name, x, y, height, width, frame_set, controller, doublejumping, x_velocity = 0, y_velocity = 0, jumping = false, countJumps = 0) {
+        this.constructor.counter++;
         this.name = name;
         this.xPosition = x;
         this.yPosition = y;
@@ -28,13 +28,13 @@ class Character {
         ctx.drawImage(this.characterImage, this.xPosition, this.yPosition, this.width, this.height);
     }
     spirit() {
-        if ((this.controller.upActive && !this.jumping && !this.falling)||
-        (this.controller.upActive&&this.doublejumping===1&&this.countJumps===1&&this.y_velocity>=-1)) {
+        if ((this.controller.upActive && !this.jumping && !this.falling) ||
+            (this.controller.upActive && this.doublejumping === 1 && this.countJumps === 1 && this.y_velocity >= -1)) {
             this.jumping = true;
-            if(this.countJumps>=1)
-                this.countJumps=0;
-            else 
-                this.countJumps=1;
+            if (this.countJumps >= 1)
+                this.countJumps = 0;
+            else
+                this.countJumps = 1;
             this.y_velocity -= 13;
             if (this.face == "right")
                 this.animate.change(this.Frame_set.jumpRight, 15);
@@ -47,7 +47,7 @@ class Character {
             this.x_velocity -= 0.07;
             if (!this.jumping) {
                 this.animate.change(this.Frame_set.walkLeft, 15);
-            }  
+            }
         }
         if (this.controller.rightActive && !this.falling) {
             this.face = "right"
@@ -62,10 +62,9 @@ class Character {
             else if (this.face == "left")
                 this.animate.change(this.Frame_set.idleLeft, 15);
         }
-        if(this.carry||this.isCarried)
-        {
+        if (this.carry || this.isCarried) {
             this.carriedMovement()
-        }   
+        }
         this.y_velocity += 0.25; //used as a graphity
         this.xPosition += this.x_velocity;
         this.yPosition += this.y_velocity;
@@ -77,32 +76,31 @@ class Character {
             this.xPosition = myCanvas.width - (this.width) / 1.4;
         }
     }
-    getColomn(){
+    getColomn() {
         return Math.floor((this.xPosition + this.width + 2) / tileWidth);
     }
-    getRow(){
-         return Math.floor((this.yPosition + this.height + 2) / tileHeight);
+    getRow() {
+        return Math.floor((this.yPosition + this.height + 2) / tileHeight);
     }
     Colliston() {
         let currentTile = tiles[(this.getRow() * mapColumns) + this.getColomn() - 1],
-        upTile = tiles[((this.getRow()) * mapColumns) + this.getColomn() - (37 * 2) - 1],
-        previousTile = tiles[(this.getRow() * mapColumns) + this.getColomn() - 2],
-        nextTile = tiles[(this.getRow() * mapColumns) + this.getColomn()],
-        previousTile_upper = tiles[(this.getRow() * mapColumns) + this.getColomn() -2-(37*2 )],
-        previousTile_lower = tiles[(this.getRow() * mapColumns) + this.getColomn() -2-(37 )],
-        nextTile_upper = tiles[(this.getRow() * mapColumns) + this.getColomn() - (37*2 )],
-        nextTile_lower = tiles[(this.getRow() * mapColumns) + this.getColomn() - (37 )], 
-        currentY = (Math.floor(this.yPosition)+3),
-        currentX = Math.floor(this.xPosition) + (this.width / 1.5);
-        if (currentTile == undefined &&this.falling) {
-        }
-        if ((nextTile === 51 || nextTile === 4 || nextTile === 6||nextTile===47)||(nextTile_upper===0 && nextTile_lower == undefined)) {
+            upTile = tiles[((this.getRow()) * mapColumns) + this.getColomn() - (37 * 2) - 1],
+            previousTile = tiles[(this.getRow() * mapColumns) + this.getColomn() - 2],
+            nextTile = tiles[(this.getRow() * mapColumns) + this.getColomn()],
+            previousTile_upper = tiles[(this.getRow() * mapColumns) + this.getColomn() - 2 - (37 * 2)],
+            previousTile_lower = tiles[(this.getRow() * mapColumns) + this.getColomn() - 2 - (37)],
+            nextTile_upper = tiles[(this.getRow() * mapColumns) + this.getColomn() - (37 * 2)],
+            nextTile_lower = tiles[(this.getRow() * mapColumns) + this.getColomn() - (37)],
+            currentY = (Math.floor(this.yPosition) + 3),
+            currentX = Math.floor(this.xPosition) + (this.width / 1.5);
+        if (currentTile == undefined && this.falling) {}
+        if ((nextTile === 51 || nextTile === 4 || nextTile === 6 || nextTile === 47) || (nextTile_upper === 0 && nextTile_lower == undefined)) {
             if (this.xPosition > this.getColomn() * tileWidth - this.width + 12 && this.x_velocity > 0) {
                 this.xPosition = this.getColomn() * tileWidth - this.width + 12;
                 this.x_velocity = 0;
             }
         }
-        if ((previousTile === 51 || previousTile === 4 || previousTile === 6)||(previousTile_upper===0 && previousTile_lower == undefined && !this.jumping))
+        if ((previousTile === 51 || previousTile === 4 || previousTile === 6) || (previousTile_upper === 0 && previousTile_lower == undefined && !this.jumping))
             if (this.xPosition < this.getColomn() * tileWidth - this.width + 12 && this.x_velocity < 0) {
                 this.xPosition = this.getColomn() * tileWidth - this.width + 12;
                 this.x_velocity = 0;
@@ -110,52 +108,51 @@ class Character {
         if (upTile === 0 || upTile === 4 || upTile === 51 || upTile === 47) {
             if (this.y_velocity < 0)
                 this.y_velocity += 0.8;
-                this.countJumps=2;
+            this.countJumps = 2;
         }
-        if (currentTile === 0 || currentTile === 6||currentTile==4) {
-            if(this.isCarried)
-            this.jumping=true;                  
+        if (currentTile === 0 || currentTile === 6 || currentTile == 4) {
+            if (this.isCarried)
+                this.jumping = true;
             if (this.height + this.yPosition > this.getRow() * tileHeight + 3) {
                 this.jumping = false;
                 this.yPosition = this.getRow() * tileHeight - this.height + 3;
                 this.y_velocity = 0;
             }
         }
-        if(this.constructor.counter>=2){
-            if(!this.checkIfCarry(player2,player1)){
-                this.checkIfCarry(player1,player2);
+        if (this.constructor.counter >= 2) {
+            if (!this.checkIfCarry(player2, player1)) {
+                this.checkIfCarry(player1, player2);
             }
         }
-        banana.collistionOfTarget(currentX, currentY)    
+        banana.collistionOfTarget(currentX, currentY)
     }
-    carriedMovement()
-    {
+    carriedMovement() {
         if (this.isCarried && this.name === "player1") {
             this.yPosition = player2.yPosition - player2.height + 15;
-            if(this.y_velocity>=0)
+            if (this.y_velocity >= 0)
                 this.jumping = false
         }
-        if (Math.abs(this.xPosition - player1.xPosition) > 20|| Math.abs((player1.yPosition + player1.height) - player2.yPosition) > 30) {
+        if (Math.abs(this.xPosition - player1.xPosition) > 20 || Math.abs((player1.yPosition + player1.height) - player2.yPosition) > 30) {
             player1.isCarried = false;
             player2.carry = false;
         }
         if (this.isCarried && this.name === "player2") {
             this.yPosition = player1.yPosition - player1.height + 15;
-            if(this.y_velocity>=0)
+            if (this.y_velocity >= 0)
                 this.jumping = false
         }
-        if (Math.abs(this.xPosition - player2.xPosition) > 20||Math.abs((player2.yPosition + player2.height) - player1.yPosition) <10) {
-             player2.isCarried = false;
-             player1.carry = false;
-         }
-         if ((this.controller.rightActive || this.controller.leftActive)&&this.carry) {
-            if(this.name=="player2")
+        if (Math.abs(this.xPosition - player2.xPosition) > 20 || Math.abs((player2.yPosition + player2.height) - player1.yPosition) < 10) {
+            player2.isCarried = false;
+            player1.carry = false;
+        }
+        if ((this.controller.rightActive || this.controller.leftActive) && this.carry) {
+            if (this.name == "player2")
                 player1.x_velocity = player2.x_velocity;
             else
                 player2.x_velocity = player1.x_velocity;
-        }           
+        }
     }
-    checkIfCarry(carry,carried){
+    checkIfCarry(carry, carried) {
         if ((carry.yPosition - (carried.yPosition + 11.75) >= 0 && carry.yPosition - (carried.yPosition + 11.75) <= 20) && (Math.abs(carry.xPosition - carried.xPosition) <= 20 && Math.abs(carry.xPosition - carried.xPosition) >= 0)) {
             if (carry != undefined) {
                 carry.carry = true
@@ -167,23 +164,21 @@ class Character {
         }
     }
 }
-class Enemy extends Character{
-    constructor(name, x, y, height, width, frame_set,controller){
-        super(name, x, y, height, width, frame_set,controller)
-        this.moveCounter=0;
-        this.touchedCount=0
+class Enemy extends Character {
+    constructor(name, x, y, height, width, frame_set, controller) {
+        super(name, x, y, height, width, frame_set, controller)
+        this.moveCounter = 0;
+        this.touchedCount = 0
     }
-    constantMove(){
+    constantMove() {
         this.moveCounter++;
-        if(this.moveCounter>400){
-            if(this.moveCounter===800)
-                this.moveCounter=0;
-            this.x_velocity-=.5;
+        if (this.moveCounter > 400) {
+            if (this.moveCounter === 800)
+                this.moveCounter = 0;
+            this.x_velocity -= .5;
             this.animate.change(this.Frame_set.walkRight, 15);
-        }        
-        else
-        {
-            this.x_velocity+=.5;
+        } else {
+            this.x_velocity += .5;
             this.animate.change(this.Frame_set.walkLeft, 15);
 
         }
@@ -191,17 +186,17 @@ class Enemy extends Character{
         this.xPosition += this.x_velocity;
         this.yPosition += this.y_velocity;
         this.x_velocity = 0;
-        if (Math.floor(player1.xPosition)+(player1.width)/2.5 >= this.xPosition + 2 && Math.floor(player1.xPosition)+(player1.width)/1.5 <= this.xPosition+this.width && Math.floor(player1.yPosition)+3 >= this.yPosition && Math.floor(player1.yPosition)+3 <= (this.yPosition + this.height)-3){
+        if (Math.floor(player1.xPosition) + (player1.width) / 2.5 >= this.xPosition + 2 && Math.floor(player1.xPosition) + (player1.width) / 1.5 <= this.xPosition + this.width && Math.floor(player1.yPosition) + 3 >= this.yPosition && Math.floor(player1.yPosition) + 3 <= (this.yPosition + this.height) - 3) {
             this.touchedCount++;
-            player1 = new Character("player1", 15, 560, 70, 70, Frame_set.player1, ArrowController,0); 
-            player2 = new Character("player2", 40, 560, 70, 70, Frame_set.player2, lettersController,1); 
-     
+            player1 = new Character("player1", 15, 560, 70, 70, Frame_set.player1, ArrowController, 0);
+            player2 = new Character("player2", 40, 560, 70, 70, Frame_set.player2, lettersController, 1);
+
         }
-        if (Math.floor(player2.xPosition)+(player2.width)/2.5 >= this.xPosition + 2 && Math.floor(player2.xPosition)+(player2.width)/1.5 <= this.xPosition+this.width && Math.floor(player2.yPosition)+3 >= this.yPosition && Math.floor(player2.yPosition)+3 <= (this.yPosition + this.height)-3){
+        if (Math.floor(player2.xPosition) + (player2.width) / 2.5 >= this.xPosition + 2 && Math.floor(player2.xPosition) + (player2.width) / 1.5 <= this.xPosition + this.width && Math.floor(player2.yPosition) + 3 >= this.yPosition && Math.floor(player2.yPosition) + 3 <= (this.yPosition + this.height) - 3) {
             this.touchedCount++;
-            player1 = new Character("player1", 15, 560, 70, 70, Frame_set.player1, ArrowController,0); 
-        player2 = new Character("player2", 40, 560, 70, 70, Frame_set.player2, lettersController,1); 
-    
+            player1 = new Character("player1", 15, 560, 70, 70, Frame_set.player1, ArrowController, 0);
+            player2 = new Character("player2", 40, 560, 70, 70, Frame_set.player2, lettersController, 1);
+
         }
     }
 }
