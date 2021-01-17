@@ -1,4 +1,4 @@
-class tileMap{
+    class tileMap{
     constructor(tiWidth,tiHeight,mapeigh,mapColum,til,level){
         this.tileWidth=tiWidth;
         this.tileHeight=tiHeight;
@@ -17,16 +17,16 @@ class tileMap{
             let sourceY = Math.floor(tile / (Maps.mapColumns + 10)) * this.tileHeight;
             let targetX = (i % this.mapColumns) * this.tileWidth;
             let targetY = Math.floor(i / this.mapColumns) * this.tileHeight;
+            ctx.drawImage(tileImage, sourceX, sourceY, this.tileWidth, this.tileHeight, targetX, targetY, this.tileWidth, this.tileHeight);
             if(this.level== 2 || this.level == 3){
                 if (tile !== 60 & tile !== 80) {
-                    ctx.drawImage(image, sourceX, sourceY, this.tileWidth, this.tileHeight, targetX, targetY, this.tileWidth, this.tileHeight);
+                    ctx.drawImage(tileImage, sourceX, sourceY, this.tileWidth, this.tileHeight, targetX, targetY, this.tileWidth, this.tileHeight);
                 } else if (tile === 80 && (Math.floor(i / mapColumns)+1 != player2.currentRow) ) {
                     ctx.drawImage(imagefire, 225, 313, 1452, 1472, targetX, targetY, this.tileWidth, this.tileHeight);
                 } else if (tile === 60 && (Math.floor(i / mapColumns)+1 != player1.currentRow) ) {
                     ctx.drawImage(imagewave, 5, 33, 595, 297, targetX, targetY, this.tileWidth, this.tileHeight);
                 }}
         }}
-       
         showExtensions() {
             ctx.fillStyle = "#58391c";
             ctx.font = "italic bold 20pt Tahoma";
@@ -34,13 +34,13 @@ class tileMap{
             score_imag.src = "banana.png"
             ctx.drawImage(score_imag, 170, 35, 32, 32)
             ctx.fillText(":" + (banana.maxNumber - banana.ArrayOfXpos.length) + " /" + banana.maxNumber, 200, 60);
-            
+           
             if(this.level != 1){
                 ctx.fillText("lifes:", 400, 60);
-                for(let i=0;i<lifes;i++){
-                    let heart = new Image()
-                    heart.src = "heart.png"
-                    ctx.drawImage(heart,480+(50*i),40,30,30) }}
+            for(let i=0;i<lifes;i++){
+                let heart = new Image()
+                heart.src = "heart.png"
+                ctx.drawImage(heart,480+(50*i),40,30,30) }}
             let reset_imag = new Image()
             reset_imag.src = "reset.png"
             ctx.drawImage(reset_imag, 800, 40, 80, 50)
