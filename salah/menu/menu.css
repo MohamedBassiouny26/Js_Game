@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Carter+One');
-body {background-color: #111; text-align: center; padding: 30px;}
+body {
+  background-image: url('monk.jpg');
+  background-size: cover;
+  text-align: center; padding: 30px;
+}
 
 .game-button {
   display: block;

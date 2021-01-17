@@ -1,25 +1,22 @@
 
 var btnPlay = document.getElementsByClassName('game-button')[0]
 var btnAbout = document.getElementsByClassName('game-button')[1]
-var btnScore = document.getElementsByClassName('game-button')[3]
+var btnHow = document.getElementsByClassName('game-button')[2]
 
 btnPlay.addEventListener('click',playFunction)
 btnAbout.addEventListener('click',aboutFunction)
-btnScore.addEventListener('click',scoreFunction)
+btnScore.addEventListener('click',HowFunction)
 
 
 function playFunction()
 {
-    console.log('m')
     window.location.href = "../levels/levels.html"
 }
 function aboutFunction()
 {
-    console.log('about')
     window.location.href = "../about/text.html"
 }
-function scoreFunction()
+function HowFunction()
 {
-    console.log('score')
-    alert("Highest Score : 0")
+    window.location.href = "../how/how.html"
 }

@@ -21,7 +21,19 @@
    text-align: center;
    border-radius: 20px;
 }
-
+#names {
+  width: 800px;
+  padding: 20px;
+  height: auto;
+  font-family: sans-serif;
+  font-size: 40px;
+  margin: 150px auto;
+  color: #fff;
+  font-weight: bold;
+  background: #000;
+  text-align: center;
+  border-radius: 20px;
+}
 .button {
     border-radius: 20px;
     background-color: #000;

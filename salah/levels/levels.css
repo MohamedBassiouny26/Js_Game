@@ -4,10 +4,12 @@ html, body {
 }
 
 body {
+  background-image: url('monk.jpg');
   font-family: Gabriela;
   margin: 0px;
   color: white;
 }
+
 
 .limiter {
   width: 1000px;
@@ -1525,12 +1527,13 @@ input
 {    margin: 0px auto;
     width: 195px;
     height: 345px;
-    background: #deb082;
-    border: 2px solid #ed5b5b;
+    background: yellowgreen;
+    border: 2px solid #fff;
     text-align: center;
     float: left;
     overflow: hidden;
     margin-right: 15px;
+    border-radius: 30px;
 }
 .pay-block-packet:hover
 {   
@@ -1546,12 +1549,16 @@ input
     padding-top: 45px;
 
 }
+img{
+  width: 120px;
+  height: 120px;
+}
 .pay-block-packet a 
 {   padding: 14px 41px;
     border-radius: 5px;
     width: 165px;
     height: 45px;
-    background: #ed5b5b;
+    background: brown;
     text-decoration: none;
     color: #fff;
 }
@@ -1793,8 +1800,29 @@ footer
 	}
 
 	.close:hover { background: #00d9ff; }
-	
-	
-	body {
-  background-color: #a3d5d3;
+
+p{
+  color: white;
+  text-shadow:
+   -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000;
+     display: block;
+
+}
+.m{
+  display: inline;
+}
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 5px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
 }
