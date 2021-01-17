@@ -24,7 +24,7 @@ class Character {
         this.countJumps = countJumps
     }
     drawCharacter() {
-        this.characterImage.src = this.animate.frame;
+        this.characterImage = this.animate.frame;
         ctx.drawImage(this.characterImage, this.xPosition, this.yPosition, this.width, this.height);
     }
     spirit() {
