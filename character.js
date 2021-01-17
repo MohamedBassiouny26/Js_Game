@@ -175,6 +175,7 @@ class Enemy extends Character{
     constructor(name, x, y, height, width, frame_set,controller){
         super(name, x, y, height, width, frame_set,controller)
         this.moveCounter=0;
+        this.touchedCount=0
     }
     constantMove(){
         this.moveCounter++;
@@ -196,11 +197,15 @@ class Enemy extends Character{
         this.x_velocity = 0;
         if (Math.floor(player1.xPosition)+(player1.width)/2.5 >= this.xPosition + 2 && Math.floor(player1.xPosition)+(player1.width)/1.5 <= this.xPosition+this.width && Math.floor(player1.yPosition)+3 >= this.yPosition && Math.floor(player1.yPosition)+3 <= (this.yPosition + this.height)-3){
             this.touchedCount++;
-        player1 = new Character("player1", 15, 510, 70, 70, Frame_set.player1, ArrowController,0); 
+            player1 = new Character("player1", 15, 560, 70, 70, Frame_set.player1, ArrowController,0); 
+            player2 = new Character("player2", 40, 560, 70, 70, Frame_set.player2, lettersController,1); 
+     
         }
         if (Math.floor(player2.xPosition)+(player2.width)/2.5 >= this.xPosition + 2 && Math.floor(player2.xPosition)+(player2.width)/1.5 <= this.xPosition+this.width && Math.floor(player2.yPosition)+3 >= this.yPosition && Math.floor(player2.yPosition)+3 <= (this.yPosition + this.height)-3){
             this.touchedCount++;
-            player2 = new Character("player2", 40, 510, 70, 70, Frame_set.player2, lettersController,1);     
+            player1 = new Character("player1", 15, 560, 70, 70, Frame_set.player1, ArrowController,0); 
+        player2 = new Character("player2", 40, 560, 70, 70, Frame_set.player2, lettersController,1); 
+    
         }
     }
 }

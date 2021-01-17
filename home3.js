@@ -1,26 +1,8 @@
-class SoundClass{
-    constructor(source){
-        this.soundElement = document.createElement("audio")
-        this.soundElement.src = source;
-        this.soundElement.setAttribute("preload", "auto");
-        this.soundElement.setAttribute("controls", "none");
-        this.soundElement.style.display = "none";
-        document.body.appendChild(this.soundElement);
-    }
-    playmusic(){
-        this.soundElement.play()
-    }
-    stopmusic(){
-        this.soundElement.pause();
-    }
-}
-
-
-let player1 = new Character("player1", 15, 510, 70, 70, Frame_set.player1, ArrowController,0); //da al character henzl mnen
-let player2 = new Character("player2", 40, 510, 70, 70, Frame_set.player2, lettersController,1); //da al character henzl mnen
+//create all variables here:................
+let player1 = new Character("player1", 15, 510, 70, 70, Frame_set.player1, lettersController,0); //da al character henzl mnen
+let player2 = new Character("player2", 40, 510, 70, 70, Frame_set.player2,ArrowController ,1); //da al character henzl mnen
 let enemy1 = new Enemy("Enemy1",15*32,(17*32)-5,75,80,Frame_set.Enemy)
 let enemy2 = new Enemy("Enemy2",6*32,(3*32)-5,75,80,Frame_set.Enemy)
-
 let banana = new targetItems("banana.png", 32, 32)
 var mySound = new SoundClass("bounce.mp3")
 var backgroundSound = new SoundClass("melodyloops.mp3")
@@ -59,7 +41,7 @@ let tiles = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4
              4, 0, 0, 0, 0, 0, 4, 4, 0, 0, 0, 0, 0, 4,50, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4,50, 6, 4, 4,
              4, 4, 6, 6, 4, 6, 4, 4, 4, 4, 4,50, 4,50, 4,50, 4, 4, 4,50, 4, 4,50, 4, 4, 4, 4, 4, 4, 4, 4, 4, 6, 6, 4, 6, 4
 ];
-let Maps = new tileMap(tileWidth, tileHeight, mapHeight, mapColumns, tiles)
+let Maps = new tileMap(tileWidth, tileHeight, mapHeight, mapColumns, tiles,3)
 //image.addEventListener('load', drawTile);
 let display = document.getElementById("myCanvas");
 display.style.width = window.innerWidth + 'px';
@@ -67,67 +49,8 @@ display.style.height = window.innerHeight + 'px';
 display.width = 1183;
 display.height = 670;
 let ctx = display.getContext("2d");
-//image.addEventListener('load', drawTile);
-// imagefire.addEventListener('load', drawTile);
-//imagewave.addEventListener('load', drawTile);
 
-// function drawTile() {
-    
-   
-//    ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
-  
-//     for (let i = 0; i < mapColumns * mapHeight; i++) {
-//         let tile = tiles[i];
-//         let sourceX = (tile % (mapColumns + 10)) * tileWidth;
 
-//         //console.log(sourceX);
-//         let sourceY = Math.floor(tile / (mapColumns + 10)) * tileHeight;
-
-//         //console.log(sourceY);
-//         let targetX = (i % mapColumns) * tileWidth;
-//         //console.log("x=")
-//         //console.log("x= "+targetX,i);
-//         let targetY = Math.floor(i / mapColumns) * tileHeight;
-//         //console.log("y= "+targetY,i);
-//         if (tile !== 60 & tile !== 80) {
-//             ctx.drawImage(image, sourceX, sourceY, tileWidth, tileHeight, targetX, targetY, tileWidth, tileHeight);
-//         } else if (tile === 80 && (Math.floor(i / mapColumns)+1 != player2.currentRow) ) {
-//             ctx.drawImage(imagefire, 225, 313, 1452, 1472, targetX, targetY, tileWidth, tileHeight);
-          
-//         } else if (tile === 60 && (Math.floor(i / mapColumns)+1 != player1.currentRow) ) {
-             
-//             // context.drawImage(imagefire, 17, 2329, 1960, 904, targetX, targetY, tileWidth, tileHeight);
-//             ctx.drawImage(imagewave, 5, 33, 595, 297, targetX, targetY, tileWidth, tileHeight);
-            
-//         }
-//        // console.log(Math.floor(i / mapColumns))
-//     }
-// }
-
-function showScore_Reset() {
-    ctx.fillStyle = "#58391c";
-    ctx.font = "italic bold 20pt Tahoma";
-    let score_imag = new Image()
-    score_imag.src ="banana.png"
-    ctx.drawImage(score_imag,170,35,32,32)
-    ctx.fillText(":"+(banana.maxNumber - banana.ArrayOfXpos.length) + " /"+ banana.maxNumber, 200, 60);
-   ctx.fillText("lifes:", 400, 60);
-   for(let i=0;i<lifes-enemy1.touchedCount-enemy2.touchedCount;i++){
-       let heart = new Image()
-       heart.src = "heart.png"
-       ctx.drawImage(heart,480+(50*i),40,30,30) }
-    let reset_imag = new Image()
-    reset_imag.src = "reset.png"
-    ctx.drawImage(reset_imag, 800, 40, 80, 50)
-     music_imag =new Image()
-     if(mute==true){
-    music_imag.src = "NoMusic.png"}
-    else{music_imag.src = "music.png"}
-    ctx.drawImage(music_imag, 900, 42, 50, 45)
-    let exit_imag = new Image()
-    exit_imag.src = "exit.png"
-    ctx.drawImage(exit_imag, 970, 42, 50, 45)
-}
 function drawcave(){
     let cave = new Image();
         cave.src = "cave2.png";
@@ -138,10 +61,12 @@ function drawcave(){
         door.src = "stones2.png";
         ctx.drawImage(door, 1092, 180, 35, 45)
     }else if((banana.maxNumber - banana.ArrayOfXpos.length) == banana.maxNumber){
-    if ((player1.xPosition >=1070 && player1.xPosition <= 1170) && (player1.yPosition >= 130 && player1.yPosition <= 230)){
-       // win level 
-        
-    }}
+        if ((player1.xPosition >=1070 && player1.xPosition <= 1170) && (player1.yPosition >= 130 && player1.yPosition <= 230)){
+            if((player2.xPosition >=1070 && player2.xPosition <= 1170) && (player2.yPosition >= 130 && player2.yPosition <= 230)){
+         // win level 
+           }  
+       }
+}
     
 }
 //end of creation of variables..............
@@ -164,7 +89,7 @@ function loop() {
     player2.drawCharacter();
     enemy1.drawCharacter()
     enemy2.drawCharacter()
-    showScore_Reset();
+    Maps.showExtensions();
     player2.Colliston();
     player1.Colliston();
     enemy1.constantMove();
@@ -186,35 +111,25 @@ function ClickonFn(event) {
           mute=false;
       }else{
         backgroundSound.stopmusic()
-        mute=true;
-      }
-    
+        mute=true; }   
+    }else if((Xpercent >= 929/1119 && Xpercent <= 974/1119) && (Ypercent>= 41/657 && Ypercent <= 83/657)){
+        //exit here 
     }
 }
-
-window.addEventListener("load", (event) => {
-    window.requestAnimationFrame(loop);
-})
-window.addEventListener("keydown", player1.controller.keyUpDown)
-window.addEventListener("keyup", player1.controller.keyUpDown)
-window.addEventListener("keydown", player2.controller.keyUpDown)
-window.addEventListener("keyup", player2.controller.keyUpDown)
-display.addEventListener("click", ClickonFn)
-// end of eventlisteners creation
 function drawTrap() {
-    let player1Tilex = Math.floor((player1.xPosition + player1.width + 2) / tileWidth);
-    let player1Tiley = Math.floor((player1.yPosition + player1.height + 2) / tileHeight);
+    let player1Tilex = player1.getColomn();
+    let player1Tiley = player1.getRow();
     let Player1trap = tiles[(player1Tiley * mapColumns) + player1Tilex - 38];
-    let player2Tilex = Math.floor((player2.xPosition + player2.width + 2) / tileWidth);
-    let player2Tiley = Math.floor((player2.yPosition + player2.height + 2) / tileHeight);
+    let player2Tilex = player2.getColomn();
+    let player2Tiley = player2.getRow();
     let player2trap = tiles[(player2Tiley * mapColumns) + player2Tilex - 38];
-   // console.log(player1Tiley)
    if(Player1trap == 60){
        player1.currentRow = player1Tiley;
        player1.touchWaterFire = true;
-    //   ctx.drawImage(woodenImage,8*32,18*32,5*32,20)
    }else if(Player1trap == 80 && (player2.touchWaterFire == false|| player2Tiley != player1Tiley)){
-    player1 = new Character("player1", 15, 380, 70, 70, Frame_set.player1, ArrowController,0);
+        player1 = new Character("player1", 15, 560, 70, 70, Frame_set.player1, ArrowController,0); //da al character henzl m   nen
+        player2 = new Character("player2", 40, 560, 70, 70, Frame_set.player2, lettersController,1); //da al character henzl mn     en
+ 
     player1.touchWaterFire = false;
     lifes--;
    }else{
@@ -226,15 +141,24 @@ function drawTrap() {
        player2.touchWaterFire = true;
       
    }else if(player2trap == 60 && (player1.touchWaterFire ==false || player2Tiley != player1Tiley)  ){
-    player2 = new Character("player2", 40, 380, 70, 70, Frame_set.player2, lettersController,1); 
+        player1 = new Character("player1", 15, 560, 70, 70, Frame_set.player1, ArrowController,0); //da al character henzl mnen
+        player2 = new Character("player2", 40, 560, 70, 70, Frame_set.player2, lettersController,1); //da al character henzl mnen
     player2.touchWaterFire = false;
     lifes--;
    }else{
     player2.currentRow = 0;
     player2.touchWaterFire = false;
    }
-    
-   if(lifes-enemy1.touchedCount-enemy2.touchedCount === 0){
-     // alert("gameOver")
+   if(lifes === 0){
+     //  alert("gameOver")
    }
 }
+window.addEventListener("load", (event) => {
+    window.requestAnimationFrame(loop);
+})
+window.addEventListener("keydown", player1.controller.keyUpDown)
+window.addEventListener("keyup", player1.controller.keyUpDown)
+window.addEventListener("keydown", player2.controller.keyUpDown)
+window.addEventListener("keyup", player2.controller.keyUpDown)
+display.addEventListener("click", ClickonFn)
+// end of eventlisteners creation
