@@ -15,33 +15,7 @@ class SoundClass{
     }
 }
 
-//create all variables here:................
-let Frame_set = {
-    player1: {
-        idle: ["./img/monkey_idle.png", "./img/monkey_idle.png"],
-        idleLeft: ["./img/monkey_idle_left.png", "./img/monkey_idle_left.png"],
-        walkRight: ["./img/monkey_walk_1.png", "./img/monkey_walk_2.png", "./img/monkey_walk_3.png", "./img/monkey_walk_4.png"],
-        walkLeft: ["./img/monkey_walkleft_1.png", "./img/monkey_walkleft_2.png", "./img/monkey_walkleft_3.png", "./img/monkey_walkleft_4.png"],
-        jumpRight: ["./img/monkey_jump_1.png", "./img/monkey_jump_2.png", "./img/monkey_jump_3.png", "./img/monkey_jump_4.png"],
-        jumpLeft: ["./img/monkey_jumpleft_1.png", "./img/monkey_jumpleft_2.png", "./img/monkey_jumpleft_3.png", "./img/monkey_jumpleft_4.png"],
-    },
-    player2: {
-        idle: ["./img_blue/monkey_idle.png", "./img_blue/monkey_idle.png"],
-        idleLeft: ["./img_blue/monkey_idle_left.png", "./img_blue/monkey_idle_left.png"],
-        walkRight: ["./img_blue/monkey_walk_1.png", "./img_blue/monkey_walk_2.png", "./img_blue/monkey_walk_3.png", "./img_blue/monkey_walk_4.png"],
-        walkLeft: ["./img_blue/monkey_walkleft_1.png", "./img_blue/monkey_walkleft_2.png", "./img_blue/monkey_walkleft_3.png", "./img_blue/monkey_walkleft_4.png"],
-        jumpRight: ["./img_blue/monkey_jump_1.png", "./img_blue/monkey_jump_2.png", "./img_blue/monkey_jump_3.png", "./img_blue/monkey_jump_4.png"],
-        jumpLeft: ["./img_blue/monkey_jumpleft_1.png", "./img_blue/monkey_jumpleft_2.png", "./img_blue/monkey_jumpleft_3.png", "./img_blue/monkey_jumpleft_4.png"],
-    },
-    Enemy: {
-        walkRight:["./Monster/walking_Right_01.png","./Monster/walking_Right_02.png","./Monster/walking_Right_03.png","./Monster/walking_Right_04.png",
-        "./Monster/walking_Right_05.png","./Monster/walking_Right_06.png","./Monster/walking_Right_07.png","./Monster/walking_Right_08.png",
-        "./Monster/walking_Right_09.png","./Monster/walking_Right_10.png","./Monster/walking_Right_11.png"],
-        walkLeft:["./Monster/walking_Left_01.png","./Monster/walking_Left_02.png","./Monster/walking_Left_03.png","./Monster/walking_Left_04.png",
-        "./Monster/walking_Left_05.png","./Monster/walking_Left_06.png","./Monster/walking_Left_07.png","./Monster/walking_Left_08.png",
-        "./Monster/walking_Left_09.png","./Monster/walking_Left_10.png","./Monster/walking_Left_11.png"]
-    }
-}
+
 let player1 = new Character("player1", 15, 510, 70, 70, Frame_set.player1, ArrowController,0); //da al character henzl mnen
 let player2 = new Character("player2", 40, 510, 70, 70, Frame_set.player2, lettersController,1); //da al character henzl mnen
 let enemy1 = new Enemy("Enemy1",30*32,(5*32)-10,80,80,Frame_set.Enemy,140)

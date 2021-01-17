@@ -169,60 +169,79 @@ class Character {
     }
 }
 
-
-
-class Enemy {
-    constructor(name, x, y, height, width, frame_set,maxCounter,x_velocity =0){
-        this.name = name;
-        this.xPosition = x;
-        this.yPosition = y;
-        this.x_velocity = x_velocity;
-        this.height = height;
-        this.width = width
-        this.maxCounter = maxCounter
+class Enemy extends Character{
+    constructor(name, x, y, height, width, frame_set){
+        super(name, x, y, height, width, frame_set)
         this.moveCounter=0;
-        this.Frame_set = frame_set;
-        this.characterImage = new Image();
-        this.animate= new Animate(this.Frame_set.walkLeft, 15);
-        this.touchedCount=0
-    }
-    drawCharacter() {
-        this.characterImage.src = this.animate.frame;
-        ctx.drawImage(this.characterImage, this.xPosition, this.yPosition, this.width, this.height);
     }
     constantMove(){
-        var XRange;
-       this.moveCounter++;
-        if(this.moveCounter<this.maxCounter){
-            this.x_velocity+=1;
-            this.xPosition += this.x_velocity;
-            this.x_velocity = 0;
-        this.animate.update();
-        XRange = this.xPosition+this.width
-       
-        }else if(this.moveCounter==this.maxCounter){
-            this.animate.change(this.Frame_set.walkRight,15)
-        }else if(this.moveCounter>this.maxCounter && this.moveCounter<this.maxCounter*2){
-             
+        this.moveCounter++;
+        if(this.moveCounter>200){
+            if(this.moveCounter===400)
+                this.moveCounter=0;
             this.x_velocity-=1;
-            this.xPosition += this.x_velocity;
-            this.x_velocity = 0;
-            this.animate.update()
-            XRange = this.xPosition;
-            
-        }else{
-            this.moveCounter=0;
-            this.animate.change(this.Frame_set.walkLeft,15)
-        }
-
-            if (Math.floor(player1.xPosition)+(player1.width)/2.5 >= this.xPosition + 2 && Math.floor(player1.xPosition)+(player1.width)/1.5 <= this.xPosition+this.width && Math.floor(player1.yPosition)+3 >= this.yPosition && Math.floor(player1.yPosition)+3 <= (this.yPosition + this.height)-3){
-                this.touchedCount++;
-            player1 = new Character("player1", 15, 510, 70, 70, Frame_set.player1, ArrowController,0); 
-            }
-            if (Math.floor(player2.xPosition)+(player2.width)/2.5 >= this.xPosition + 2 && Math.floor(player2.xPosition)+(player2.width)/1.5 <= this.xPosition+this.width && Math.floor(player2.yPosition)+3 >= this.yPosition && Math.floor(player2.yPosition)+3 <= (this.yPosition + this.height)-3){
-                this.touchedCount++;
-                player2 = new Character("player2", 40, 510, 70, 70, Frame_set.player2, lettersController,1);     
-            }
+        }        
+        else
+            this.x_velocity+=1;
+        this.y_velocity += 0.25; //used as a graphity
+        this.xPosition += this.x_velocity;
+        this.yPosition += this.y_velocity;
+        this.x_velocity = 0;
     }
-    
 }
+
+// class Enemy {
+//     constructor(name, x, y, height, width, frame_set,maxCounter,x_velocity =0){
+//         this.name = name;
+//         this.xPosition = x;
+//         this.yPosition = y;
+//         this.x_velocity = x_velocity;
+//         this.height = height;
+//         this.width = width
+//         this.maxCounter = maxCounter
+//         this.moveCounter=0;
+//         this.Frame_set = frame_set;
+//         this.characterImage = new Image();
+//         this.animate= new Animate(this.Frame_set.walkLeft, 15);
+//         this.touchedCount=0
+//     }
+//     drawCharacter() {
+//         this.characterImage.src = this.animate.frame;
+//         ctx.drawImage(this.characterImage, this.xPosition, this.yPosition, this.width, this.height);
+//     }
+//     constantMove(){
+//         var XRange;
+//        this.moveCounter++;
+//         if(this.moveCounter<this.maxCounter){
+//             this.x_velocity+=1;
+//             this.xPosition += this.x_velocity;
+//             this.x_velocity = 0;
+//         this.animate.update();
+//         XRange = this.xPosition+this.width
+       
+//         }else if(this.moveCounter==this.maxCounter){
+//             this.animate.change(this.Frame_set.walkRight,15)
+//         }else if(this.moveCounter>this.maxCounter && this.moveCounter<this.maxCounter*2){
+             
+//             this.x_velocity-=1;
+//             this.xPosition += this.x_velocity;
+//             this.x_velocity = 0;
+//             this.animate.update()
+//             XRange = this.xPosition;
+            
+//         }else{
+//             this.moveCounter=0;
+//             this.animate.change(this.Frame_set.walkLeft,15)
+//         }
+
+//             if (Math.floor(player1.xPosition)+(player1.width)/2.5 >= this.xPosition + 2 && Math.floor(player1.xPosition)+(player1.width)/1.5 <= this.xPosition+this.width && Math.floor(player1.yPosition)+3 >= this.yPosition && Math.floor(player1.yPosition)+3 <= (this.yPosition + this.height)-3){
+//                 this.touchedCount++;
+//             player1 = new Character("player1", 15, 510, 70, 70, Frame_set.player1, ArrowController,0); 
+//             }
+//             if (Math.floor(player2.xPosition)+(player2.width)/2.5 >= this.xPosition + 2 && Math.floor(player2.xPosition)+(player2.width)/1.5 <= this.xPosition+this.width && Math.floor(player2.yPosition)+3 >= this.yPosition && Math.floor(player2.yPosition)+3 <= (this.yPosition + this.height)-3){
+//                 this.touchedCount++;
+//                 player2 = new Character("player2", 40, 510, 70, 70, Frame_set.player2, lettersController,1);     
+//             }
+//     }
+    
+// }
