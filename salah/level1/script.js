@@ -119,6 +119,10 @@ function ClickonResetFn(event) {
         }
 
     }
+    else if((Xpercent >= 929/1119 && Xpercent <= 974/1119) && (Ypercent>= 41/657 && Ypercent <= 83/657)){
+        window.location.href='../menu/menu.html';
+     
+    }
 }
 
 
