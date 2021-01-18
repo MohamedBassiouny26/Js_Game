@@ -38,7 +38,7 @@ class Character {
                 this.countJumps = 0;
             else
                 this.countJumps = 1;
-            this.y_velocity -= 13;
+            this.y_velocity -= 20;
             if (this.face == "right")
                 this.animate.change(this.Frame_set.jumpRight, 15);
             else if (this.face == "left")
@@ -47,14 +47,14 @@ class Character {
         }
         if (this.controller.leftActive && !this.falling) {
             this.face = "left"
-            this.x_velocity -= 0.1;
+            this.x_velocity -= 0.2;
             if (!this.jumping) {
                 this.animate.change(this.Frame_set.walkLeft, 15);
             }
         }
         if (this.controller.rightActive && !this.falling) {
             this.face = "right"
-            this.x_velocity += 0.1;
+            this.x_velocity += 0.2;
             if (!this.jumping) {
                 this.animate.change(this.Frame_set.walkRight, 15);
             }
@@ -68,7 +68,7 @@ class Character {
         if (this.carry || this.isCarried) {
             this.carriedMovement()
         }
-        this.y_velocity += 0.25; //used as a graphity
+        this.y_velocity += 0.5; //used as a graphity
         this.xPosition += this.x_velocity;
         this.yPosition += this.y_velocity;
         this.x_velocity *= 0.96;
