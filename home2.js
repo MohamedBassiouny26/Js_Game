@@ -93,8 +93,7 @@ function ClickonFn(event) {
         }
 
     } else if ((Xpercent >= 929 / 1119 && Xpercent <= 974 / 1119) && (Ypercent >= 41 / 657 && Ypercent <= 83 / 657)) {
-        //exit here 
-
+        window.location.href = '../Js_Game-master/menu/menu.html';
     }
 }
 
@@ -110,8 +109,13 @@ function drawcave() {
     } else if ((banana.maxNumber - banana.ArrayOfXpos.length) == banana.maxNumber) {
         if ((player1.xPosition >= 1070 && player1.xPosition <= 1170) && (player1.yPosition >= 130 && player1.yPosition <= 230)) {
             if ((player2.xPosition >= 1070 && player2.xPosition <= 1170) && (player2.yPosition >= 130 && player2.yPosition <= 230)) {
-                // win level 
-                console.log("yes");
+                $("p").text("Congratulations! You've reached the Hard Level with Score : " + (14 - banana.ArrayOfXpos.length))
+                console.log(banana.ArrayOfXpos.length);
+                $("#levelOneWinModal").show(350)
+
+                $('#nextLevel1Btn').click(function () {
+                    window.location.href = './level3.html';
+                })
             }
         }
     }

@@ -1,3 +1,11 @@
+$(document).ready(function () {
+    $("#levelOneBeginModal").show(350)
+
+    $('#okLevel1').click(function () {
+        $("#levelOneBeginModal").slideUp(350)
+    })
+});
+
 //create all variables here:................
 player1 = new Character("player1", 15, 510, 70, 70, Frame_set.player1, lettersController,0); 
 player2 = new Character("player2", 40, 510, 70, 70, Frame_set.player2,ArrowController,1); 
@@ -63,8 +71,13 @@ function drawcave(){
     }else if((banana.maxNumber - banana.ArrayOfXpos.length) == banana.maxNumber){
         if ((player1.xPosition >=1070 && player1.xPosition <= 1170) && (player1.yPosition >= 130 && player1.yPosition <= 230)){
             if((player2.xPosition >=1070 && player2.xPosition <= 1170) && (player2.yPosition >= 130 && player2.yPosition <= 230)){
-         // win level 
-         console.log("yes");
+                $("p").text("Congratulations! You've won the Hard Level with Score : "+(14 - banana.ArrayOfXpos.length))
+                console.log(banana.ArrayOfXpos.length);
+                $("#levelOneWinModal").show(350)
+
+                $('#nextLevel1Btn').click(function(){
+                    window.location.href='../level3.html';
+                })
            }  
        }
 }
@@ -114,7 +127,7 @@ function ClickonFn(event) {
         backgroundSound.stopmusic()
         mute=true; }   
     }else if((Xpercent >= 929/1119 && Xpercent <= 974/1119) && (Ypercent>= 41/657 && Ypercent <= 83/657)){
-        //exit here 
+        window.location.href = '../Js_Game-master/menu/menu.html';
     }
 }
 function drawTrap() {
@@ -150,7 +163,11 @@ function drawTrap() {
     player2.touchWaterFire = false;
    }
    if(lifes === 0){
-     //  alert("gameOver")
+    $("#levelOneLoseModal").show(350)
+
+    $('#level1Btn').click(function () {
+        window.location.href = 'level3.html';
+    })
    }
 }
 window.addEventListener("load", (event) => {
