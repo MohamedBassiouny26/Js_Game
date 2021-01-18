@@ -38,7 +38,7 @@ class Character {
                 this.countJumps = 0;
             else
                 this.countJumps = 1;
-            this.y_velocity -= 20;
+            this.y_velocity -= 17;
             if (this.face == "right")
                 this.animate.change(this.Frame_set.jumpRight, 15);
             else if (this.face == "left")
