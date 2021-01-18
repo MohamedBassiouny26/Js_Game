@@ -7,30 +7,25 @@ var el = document.getElementById('str');
 var el2 = document.getElementById('names');
 
 (function animate() {
-if(str.length > 0)
-{
-    el.innerHTML += str.shift()
-} 
-else{
-    clearTimeout(running);
-    btn.style.display = 'block'
-}
-if(strNames.length > 0)
-{
-    el2.innerHTML += strNames.shift()
-} 
-else{
-    clearTimeout(running);
-    btn.style.display = 'block'
-}
-var running = setTimeout(animate, 90);
+    if (str.length > 0) {
+        el.innerHTML += str.shift()
+    } else {
+        clearTimeout(running);
+        btn.style.display = 'block'
+    }
+    if (strNames.length > 0) {
+        el2.innerHTML += strNames.shift()
+    } else {
+        clearTimeout(running);
+        btn.style.display = 'block'
+    }
+    var running = setTimeout(animate, 90);
 
 })();
 
-btn.addEventListener('click',testFunc);
+btn.addEventListener('click', testFunc);
 
-function testFunc(e)
-{
+function testFunc(e) {
     e.preventDefault();
-    window.location.href = '../menu/menu.html'
+    window.location.href = '../index.html'
 }
