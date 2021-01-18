@@ -74,7 +74,8 @@ function loop() {
     player2.Colliston();
     player1.Colliston();
     drawTrap();
-    window.requestAnimationFrame(loop);
+    if (lifes != 0)
+        window.requestAnimationFrame(loop);
 }
 
 function ClickonFn(event) {

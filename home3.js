@@ -110,8 +110,8 @@ function loop() {
     enemy1.constantMove();
     enemy2.constantMove();
     drawTrap();
-
-    requestAnimationFrame(loop);
+    if (lifes != 0)
+        window.requestAnimationFrame(loop);
 }
 
 function ClickonFn(event) {
