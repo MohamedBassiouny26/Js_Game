@@ -38,7 +38,7 @@ class Character {
                 this.countJumps = 0;
             else
                 this.countJumps = 1;
-            this.y_velocity -= 17;
+            this.y_velocity -= 14;
             if (this.face == "right")
                 this.animate.change(this.Frame_set.jumpRight, 15);
             else if (this.face == "left")
@@ -47,14 +47,14 @@ class Character {
         }
         if (this.controller.leftActive && !this.falling) {
             this.face = "left"
-            this.x_velocity -= 0.12;
+            this.x_velocity -= 0.09;
             if (!this.jumping) {
                 this.animate.change(this.Frame_set.walkLeft, 15);
             }
         }
         if (this.controller.rightActive && !this.falling) {
             this.face = "right"
-            this.x_velocity += 0.12;
+            this.x_velocity += 0.09;
             if (!this.jumping) {
                 this.animate.change(this.Frame_set.walkRight, 15);
             }

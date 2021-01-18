@@ -9,12 +9,12 @@ a{
     color: white;
     padding: 30px;
     font-size: 30px;
-    border-radius: 20%;
+    border-radius: 40%;
     text-decoration: none;
 }
 a:hover{
     background-color: white;
-    color: red;
+    color:orange;
     border-color: 1px solid red;
     padding: 30px;
     font-size: 30px;

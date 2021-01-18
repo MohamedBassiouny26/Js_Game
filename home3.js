@@ -77,7 +77,7 @@ function drawcave() {
                 $("#levelOneWinModal").show(350)
 
                 $('#nextLevel1Btn').click(function () {
-                    window.location.href = '../level3.html';
+                    window.location.href = './index.html';
                 })
             }
         }
