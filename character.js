@@ -35,7 +35,7 @@ class Character {
         }
         if (this.controller.leftActive && !this.falling) {
             this.face = "left"
-            this.x_velocity -= 0.06;
+            this.x_velocity -= 0.6;
             if (!this.jumping) {
                 this.animate.change(this.Frame_set.walkLeft, 15);
             }
@@ -45,7 +45,7 @@ class Character {
         }
         if (this.controller.rightActive && !this.falling) {
             this.face = "right"
-            this.x_velocity += 0.06;
+            this.x_velocity += 0.6;
             if (!this.jumping) {
                 this.animate.change(this.Frame_set.walkRight, 15);
             }
@@ -127,20 +127,19 @@ class Character {
         }
     }
 }
-class Enimy extends Character{
-    constructor(name, x, y, height, width, frame_set,controller){
-        super(name, x, y, height, width, frame_set,controller)
-        this.moveCounter=0;
+class Enimy extends Character {
+    constructor(name, x, y, height, width, frame_set, controller) {
+        super(name, x, y, height, width, frame_set, controller)
+        this.moveCounter = 0;
     }
-    constantMove(){
+    constantMove() {
         this.moveCounter++;
-        if(this.moveCounter>200){
-            if(this.moveCounter===400)
-                this.moveCounter=0;
-            this.x_velocity-=1;
-        }        
-        else
-            this.x_velocity+=1;
+        if (this.moveCounter > 200) {
+            if (this.moveCounter === 400)
+                this.moveCounter = 0;
+            this.x_velocity -= 1;
+        } else
+            this.x_velocity += 1;
         this.y_velocity += 0.25; //used as a graphity
         this.xPosition += this.x_velocity;
         this.yPosition += this.y_velocity;
