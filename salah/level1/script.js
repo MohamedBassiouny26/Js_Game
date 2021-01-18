@@ -1,7 +1,7 @@
-$( document ).ready(function() {
+$(document).ready(function () {
     $("#levelOneBeginModal").show(350)
 
-    $('#okLevel1').click(function(){
+    $('#okLevel1').click(function () {
         $("#levelOneBeginModal").slideUp(350)
     })
 });
@@ -28,7 +28,8 @@ var player1 = new Character("player1", 30, 380, 70, 70, Frame_set.player1, Arrow
 let banana = new targetItems("banana.png", 32, 32)
 var mySound = new SoundClass("bounce.mp3")
 var backgroundSound = new SoundClass("melodyloops.mp3")
-var score = 0, music_imag, mute = true;
+var score = 0,
+    music_imag, mute = true;
 let tileImage = new Image();
 tileImage.src = "Tiles_32x32.png";
 const tileWidth = 32,
@@ -72,34 +73,34 @@ function loop() {
     player1.spirit();
     player1.animate.update();
     ////draw Tile maps;
-    Maps.draw();        
+    Maps.draw();
     drawcave();
     banana.DrawTargetItem();
-    player1.drawCharacter();     
+    player1.drawCharacter();
     Maps.showExtensions();
-    player1.Colliston();    
+    player1.Colliston();
     window.requestAnimationFrame(loop);
 }
-function drawcave(){
+
+function drawcave() {
     let cave = new Image();
-        cave.src = "cave2.png";
-        ctx.drawImage(cave,1070, 480, 100, 100)
+    cave.src = "cave2.png";
+    ctx.drawImage(cave, 1070, 480, 100, 100)
     if ((banana.maxNumber - banana.ArrayOfXpos.length) < banana.maxNumber) {
         let door = new Image();
         door.src = "stones2.png";
         ctx.drawImage(door, 1092, 530, 35, 45)
-    }else if((banana.maxNumber - banana.ArrayOfXpos.length) == banana.maxNumber){
-    if ((player1.xPosition >=1070 && player1.xPosition <= 1170) && (player1.yPosition >= 480 && player1.yPosition <= 580)){
-        $("p").text("Congratulations! You've reached the Intermediate Level with Score : "+(10 - banana.ArrayOfXpos.length))
-        console.log(banana.ArrayOfXpos.length);
-        $("#levelOneWinModal").show(350)
+    } else if ((banana.maxNumber - banana.ArrayOfXpos.length) == banana.maxNumber) {
+        if ((player1.xPosition >= 1070 && player1.xPosition <= 1170) && (player1.yPosition >= 480 && player1.yPosition <= 580)) {
+            $("p").text("Congratulations! You've reached the Intermediate Level with Score : " + (10 - banana.ArrayOfXpos.length))
+            console.log(banana.ArrayOfXpos.length);
+            $("#levelOneWinModal").show(350)
 
-        $('#nextLevel1Btn').click(function(){
-            window.location.href='../level2/level2.html';
-        })
-        
-    }}
-    
+            $('#nextLevel1Btn').click(function () {
+                window.location.href = '../level2/level2.html';
+            })
+        }
+    }
 }
 
 function ClickonResetFn(event) {
@@ -117,11 +118,8 @@ function ClickonResetFn(event) {
             backgroundSound.stopmusic()
             mute = true;
         }
-
-    }
-    else if((Xpercent >= 929/1119 && Xpercent <= 974/1119) && (Ypercent>= 41/657 && Ypercent <= 83/657)){
-        window.location.href='../menu/menu.html';
-     
+    } else if ((Xpercent >= 929 / 1119 && Xpercent <= 974 / 1119) && (Ypercent >= 41 / 657 && Ypercent <= 83 / 657)) {
+        window.location.href = '../menu/menu.html';
     }
 }
 
