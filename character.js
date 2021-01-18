@@ -47,14 +47,14 @@ class Character {
         }
         if (this.controller.leftActive && !this.falling) {
             this.face = "left"
-            this.x_velocity -= 0.2;
+            this.x_velocity -= 0.12;
             if (!this.jumping) {
                 this.animate.change(this.Frame_set.walkLeft, 15);
             }
         }
         if (this.controller.rightActive && !this.falling) {
             this.face = "right"
-            this.x_velocity += 0.2;
+            this.x_velocity += 0.12;
             if (!this.jumping) {
                 this.animate.change(this.Frame_set.walkRight, 15);
             }
@@ -68,7 +68,7 @@ class Character {
         if (this.carry || this.isCarried) {
             this.carriedMovement()
         }
-        this.y_velocity += 0.5; //used as a graphity
+        this.y_velocity += 0.3; //used as a graphity
         this.xPosition += this.x_velocity;
         this.yPosition += this.y_velocity;
         this.x_velocity *= 0.96;

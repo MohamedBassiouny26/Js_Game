@@ -4,12 +4,16 @@ body {
   background-size: cover;
   text-align: center; padding: 30px;
 }
+#logo{
+  width: 600px;
+  height: 200px;
+}
 div{
   display: inline;
 }
 .one{
   float: left;
-  margin-top: 18%;
+  margin-top: 8%;
   margin-left: 22%;
   width: 200px;
   height: 250px;
@@ -17,7 +21,7 @@ div{
 }
 .two{
   float: left;
-  margin-top: 18%;
+  margin-top: 8%;
   margin-left: 2%;
   width: 200px;
   height: 250px;
@@ -28,7 +32,7 @@ div{
   
   display: block;
   margin-left: 40% !important;
-  margin-top: 5% !important;
+  margin-top: 2% !important;
   position: relative;
   top: 0;
   cursor: pointer;

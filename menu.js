@@ -4,7 +4,7 @@ var btnHow = document.getElementsByClassName('game-button')[2]
 
 btnPlay.addEventListener('click', playFunction)
 btnAbout.addEventListener('click', aboutFunction)
-btnScore.addEventListener('click', HowFunction)
+btnHow.addEventListener('click', HowFunction)
 
 
 function playFunction() {
@@ -16,5 +16,5 @@ function aboutFunction() {
 }
 
 function HowFunction() {
-    window.location.href = "./how/how.html"
+    window.location.href = "./how.html"
 }
