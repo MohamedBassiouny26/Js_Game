@@ -47,14 +47,14 @@ class Character {
         }
         if (this.controller.leftActive && !this.falling) {
             this.face = "left"
-            this.x_velocity -= 0.7;
+            this.x_velocity -= 0.07;
             if (!this.jumping) {
                 this.animate.change(this.Frame_set.walkLeft, 15);
             }
         }
         if (this.controller.rightActive && !this.falling) {
             this.face = "right"
-            this.x_velocity += 0.7;
+            this.x_velocity += 0.07;
             if (!this.jumping) {
                 this.animate.change(this.Frame_set.walkRight, 15);
             }
