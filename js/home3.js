@@ -11,18 +11,18 @@ player1 = new Character("player1", 15, 510, 70, 70, Frame_set.player1, lettersCo
 player2 = new Character("player2", 40, 510, 70, 70, Frame_set.player2, ArrowController, 1);
 let enemy1 = new Enemy("Enemy1", 15 * 32, (17 * 32) - 5, 75, 80, Frame_set.Enemy)
 let enemy2 = new Enemy("Enemy2", 6 * 32, (3 * 32) - 5, 75, 80, Frame_set.Enemy)
-let banana = new targetItems("banana.png", 32, 32)
+let banana = new targetItems("./images/banana.png", 32, 32)
 var mySound = new SoundClass("bounce.mp3")
 var backgroundSound = new SoundClass("melodyloops.mp3")
 var score = 0,
     music_imag, mute = true;
 var lifes = 3;
 let tileImage = new Image();
-tileImage.src = "Tiles_32x32.png";
+tileImage.src = "./images/Tiles_32x32.png";
 let imagefire = new Image();
-imagefire.src = "Fire.png";
+imagefire.src = "./images/Fire.png";
 let imagewave = new Image();
-imagewave.src = "waves.png";
+imagewave.src = "./images/waves.png";
 
 const tileWidth = 32,
     tileHeight = 32;
@@ -62,12 +62,12 @@ let ctx = display.getContext("2d");
 
 function drawcave() {
     let cave = new Image();
-    cave.src = "cave2.png";
+    cave.src = "./images/cave2.png";
     ctx.drawImage(cave, 1070, 130, 100, 100)
     // ctx.drawImage(cave,1070, 480, 100, 100)
     if ((banana.maxNumber - banana.ArrayOfXpos.length) < banana.maxNumber) {
         let door = new Image();
-        door.src = "stones2.png";
+        door.src = "./images/stones2.png";
         ctx.drawImage(door, 1092, 180, 35, 45)
     } else if ((banana.maxNumber - banana.ArrayOfXpos.length) == banana.maxNumber) {
         if ((player1.xPosition >= 1070 && player1.xPosition <= 1170) && (player1.yPosition >= 130 && player1.yPosition <= 230)) {

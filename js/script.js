@@ -7,13 +7,13 @@ $(document).ready(function () {
     })
 });
 var player1 = new Character("player1", 30, 380, 70, 70, Frame_set.player2, ArrowController); //da al character henzl mnen
-let banana = new targetItems("banana.png", 32, 32)
+let banana = new targetItems("./images/banana.png", 32, 32)
 var mySound = new SoundClass("bounce.mp3")
 var backgroundSound = new SoundClass("melodyloops.mp3")
 var score = 0,
     music_imag, mute = true;
 let tileImage = new Image();
-tileImage.src = "Tiles_32x32.png";
+tileImage.src = "./images/Tiles_32x32.png";
 const tileWidth = 32,
     tileHeight = 32;
 const mapHeight = 21,
@@ -66,11 +66,11 @@ function loop() {
 
 function drawcave() {
     let cave = new Image();
-    cave.src = "cave2.png";
+    cave.src = "./images/cave2.png";
     ctx.drawImage(cave, 1070, 480, 100, 100)
     if ((banana.maxNumber - banana.ArrayOfXpos.length) < banana.maxNumber) {
         let door = new Image();
-        door.src = "stones2.png";
+        door.src = "./images/stones2.png";
         ctx.drawImage(door, 1092, 530, 35, 45)
     } else if ((banana.maxNumber - banana.ArrayOfXpos.length) == banana.maxNumber) {
         if ((player1.xPosition >= 1070 && player1.xPosition <= 1170) && (player1.yPosition >= 480 && player1.yPosition <= 580)) {
@@ -105,15 +105,6 @@ function ClickonResetFn(event) {
 
     }
 }
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////end esraa
-
-//end of creation of variables..............
-
-//create all eventlisteners here
 window.addEventListener("load", (event) => {
 
     window.requestAnimationFrame(loop);

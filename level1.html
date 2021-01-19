@@ -1,10 +1,10 @@
 <html>
 <header>
     <title>Monkey game</title>
-    <link rel="stylesheet" href="./popup_level.css">
+    <link rel="stylesheet" href="./style/popup_level.css">
 </header>
 
-<body style="background-image: url('background2.PNG');background-repeat: no-repeat;
+<body style="background-image: url('./images/background2.PNG');background-repeat: no-repeat;
 background-size: cover;
 background-position: center;">
     <canvas id='myCanvas' style="position:absolute; left:0px; top:0px; ">
@@ -17,23 +17,15 @@ background-position: center;">
             <button id="nextLevel1Btn">Go To Level 2</button>
         </div>
     </div>
-    <!-- <div id="levelOneLoseModal" class="levelOneLoseModal">
-        <div class="level1-lose-modal-content">
-            <img id="over" src="game_over.png" alt="not found image" srcset="">
-            <img id="sad" src="sad.png" alt="not found image" srcset="">
-            <h3><b>Sadly You Lost, Press "Play Again" button to try again</b></h3>
-            <button id="level1Btn">Play Again!</button>
-        </div>
-    </div> -->
     <div id="levelOneBeginModal" class="levelOneBeginModal">
         <div class="level1-begin-modal-content">
-            <img id="monkey" src="monkey_idle.png" alt="not found image" srcset="">
-            <img id="add" src="add.png" alt="not found image" srcset="">
-            <img id="arrow" src="arrow.png" alt="not found image" srcset="">
-            <img id="add" src="add.png" alt="not found image" srcset="">
-            <img id="banana" src="banana.png" alt="not found image" srcset=""><br>
-            <img id="equal" src="equal.png" alt="not found image" srcset="">
-            <img id="level" src="level2.png" alt="not found image" srcset="">
+            <img id="monkey" src="./images/monkey_idle.png" alt="not found image" srcset="">
+            <img id="add" src="./images/add.png" alt="not found image" srcset="">
+            <img id="arrow" src="./images/arrow.png" alt="not found image" srcset="">
+            <img id="add" src="./images/add.png" alt="not found image" srcset="">
+            <img id="banana" src="./images/banana.png" alt="not found image" srcset=""><br>
+            <img id="equal" src="./images/equal.png" alt="not found image" srcset="">
+            <img id="level" src="./images/level2.png" alt="not found image" srcset="">
 
             <p><b>Welcome to Level 1, Your Challenge to next level: </b><br>Using the Arrow keys move the monkey to
                 Collect all the bananas</p>
@@ -43,13 +35,13 @@ background-position: center;">
     <!--  -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="animation.js"></script>
-    <script src="tileMap.js"></script>
-    <script src="controller.js"></script>
-    <script src="character.js"></script>
-    <script src="targetItem.js"></script>
-    <script src="frameSet.js"></script>
-    <script src="script.js"></script>
+    <script src="./js/animation.js"></script>
+    <script src="./js/tileMap.js"></script>
+    <script src="./js/controller.js"></script>
+    <script src="./js/character.js"></script>
+    <script src="./js/targetItem.js"></script>
+    <script src="./js/frameSet.js"></script>
+    <script src="./js/script.js"></script>
 </body>
 
 </html>

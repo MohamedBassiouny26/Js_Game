@@ -8,11 +8,11 @@ btnHow.addEventListener('click', HowFunction)
 
 
 function playFunction() {
-    window.location.href = "./levels/levels.html"
+    window.location.href = "./levels.html"
 }
 
 function aboutFunction() {
-    window.location.href = "./about/text.html"
+    window.location.href = "./text.html"
 }
 
 function HowFunction() {

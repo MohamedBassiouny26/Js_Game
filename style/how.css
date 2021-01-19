@@ -1,10 +1,11 @@
-body{
-    background-image: url('background.png');
+body {
+    background-image: url('../images/background.png');
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
 }
-a{
+
+a {
     background-color: red;
     color: white;
     padding: 30px;
@@ -12,77 +13,86 @@ a{
     border-radius: 40%;
     text-decoration: none;
 }
-a:hover{
+
+a:hover {
     background-color: white;
-    color:orange;
+    color: orange;
     border-color: 1px solid red;
     padding: 30px;
     font-size: 30px;
     border-radius: 20%;
     text-decoration: none;
 }
-#arr{
+
+#arr {
     width: 120px;
     height: 190px;
 }
-#up{
+
+#up {
     width: 80px;
     height: 80px;
 }
-#both{
+
+#both {
     height: 270px;
     width: 350px;
 }
 
-h1{
+h1 {
     text-align: center;
     border-radius: 2%;
-    font-family:cursive;
+    font-family: cursive;
 }
-.h1 , span {
-    
+
+.h1,
+span {
+
     color: #000;
     font-family: 'Playfair Display', serif;
     position: relative;
-	text-transform: uppercase;	
-	font-size: 2vw;
-	margin: 0;
+    text-transform: uppercase;
+    font-size: 2vw;
+    margin: 0;
     font-weight: 400;
-    text-shadow :
-0px -1px 4px white,
-0px -2px 10px yellow,
-0px -10px 20px #ff8000,
-0px -18px 40px red,
+    text-shadow:
+        0px -1px 4px white,
+        0px -2px 10px yellow,
+        0px -10px 20px #ff8000,
+        0px -18px 40px red,
 
-0px 1px 4px white,
-0px 2px 10px yellow,
-0px 10px 20px #ff8000,
-0px 18px 40px red,
+        0px 1px 4px white,
+        0px 2px 10px yellow,
+        0px 10px 20px #ff8000,
+        0px 18px 40px red,
 
-1px 0px 4px white,
-2px 0px 10px yellow,
-10px 0px 20px #ff8000,
-18px 0px 40px red,
+        1px 0px 4px white,
+        2px 0px 10px yellow,
+        10px 0px 20px #ff8000,
+        18px 0px 40px red,
 
--1px 0px 4px white,
--2px 0px 10px yellow,
--10px 0px 20px #ff8000,
--18px 0px 40px red ;
+        -1px 0px 4px white,
+        -2px 0px 10px yellow,
+        -10px 0px 20px #ff8000,
+        -18px 0px 40px red;
 }
-span{
+
+span {
     font-size: 20px;
     text-align: center;
     background-color: honeydew;
     border-radius: 2%;
-    font-family:cursive;
+    font-family: cursive;
 }
-img{
+
+img {
     width: 100px;
     height: 170px;
     margin-left: 5%;
 }
+
 .game-button {
-  
+
     position: relative;
     margin-left: 50%;
     text-decoration: none !important;
@@ -91,19 +101,20 @@ img{
     font-size: 30px;
     line-height: 1.5em;
     letter-spacing: .1em;
-    text-shadow: 2px 2px 1px green, -2px 2px 1px green, 2px -2px 1px green, -2px -2px 1px green, 0px 2px 1px green, 0px -2px 1px green, 0px 4px 1px green, 2px 4px 1px green, -2px 4px 1px  green;
+    text-shadow: 2px 2px 1px green, -2px 2px 1px green, 2px -2px 1px green, -2px -2px 1px green, 0px 2px 1px green, 0px -2px 1px green, 0px 4px 1px green, 2px 4px 1px green, -2px 4px 1px green;
     border: none;
     margin: 15px 15px 30px;
-    background: repeating-linear-gradient( 45deg, green, green 5px, green 5px, green 10px);
+    background: repeating-linear-gradient(45deg, green, green 5px, green 5px, green 10px);
     border-bottom: 3px solid green;
-    border-top: 3px solid rgba(255,255,255,.3);
+    border-top: 3px solid rgba(255, 255, 255, .3);
     color: #fff !important;
     border-radius: 8px;
     padding: 25px 25px 20px;
-    box-shadow: 0 6px 0 #266b91, 0 8px 1px 1px rgba(0,0,0,.3), 0 10px 0 5px green, 0 12px 0 5px green, 0 15px 0 5px green, 0 15px 1px 6px rgba(0,0,0,.3);
-  
-  }
-  .game-button::before {
+    box-shadow: 0 6px 0 #266b91, 0 8px 1px 1px rgba(0, 0, 0, .3), 0 10px 0 5px green, 0 12px 0 5px green, 0 15px 0 5px green, 0 15px 1px 6px rgba(0, 0, 0, .3);
+
+}
+
+.game-button::before {
     content: '';
     height: 10%;
     position: absolute;
@@ -112,4 +123,4 @@ img{
     right: 13%;
     top: -3%;
     border-radius: 99px;
-    }
+}
